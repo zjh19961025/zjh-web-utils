@@ -1,0 +1,12 @@
+dist
+node_modules
+*.d.ts
+
+src/static
+public
+dist
+build/description
+build/typings
+index.html
+
+

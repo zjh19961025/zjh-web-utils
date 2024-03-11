@@ -1,5 +1,5 @@
 {
-  "name": "@antfu/utils",
+  "name": "@hua5/utils",
   "type": "module",
   "version": "0.7.7",
   "packageManager": "pnpm@8.12.0",
@@ -51,6 +51,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@types/node": "^20.10.4",
     "@types/throttle-debounce": "^5.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
     "bumpp": "^9.2.1",
     "eslint": "npm:eslint-ts-patch@8.55.0-1",
     "eslint-ts-patch": "8.55.0-1",

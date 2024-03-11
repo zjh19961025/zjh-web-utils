@@ -1,42 +1,51 @@
 {
-  // Enable the ESlint flat config support
-  "eslint.experimental.useFlatConfig": true,
-
-  // Disable the default formatter, use eslint instead
-  "prettier.enable": false,
-  "editor.formatOnSave": false,
-
-  // Auto fix
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "never"
-  },
-
-  // Silent the stylistic rules in you IDE, but still auto fix them
-  "eslint.rules.customizations": [
-    { "rule": "style/*", "severity": "off" },
-    { "rule": "format/*", "severity": "off" },
-    { "rule": "*-indent", "severity": "off" },
-    { "rule": "*-spacing", "severity": "off" },
-    { "rule": "*-spaces", "severity": "off" },
-    { "rule": "*-order", "severity": "off" },
-    { "rule": "*-dangle", "severity": "off" },
-    { "rule": "*-newline", "severity": "off" },
-    { "rule": "*quotes", "severity": "off" },
-    { "rule": "*semi", "severity": "off" }
-  ],
-
-  // Enable eslint for all supported languages
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "vue",
-    "html",
-    "markdown",
-    "json",
-    "jsonc",
-    "yaml"
-  ]
+    /* 编辑器 */
+    "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?", // 设置单词分隔符,便于选中-连接的标识符
+    "prettier.enable": false, // Disable the default formatter, use eslint instead
+    "eslint.format.enable": true, // 启用ESlint作为格式化工具
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit", // 不自动格式化，明确运行修复命令时，ESLint 才会尝试修复所有可以自动修复的问题
+    },
+    /* 文件 */
+    "files.autoGuessEncoding": true, // 让VScode自动猜源代码文件的编码格式
+    "files.autoSave": "onFocusChange", // 在编辑器失去焦点时自动保存，这使自动保存近乎达到“无感知”的体验
+    "files.watcherExclude": {
+        // 不索引一些不必要索引的大文件夹以减少内存和CPU消耗
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/**": true,
+        "**/tmp/**": true,
+        "**/bower_components/**": true,
+        "**/dist/**": true
+    },
+    /* 搜索 */
+    "search.followSymlinks": false, // 控制是否在搜索中跟踪符号链接
+    "search.exclude": {
+        // 排除搜索中的无效搜索
+        "**/.git": true,
+        "**/.github": true,
+        "**/.nuxt": true,
+        "**/.output": true,
+        "**/.pnpm": true,
+        "**/.vscode": true,
+        "**/.yarn": true,
+        "**/bower_components": true,
+        "**/dist/**": true,
+        "**/logs": true,
+        "**/node_modules": true,
+        "**/out/**": true,
+        "**/package-lock.json": true,
+        "**/pnpm-lock.yaml": true,
+        "**/tmp": true,
+        "**/yarn.lock": true
+    },
+    /* 插件 */
+    "eslint.validate": [ // 配置 ESLint 检查的文件类型
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "vue"
+    ],
 }
