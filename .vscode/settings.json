@@ -46,6 +46,8 @@
         "typescript",
         "typescriptreact",
         "html",
-        "vue"
+        "vue",
+        "typescript",
+        "typescriptreact"
     ],
 }

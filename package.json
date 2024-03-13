@@ -1,20 +1,11 @@
 {
   "name": "@hua5/utils",
   "type": "module",
-  "version": "0.7.7",
-  "packageManager": "pnpm@8.12.0",
-  "description": "Opinionated collection of common JavaScript / TypeScript utils by @antfu",
-  "author": "Anthony Fu <anthonyfu117@hotmail.com>",
+  "version": "1.0.0",
+  "packageManager": "pnpm@8.15.4",
+  "description": "common JavaScript / TypeScript utils",
+  "author": "hua5",
   "license": "MIT",
-  "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/antfu/utils#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/antfu/utils.git"
-  },
-  "bugs": {
-    "url": "https://github.com/antfu/utils/issues"
-  },
   "keywords": [
     "utils"
   ],
@@ -36,14 +27,10 @@
     "dev": "nr build --watch",
     "lint": "eslint .",
     "lint-fix": "nr lint --fix",
-    "prepublishOnly": "npm run build",
-    "release": "bumpp --commit --push --tag && npm publish",
-    "start": "esno src/index.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.6.4",
     "@antfu/ni": "^0.21.12",
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-commonjs": "^25.0.7",
@@ -52,11 +39,8 @@
     "@types/node": "^20.10.4",
     "@types/throttle-debounce": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
-    "bumpp": "^9.2.1",
     "eslint": "npm:eslint-ts-patch@8.55.0-1",
     "eslint-ts-patch": "8.55.0-1",
-    "esno": "^4.0.0",
-    "p-limit": "^5.0.0",
     "rollup": "^4.7.0",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-esbuild": "^6.1.0",

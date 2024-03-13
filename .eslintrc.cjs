@@ -15,9 +15,13 @@ module.exports = {
     // 针对 Vue 项目的 ESLint 推荐配置。
     'plugin:vue/vue3-recommended',
     'eslint:recommended',
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
     // './build/description/.eslintrc-auto-import.json',
   ],
-  plugins: ['@typescript-eslint'],
+  plugins: [
+    '@typescript-eslint',
+  ],
   // add your custom rules here
   // it is base on https://github.com/vuejs/eslint-config-vue
   // 0 1 2 分别对应 'off'关闭规则; 'warn'将规则作为警告（不会影响退出代码）; 'error'将规则作为错误打开
@@ -219,5 +223,8 @@ module.exports = {
 
     // 一些情况还是需要使用 == ，所以允许存在
     // 'eqeqeq': ['error', 'always', { 'null': 'ignore' }]
+
+    // typescript
+    "@typescript-eslint/no-explicit-any": "off", // 允许any, 或者设置为警告 warn
   },
 }

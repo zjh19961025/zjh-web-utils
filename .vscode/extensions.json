@@ -1,9 +1,11 @@
 {
   "recommendations": [
+    // 插件的 Identifier
     "antfu.vite", // Vite
     "antfu.browse-lite", // Browse Lite
     "antfu.unocss", // UnoCSS
     "Vue.volar", // Vue Language Features(Volar)
     "dbaeumer.vscode-eslint", // ESLint
+    "vitest.explorer", // vitest
   ]
 }
