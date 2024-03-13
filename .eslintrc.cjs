@@ -12,8 +12,8 @@ module.exports = {
     commonjs: true,
   },
   extends: [
-    // 针对 Vue 项目的 ESLint 推荐配置。
     'eslint:recommended',
+    // typescript 设置
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
   ],
@@ -24,30 +24,7 @@ module.exports = {
   // it is base on https://github.com/vuejs/eslint-config-vue
   // 0 1 2 分别对应 'off'关闭规则; 'warn'将规则作为警告（不会影响退出代码）; 'error'将规则作为错误打开
   rules: {
-    // v3 适配
-    // 强制第一个属性的位置(属性换行)
-    'vue/first-attribute-linebreak': [2, {
-      // 单行时，第一属性前不允许使用换行符
-      singleline: 'beside',
-      // 多行时，第一属性前必须使用换行符
-      multiline: 'below',
-    }],
-    // 强制每行的最大属性数
-    'vue/max-attributes-per-line': [2, {
-      // 单行时可以接收最大数量
-      singleline: 10,
-      // 多行时可以接收最大数量
-      multiline: {
-        max: 5,
-      },
-    }],
-    'vue/component-definition-name-casing': ['error', 'PascalCase'],
-    "vue/multi-word-component-names": [0, { "ignores": [] }],
-
     // 原来的
-    'vue/singleline-html-element-content-newline': 'off',
-    'vue/multiline-html-element-content-newline': 'off',
-    'vue/no-v-html': 'off',
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
       'before': true,
@@ -222,7 +199,7 @@ module.exports = {
     // 一些情况还是需要使用 == ，所以允许存在
     // 'eqeqeq': ['error', 'always', { 'null': 'ignore' }]
 
-    // typescript
+    // typescript rules
     "@typescript-eslint/no-explicit-any": "off", // 允许any, 或者设置为警告 warn
   },
 }
