@@ -1,3 +1,6 @@
-export * from './vendor'
+export * from "./type"
+export * from "./test"
 export * from './tool'
 export * from "./time"
+export * from './vendor'
+
