@@ -201,5 +201,6 @@ module.exports = {
 
     // typescript rules
     "@typescript-eslint/no-explicit-any": "off", // 允许any, 或者设置为警告 warn
+    "@typescript-eslint/no-this-alias": "off", // 允许使用 this 进行赋值
   },
 }
