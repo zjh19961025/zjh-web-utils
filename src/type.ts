@@ -26,7 +26,7 @@ const TYPE_STR = {
  * @param {Object} obj 对象
  * @return {Boolean}
  */
-export function getType(obj: any) {
+function getType(obj: any) {
   // 通过 Object.prototype.toString 获取到表示类型的字符串
   const toStringType = Object.prototype.toString.call(obj)
   // 截取类型字符串，并转换为对应的类型表示
@@ -38,7 +38,7 @@ export function getType(obj: any) {
  * @param {Object} obj 对象
  * @return {Boolean}
  */
-export const isNumber = function(obj: any) {
+const isNumber = function(obj: any) {
   return getType(obj) === TYPE_STR.Number
 }
 
@@ -47,7 +47,7 @@ export const isNumber = function(obj: any) {
  * @param {Object} obj 对象
  * @return {Boolean}
  */
-export const isBool = function(obj: any) {
+const isBool = function(obj: any) {
   return getType(obj) === TYPE_STR.Boolean
 }
 
@@ -56,7 +56,7 @@ export const isBool = function(obj: any) {
  * @param {Object} obj 对象
  * @return {Boolean}
  */
-export const isString = function(obj: any) {
+const isString = function(obj: any) {
   return getType(obj) === TYPE_STR.String
 }
 
@@ -65,7 +65,7 @@ export const isString = function(obj: any) {
  * @param {Object} obj 对象
  * @return {Boolean}
  */
-export const isObject = function(obj: any) {
+const isObject = function(obj: any) {
   return getType(obj) === TYPE_STR.Object
 }
 
@@ -74,7 +74,7 @@ export const isObject = function(obj: any) {
  * @param {Object} obj 对象
  * @return {Boolean}
  */
-export const isArray = function(obj: any) {
+const isArray = function(obj: any) {
   return Array.isArray(obj)
 }
 
@@ -83,7 +83,7 @@ export const isArray = function(obj: any) {
  * @param {Object} obj 对象
  * @return {Boolean}
  */
-export const isFunction = function(obj: any) {
+const isFunction = function(obj: any) {
   return getType(obj) === TYPE_STR.Function
 }
 
@@ -92,7 +92,7 @@ export const isFunction = function(obj: any) {
  * @param {Object} obj 对象
  * @return {Boolean}
  */
-export const isNull = function(obj: any) {
+const isNull = function(obj: any) {
   const type = getType(obj)
   return type === TYPE_STR.Null
 }
@@ -102,7 +102,7 @@ export const isNull = function(obj: any) {
  * @param {Object} obj 对象
  * @return {Boolean}
  */
-export const isUndefined = function(obj: any) {
+const isUndefined = function(obj: any) {
   const type = getType(obj)
   return type == TYPE_STR.Undefined
 }
@@ -112,7 +112,7 @@ export const isUndefined = function(obj: any) {
  * @param {Object} obj 对象
  * @return {Boolean}
  */
-export const isNullOrUndefined = function(obj: any) {
+const isNullOrUndefined = function(obj: any) {
   const type = getType(obj)
   return type === TYPE_STR.Null || type === TYPE_STR.Undefined
 }
@@ -123,7 +123,7 @@ export const isNullOrUndefined = function(obj: any) {
  * @param {Object} obj 对象
  * @return {Boolean}
  */
-export function isDate(obj: any) {
+function isDate(obj: any) {
   return getType(obj) === TYPE_STR.Date
 }
 
@@ -133,7 +133,7 @@ export function isDate(obj: any) {
  * @param {Object} obj 对象
  * @return {Boolean}
  */
-export function isRegExp(obj: any) {
+function isRegExp(obj: any) {
   return getType(obj) === TYPE_STR.RegExp
 }
 

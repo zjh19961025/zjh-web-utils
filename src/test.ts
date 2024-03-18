@@ -1,7 +1,7 @@
 /**
  * 逻辑判断相关方法
  */
-import { isNull, isArray, isObject } from "./type"
+import { typeUtils } from "./type"
 
 /**
 * 判断是否整数
@@ -10,8 +10,8 @@ import { isNull, isArray, isObject } from "./type"
 * @return {Boolean}
 * @example
 */
-export function isInteger(obj: string | number) {
-  return !isNull(obj) && !isNaN(Number(obj)) && !isArray(obj) && Number(obj) % 1 === 0
+function isInteger(obj: string | number) {
+  return !typeUtils.isNull(obj) && !isNaN(Number(obj)) && !typeUtils.isArray(obj) && Number(obj) % 1 === 0
 }
 
 /**
@@ -21,8 +21,8 @@ export function isInteger(obj: string | number) {
 * @return {Boolean}
 * @example
 */
-export function isFloat(obj: string | number) {
-  return !isNull(obj) && !isNaN(Number(obj)) && !isArray(obj) && !isInteger(obj)
+function isFloat(obj: string | number) {
+  return !typeUtils.isNull(obj) && !isNaN(Number(obj)) && !typeUtils.isArray(obj) && !isInteger(obj)
 }
 
 /**
@@ -30,8 +30,8 @@ export function isFloat(obj: string | number) {
  * @param obj
  * @returns
  */
-export function isPlainObject(obj: any) {
-  return isObject(obj)
+function isPlainObject(obj: any) {
+  return typeUtils.isObject(obj)
 }
 
 /**

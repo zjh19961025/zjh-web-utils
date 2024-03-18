@@ -47,7 +47,7 @@ if (!String.prototype.padStart) {
  * 当前时间的完整显示
  * timeFormat(null, "yyyy-mm-dd hh:MM:ss")
  */
-export function nowFullTime() {
+function nowFullTime() {
   return timeFormat(null, "yyyy-mm-dd hh:MM:ss")
 }
 
@@ -56,7 +56,7 @@ export function nowFullTime() {
  * @param isUnix 普通的为 13位(包含毫秒); unix 的为10位，不包含毫秒
  * @returns
  */
-export function nowTimestamp(isUnix = false) {
+function nowTimestamp(isUnix = false) {
   return toTimestamp(null, isUnix)
 }
 
@@ -65,7 +65,7 @@ export function nowTimestamp(isUnix = false) {
  * @param {String|Number|dateTime} 时间，时间字符串，时间戳，时间戳字符串都可以
  *        date不传或传入null 表示取当前时间
  */
-export function toDate(dateTime: string | number | Date | null | undefined): Date {
+function toDate(dateTime: string | number | Date | null | undefined): Date {
   let date
   if (!dateTime) {
     // 1. 若传入时间为假值，则取当前时间
@@ -94,7 +94,7 @@ export function toDate(dateTime: string | number | Date | null | undefined): Dat
  * @param {String|Number|dateTime} 时间，时间字符串，时间戳，时间戳字符串都可以
  *        date不传或传入null 表示取当前时间
  */
-export function toTimestamp(dateTime: string | number | Date | null | undefined, isUnix = false) {
+function toTimestamp(dateTime: string | number | Date | null | undefined, isUnix = false) {
   const date = toDate(dateTime)
   return isUnix ? Math.floor((date.getTime()) / 1000) : date.valueOf()
 }
@@ -105,7 +105,7 @@ export function toTimestamp(dateTime: string | number | Date | null | undefined,
  * @param {String} fmt 格式化规则 yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合 默认yyyy-mm-dd。yyyy-mm-dd hh:MM:ss 显示时分秒
  * @returns {string} 返回格式化后的字符串
  */
-export function timeFormat(dateTime: string | number | Date | null | undefined = null, formatStr = 'yyyy-mm-dd') {
+function timeFormat(dateTime: string | number | Date | null | undefined = null, formatStr = 'yyyy-mm-dd') {
   const date = toDate(dateTime)
 
   const timeSource = {
@@ -139,7 +139,7 @@ export function timeFormat(dateTime: string | number | Date | null | undefined =
  * 如果为布尔值false，无论什么时间，都返回多久以前的格式
  * @returns {string} 转化后的内容
  */
-export function timeFrom(date: string | number | Date | null | undefined = null, format = 'yyyy-mm-dd') {
+function timeFrom(date: string | number | Date | null | undefined = null, format = 'yyyy-mm-dd') {
   let timer = (new Date()).getTime() - toTimestamp(date, false)
   timer = Math.floor(timer / 1000)
   // 如果小于5分钟,则返回"刚刚",其他以此类推
@@ -177,7 +177,7 @@ export function timeFrom(date: string | number | Date | null | undefined = null,
  * @param dateTime date不传或传入null 表示取当前时间
  * @returns
  */
-export function startTime(dateTime: string | number | Date | null | undefined) {
+function startTime(dateTime: string | number | Date | null | undefined) {
   const date = timeFormat(dateTime, 'yyyy-mm-dd')
   return date + " 00:00:00"
 }
@@ -186,7 +186,7 @@ export function startTime(dateTime: string | number | Date | null | undefined) {
  * @param dateTime date不传或传入null 表示取当前时间
  * @returns
  */
-export function endTime(dateTime: string | number | Date | null | undefined) {
+function endTime(dateTime: string | number | Date | null | undefined) {
   const date = timeFormat(dateTime, 'yyyy-mm-dd')
   return date + " 23:59:59"
 }
@@ -197,7 +197,7 @@ export function endTime(dateTime: string | number | Date | null | undefined) {
  * @param {Boolean} isYear 是否有年 默认为true 转 2022年10月12日, false 转 10月12日
  * @returns {String} 返回格式化后的字符串
  */
-export function chineseDate(dateTime: string | number | Date | null | undefined = null, isYear = true) {
+function chineseDate(dateTime: string | number | Date | null | undefined = null, isYear = true) {
   const date = toDate(dateTime)
   const timeSource = {
     'y': date.getFullYear().toString(), // 年
