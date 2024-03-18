@@ -64,7 +64,7 @@ function nowTimestamp(isUnix = false) {
 
 /**
  * 转时间
- * @param {String|Number|dateTime} 时间，时间字符串，时间戳，时间戳字符串都可以
+ * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以
  *        date不传或传入null 表示取当前时间
  */
 function toDate(dateTime: string | number | Date | null | undefined): Date {
@@ -93,8 +93,9 @@ function toDate(dateTime: string | number | Date | null | undefined): Date {
 
 /**
  * 转时间戳
- * @param {String|Number|dateTime} 时间，时间字符串，时间戳，时间戳字符串都可以
+ * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以
  *        date不传或传入null 表示取当前时间
+ * @param {boolean} isUnix 是否为unix格式
  */
 function toTimestamp(dateTime: string | number | Date | null | undefined, isUnix = false) {
   const date = toDate(dateTime)
@@ -102,9 +103,9 @@ function toTimestamp(dateTime: string | number | Date | null | undefined, isUnix
 }
 
 /**
- * 格式化时间，输出时间字符串
- * @param {String|Number|dateTime}时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
- * @param {String} fmt 格式化规则 yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合 默认yyyy-mm-dd。yyyy-mm-dd hh:MM:ss 显示时分秒
+ * 格式化时间，输出时间字符串, yyyy-mm-dd hh:MM:ss
+ * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
+ * @param {String} formatStr 格式化规则 yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合 默认yyyy-mm-dd。yyyy-mm-dd hh:MM:ss 显示时分秒
  * @returns {string} 返回格式化后的字符串
  */
 function timeFormat(dateTime: string | number | Date | null | undefined = null, formatStr = 'yyyy-mm-dd') {
@@ -135,7 +136,7 @@ function timeFormat(dateTime: string | number | Date | null | undefined = null, 
 
 /**
  * 距离现在多久
- * @param {String|Number|dateTime} 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
+ * @param {String|Number|dateTime} date 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
  * @param {String|Boolean} format
  * 格式化规则如果为时间格式字符串，超出一定时间范围，返回固定的时间格式；
  * 如果为布尔值false，无论什么时间，都返回多久以前的格式

@@ -29,6 +29,4 @@ describe("time-utils", () => {
 
     console.log(timeUtils.chineseDate("2023-12-01", false))
   })
-
-  timeUtils.nowFullTime()
 })

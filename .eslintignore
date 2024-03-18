@@ -8,5 +8,6 @@ dist
 build/description
 build/typings
 index.html
+docs/*
 
 

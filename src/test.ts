@@ -6,7 +6,7 @@ import { typeUtils } from "./type"
 /**
 * 判断是否整数
 *
-* @param {string | number} obj
+* @param {string | number} obj 传入数据
 * @return {Boolean} 是否整数
 * @example
 */
@@ -17,7 +17,7 @@ function isInteger(obj: string | number) {
 /**
 * 判断是否小数
 *
-* @param {string | number} obj
+* @param {string | number} obj 传入数据
 * @return {Boolean} 是否小数
 * @example
 */
@@ -27,7 +27,7 @@ function isFloat(obj: string | number) {
 
 /**
  * 是否为普通对象 即 通过对象字面量 {} 或者 new Object() 创建的
- * @param obj
+ * @param obj 传入数据
  * @returns 是否为普通对象
  */
 function isPlainObject(obj: any) {
