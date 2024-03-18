@@ -46,6 +46,8 @@ if (!String.prototype.padStart) {
 /**
  * 当前时间的完整显示
  * timeFormat(null, "yyyy-mm-dd hh:MM:ss")
+ * @returns yyyy-mm-dd hh:MM:ss 格式时间
+ * @example nowFullTime()
  */
 function nowFullTime() {
   return timeFormat(null, "yyyy-mm-dd hh:MM:ss")
@@ -54,7 +56,7 @@ function nowFullTime() {
 /**
  * 当前时间时间戳
  * @param isUnix 普通的为 13位(包含毫秒); unix 的为10位，不包含毫秒
- * @returns
+ * @returns 时间戳数值
  */
 function nowTimestamp(isUnix = false) {
   return toTimestamp(null, isUnix)
@@ -100,7 +102,7 @@ function toTimestamp(dateTime: string | number | Date | null | undefined, isUnix
 }
 
 /**
- * @description 格式化时间，输出时间字符串
+ * 格式化时间，输出时间字符串
  * @param {String|Number|dateTime}时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
  * @param {String} fmt 格式化规则 yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合 默认yyyy-mm-dd。yyyy-mm-dd hh:MM:ss 显示时分秒
  * @returns {string} 返回格式化后的字符串
@@ -132,7 +134,7 @@ function timeFormat(dateTime: string | number | Date | null | undefined = null, 
 }
 
 /**
- * @description 距离现在多久
+ * 距离现在多久
  * @param {String|Number|dateTime} 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
  * @param {String|Boolean} format
  * 格式化规则如果为时间格式字符串，超出一定时间范围，返回固定的时间格式；
@@ -175,7 +177,7 @@ function timeFrom(date: string | number | Date | null | undefined = null, format
 /**
  * 年月日 +  00:00:00
  * @param dateTime date不传或传入null 表示取当前时间
- * @returns
+ * @returns 年月日 +  00:00:00
  */
 function startTime(dateTime: string | number | Date | null | undefined) {
   const date = timeFormat(dateTime, 'yyyy-mm-dd')
@@ -184,7 +186,7 @@ function startTime(dateTime: string | number | Date | null | undefined) {
 /**
  * 年月日 +  23:59:59
  * @param dateTime date不传或传入null 表示取当前时间
- * @returns
+ * @returns 年月日 +  23:59:59
  */
 function endTime(dateTime: string | number | Date | null | undefined) {
   const date = timeFormat(dateTime, 'yyyy-mm-dd')
@@ -192,8 +194,8 @@ function endTime(dateTime: string | number | Date | null | undefined) {
 }
 
 /**
- * @description 转时间加文字 例：(2022-12-01 转 2022年12月01日)  ||  (12-01 转 12月01日)；
- * @param {String|Number} 时间戳，时间字符串（仅支持  转  年月日字符）
+ * 转时间加文字 例：(2022-12-01 转 2022年12月01日)  ||  (12-01 转 12月01日)；
+ * @param {String|Number} dateTime 时间戳，时间字符串（仅支持  转  年月日字符）
  * @param {Boolean} isYear 是否有年 默认为true 转 2022年10月12日, false 转 10月12日
  * @returns {String} 返回格式化后的字符串
  */
