@@ -36,7 +36,7 @@ declare const typeUtils: {
 /**
 * 判断是否整数
 *
-* @param {string | number} obj
+* @param {string | number} obj 传入数据
 * @return {Boolean} 是否整数
 * @example
 */
@@ -44,14 +44,14 @@ declare function isInteger(obj: string | number): boolean;
 /**
 * 判断是否小数
 *
-* @param {string | number} obj
+* @param {string | number} obj 传入数据
 * @return {Boolean} 是否小数
 * @example
 */
 declare function isFloat(obj: string | number): boolean;
 /**
  * 是否为普通对象 即 通过对象字面量 {} 或者 new Object() 创建的
- * @param obj
+ * @param obj 传入数据
  * @returns 是否为普通对象
  */
 declare function isPlainObject(obj: any): boolean;
@@ -114,27 +114,27 @@ declare function nowFullTime(): string;
 declare function nowTimestamp(isUnix?: boolean): number;
 /**
  * 转时间
- * @param {String|Number|dateTime} 时间，时间字符串，时间戳，时间戳字符串都可以
+ * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以
  *        date不传或传入null 表示取当前时间
  */
 declare function toDate(dateTime: string | number | Date | null | undefined): Date;
 /**
  * 转时间戳
- * @param {String|Number|dateTime} 时间，时间字符串，时间戳，时间戳字符串都可以
+ * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以
  *        date不传或传入null 表示取当前时间
- * @param {boolean} 是否为unix格式
+ * @param {boolean} isUnix 是否为unix格式
  */
 declare function toTimestamp(dateTime: string | number | Date | null | undefined, isUnix?: boolean): number;
 /**
  * 格式化时间，输出时间字符串, yyyy-mm-dd hh:MM:ss
- * @param {String|Number|dateTime}时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
- * @param {String} 格式化规则 yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合 默认yyyy-mm-dd。yyyy-mm-dd hh:MM:ss 显示时分秒
+ * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
+ * @param {String} formatStr 格式化规则 yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合 默认yyyy-mm-dd。yyyy-mm-dd hh:MM:ss 显示时分秒
  * @returns {string} 返回格式化后的字符串
  */
 declare function timeFormat(dateTime?: string | number | Date | null | undefined, formatStr?: string): string;
 /**
  * 距离现在多久
- * @param {String|Number|dateTime} 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
+ * @param {String|Number|dateTime} date 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
  * @param {String|Boolean} format
  * 格式化规则如果为时间格式字符串，超出一定时间范围，返回固定的时间格式；
  * 如果为布尔值false，无论什么时间，都返回多久以前的格式
@@ -161,41 +161,14 @@ declare function endTime(dateTime: string | number | Date | null | undefined): s
  */
 declare function chineseDate(dateTime?: string | number | Date | null | undefined, isYear?: boolean): string;
 declare const timeUtils: {
-    /**
-     * 当前时间的格式化输出, 默认为 yyyy-mm-dd hh:MM:ss
-     */
     nowFullTime: typeof nowFullTime;
-    /**
-     * 当前时间的时间戳， 默认为 10 位格式
-     */
     nowTimestamp: typeof nowTimestamp;
-    /**
-     * 转化为时间
-     */
     toDate: typeof toDate;
-    /**
-     * 时间戳
-     */
     toTimestamp: typeof toTimestamp;
-    /**
-     * 时间格式化为字符串
-     */
     timeFormat: typeof timeFormat;
-    /**
-     * 距离现在的时间描述
-     */
     timeFrom: typeof timeFrom;
-    /**
-     *  一天的开始时间
-     */
     startTime: typeof startTime;
-    /**
-     * 一天的结束时间
-     */
     endTime: typeof endTime;
-    /**
-     * 中文日期
-     */
     chineseDate: typeof chineseDate;
 };
 
@@ -299,4 +272,45 @@ declare function debounce<T extends (...args: any[]) => any>(
     options?: DebounceOptions,
 ): debounce<T>;
 
-export { debounce, guid, testUtils, throttle, timeUtils, to, typeUtils };
+/**
+ * 对象转url参数
+ * 转为普通的 连接参数, 默认不编码，从而能正常传递中文
+ * @param obj 对象
+ * @param {boolean} addPrefix  是否添加 ? 前缀
+ * @param {boolean} encode 是否使用 decodeURIComponent 编码
+ * @param {object} option qs.stringify第二个参数
+ * @returns {string} 转换后的字符串
+ */
+declare function toUrlParams(obj: any, addPrefix?: boolean, encode?: boolean, option?: {
+    [key: string]: any;
+}): string;
+/**
+ * 对象转url参数
+ * 转为编码后的url参数
+ * @param obj 对象
+ * @param {string} prefix 前缀，默认值？
+ * @param {string} key 前缀后的固定字符串，默认值encodeParams
+ * @returns {string} 转换后的字符串
+ */
+declare function toEncodeParams(obj: any, prefix?: string, key?: string): string;
+/**
+ * 深拷贝
+ * @param obj 对象
+ * @returns {any} 拷贝后的对象
+ */
+declare function deepClone(obj: any): any;
+/**
+ * 深度合并
+ * @param target 目标对象
+ * @param source 源对象
+ * @returns {any} 拷贝并合并后的对象
+ */
+declare function deepMerge(target: any, source: any): any;
+declare const objectUtils: {
+    toUrlParams: typeof toUrlParams;
+    toEncodeParams: typeof toEncodeParams;
+    deepClone: typeof deepClone;
+    deepMerge: typeof deepMerge;
+};
+
+export { debounce, guid, objectUtils, testUtils, throttle, timeUtils, to, typeUtils };
