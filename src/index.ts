@@ -4,4 +4,5 @@ export * from './tool'
 export * from "./time"
 export * from './vendor'
 export * from './object'
+export * from './number'
 

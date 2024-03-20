@@ -340,4 +340,56 @@ declare const objectUtils: {
     deepMerge: typeof deepMerge;
 };
 
-export { debounce, guid, objectUtils, testUtils, throttle, timeUtils, to, typeUtils };
+/**
+ * 数字相关工具方法
+ */
+declare const numberUtils: {
+    /**
+     * 将数字转化为带有单位的字符串或对象。如果数字大于或等于 10000，单位为 'w'；如果数字大于或等于 1000，单位为 'k'。
+     *
+     * @param {string | number} num - 需要转化的数字。
+     * @param {boolean} isAddUnit - true，返回带有单位的字符串；false，则返回一个包含数字和单位的对象。
+     * @returns {(string | { num: string | number, unit: string })} 转换后带单位的数字, 或者包含数字和单位的对象。
+     */
+    tokw(num: string | number, isAddUnit?: boolean): string | 0 | {
+        num: string | number;
+        unit: string;
+    };
+    /**
+     * 为数字添加小数点，并保留2位数，如果已经有小数点则不处理
+     * @param {number | string} num - 需要转换的数字。
+     * @returns {string} 转换后的数字。
+     */
+    isDot(num: number | string): string;
+    /**
+     * 加法运算
+     * @param {number | string} arg1 - 被加数
+     * @param {number | string} arg2 - 加数
+     * @returns {string} 加法运算的结果
+     */
+    accAdd(arg1: number | string, arg2: number | string): string;
+    /**
+     * 减法运算
+     * @param {number | string} arg1 - 被减数
+     * @param {number | string} arg2 - 减数
+     * @returns {string} 减法运算结果
+     */
+    accSub(arg1: number | string, arg2: number | string): string;
+    /**
+     * 乘法运算
+     * @param {number | string} arg1 被乘数
+     * @param {number | string} arg2 乘数
+     * @return {number} 乘积结果
+     */
+    accMul(arg1: number | string, arg2: number | string): number;
+    /**
+     * 除法运算
+     * @param arg1 被除数
+     * @param arg2 除数
+     * @param retainNum 保留小数点后的位数, 默认3
+     * @returns {string} 商
+     */
+    accDiv(arg1: number | string, arg2: number | string, retainNum?: number): string;
+};
+
+export { debounce, guid, numberUtils, objectUtils, testUtils, throttle, timeUtils, to, typeUtils };
