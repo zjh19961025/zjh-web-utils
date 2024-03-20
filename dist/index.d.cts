@@ -34,34 +34,61 @@ declare const typeUtils: {
 };
 
 /**
-* 判断是否整数
-*
-* @param {string | number} obj 传入数据
-* @return {Boolean} 是否整数
-* @example
-*/
-declare function isInteger(obj: string | number): boolean;
-/**
-* 判断是否小数
-*
-* @param {string | number} obj 传入数据
-* @return {Boolean} 是否小数
-* @example
-*/
-declare function isFloat(obj: string | number): boolean;
-/**
- * 是否为普通对象 即 通过对象字面量 {} 或者 new Object() 创建的
- * @param obj 传入数据
- * @returns 是否为普通对象
- */
-declare function isPlainObject(obj: any): boolean;
-/**
  * testUtils
  */
 declare const testUtils: {
-    isInteger: typeof isInteger;
-    isFloat: typeof isFloat;
-    isPlainObject: typeof isPlainObject;
+    /**
+    * 判断是否整数
+    *
+    * @param {string | number} obj 传入数据
+    * @return {Boolean} 是否整数
+    * @example
+    */
+    isInteger(obj: string | number): boolean;
+    /**
+    * 判断是否小数
+    *
+    * @param {string | number} obj 传入数据
+    * @return {Boolean} 是否小数
+    * @example
+    */
+    isFloat(obj: string | number): boolean;
+    /**
+     * 是否为普通对象 即 通过对象字面量 {} 或者 new Object() 创建的
+     * @param obj 传入数据
+     * @returns 是否为普通对象
+     */
+    isPlainObject(obj: any): boolean;
+    /**
+     * 判断单个值是否为空
+     * @param value 传入数据
+     * @returns {Boolean} 是否为空
+     */
+    isSingleEmpty(value: any): boolean;
+    /**
+     * 判断多个值是否全部为空
+     * @param values 传入多个数据
+     * @returns {Boolean} 是否为空
+     */
+    isEmpty(...values: any[]): boolean;
+    /**
+     * 判断多个值是否全部不为空
+     * @param values 传入多个数据
+     * @returns {Boolean} 是否不为空
+     */
+    isNotEmpty(...values: any[]): boolean;
+    /**
+     * 判断单个值是否为空,数字0 或者 字符0 表示不为空
+     * @param value 传入数据
+     * @returns {Boolean} 是否不为空
+     */
+    isEmptyNoZero(value: any): boolean;
+    /**
+     * 判断单个值是否为0
+     * @param value 传入数据
+     * @returns {Boolean} 是否为0
+     */
+    isZero(value: any): boolean;
 };
 
 /**
@@ -296,14 +323,14 @@ declare function toEncodeParams(obj: any, prefix?: string, key?: string): string
 /**
  * 深拷贝
  * @param obj 对象
- * @returns {any} 拷贝后的对象
+ * @returns {any} 深拷贝后的对象
  */
 declare function deepClone(obj: any): any;
 /**
  * 深度合并
- * @param target 目标对象
- * @param source 源对象
- * @returns {any} 拷贝并合并后的对象
+ * @param {object} target 目标对象
+ * @param {object} source 源对象
+ * @returns {object} 拷贝并合并后的对象
  */
 declare function deepMerge(target: any, source: any): any;
 declare const objectUtils: {
