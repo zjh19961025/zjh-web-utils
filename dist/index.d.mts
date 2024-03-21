@@ -299,18 +299,89 @@ declare function debounce<T extends (...args: any[]) => any>(
     options?: DebounceOptions,
 ): debounce<T>;
 
+declare namespace QueryString {
+    type defaultEncoder = (str: any, defaultEncoder?: any, charset?: string) => string;
+    type defaultDecoder = (str: string, decoder?: any, charset?: string) => string;
+
+    type BooleanOptional = boolean | undefined;
+
+    interface IStringifyBaseOptions {
+        delimiter?: string | undefined;
+        strictNullHandling?: boolean | undefined;
+        skipNulls?: boolean | undefined;
+        encode?: boolean | undefined;
+        encoder?:
+          | ((str: any, defaultEncoder: defaultEncoder, charset: string, type: "key" | "value") => string)
+          | undefined;
+        filter?: Array<string | number> | ((prefix: string, value: any) => any) | undefined;
+        arrayFormat?: "indices" | "brackets" | "repeat" | "comma" | undefined;
+        indices?: boolean | undefined;
+        sort?: ((a: string, b: string) => number) | undefined;
+        serializeDate?: ((d: Date) => string) | undefined;
+        format?: "RFC1738" | "RFC3986" | undefined;
+        encodeValuesOnly?: boolean | undefined;
+        addQueryPrefix?: boolean | undefined;
+        charset?: "utf-8" | "iso-8859-1" | undefined;
+        charsetSentinel?: boolean | undefined;
+    }
+
+    type IStringifyDynamicOptions<AllowDots extends BooleanOptional> = AllowDots extends true
+      ? { allowDots?: AllowDots, encodeDotInKeys?: boolean }
+      : { allowDots?: boolean, encodeDotInKeys?: false }
+
+    type IStringifyOptions<AllowDots extends BooleanOptional = undefined> = IStringifyBaseOptions & IStringifyDynamicOptions<AllowDots>
+
+    interface IParseBaseOptions {
+        comma?: boolean | undefined;
+        delimiter?: string | RegExp | undefined;
+        depth?: number | false | undefined;
+        decoder?:
+          | ((str: string, defaultDecoder: defaultDecoder, charset: string, type: "key" | "value") => any)
+          | undefined;
+        arrayLimit?: number | undefined;
+        parseArrays?: boolean | undefined;
+        plainObjects?: boolean | undefined;
+        allowPrototypes?: boolean | undefined;
+        allowSparse?: boolean | undefined;
+        parameterLimit?: number | undefined;
+        strictNullHandling?: boolean | undefined;
+        ignoreQueryPrefix?: boolean | undefined;
+        charset?: "utf-8" | "iso-8859-1" | undefined;
+        charsetSentinel?: boolean | undefined;
+        interpretNumericEntities?: boolean | undefined;
+        allowEmptyArrays?: boolean | undefined;
+        duplicates?: 'combine' | 'first' | 'last' | undefined;
+    }
+
+    type IParseDynamicOptions<AllowDots extends BooleanOptional> = AllowDots extends true
+      ? { allowDots?: AllowDots, decodeDotInKeys?: boolean }
+      : { allowDots?: boolean, decodeDotInKeys?: false }
+
+    type IParseOptions<AllowDots extends BooleanOptional = undefined> = IParseBaseOptions & IParseDynamicOptions<AllowDots>
+
+    interface ParsedQs {
+        [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[];
+    }
+
+    function stringify(obj: any, options?: IStringifyOptions<BooleanOptional>): string;
+    function parse(str: string, options?: IParseOptions<BooleanOptional> & { decoder?: never | undefined }): ParsedQs;
+    function parse(str: string | Record<string, string>, options?: IParseOptions<BooleanOptional>): { [key: string]: unknown };
+}
+
+/**
+ * 对象相关工具方法
+ */
+
 /**
  * 对象转url参数
  * 转为普通的 连接参数, 默认不编码，从而能正常传递中文
  * @param obj 对象
  * @param {boolean} addPrefix  是否添加 ? 前缀
  * @param {boolean} encode 是否使用 decodeURIComponent 编码
- * @param {object} option qs.stringify第二个参数
+ * @param {qs.IStringifyOptions} option qs.stringify第二个参数
  * @returns {string} 转换后的字符串
  */
-declare function toUrlParams(obj: any, addPrefix?: boolean, encode?: boolean, option?: {
-    [key: string]: any;
-}): string;
+declare function toUrlParams(obj: any, addPrefix?: boolean, encode?: boolean, option?: QueryString.IStringifyOptions): string;
 /**
  * 对象转url参数
  * 转为编码后的url参数
@@ -392,4 +463,143 @@ declare const numberUtils: {
     accDiv(arg1: number | string, arg2: number | string, retainNum?: number): string;
 };
 
-export { debounce, guid, numberUtils, objectUtils, testUtils, throttle, timeUtils, to, typeUtils };
+/**
+ * string 相关工具方法
+ */
+declare const stringUtils: {
+    /**
+     * 翻转字符串
+     * @param {string} str 字符串
+     * @return {string} 翻转的结果
+     */
+    reverse(str: string): string;
+    /**
+     * 将字符串指定位置的字符替换为指定字符
+     * @param {string} str 字符串
+     * @param {number} start 在字符串开始处保留的字符数量, 默认4
+     * @param {number} end 在字符串结束处保留的字符数量, 默认4
+     * @param {string} replaceStr 替换的字符串, 默认为*
+     * @return {string} 替换后的字符串
+    */
+    hideChar(str: string, start?: number, end?: number, replaceStr?: string): string;
+    /**
+     * 金额 添加 + 或 - 号
+     * @param {number | string} val 金额
+     * @param {string} unit 单位, 只能是 + 或 -
+     * @returns {string} 带符号的金额
+     */
+    moneyUnit(val: number | string, unit?: string): string;
+    /**
+     * 去除字符串指定位置的空格
+     * @param {string} str 字符串
+     * @param {string} pos 去除位置, both:去除前后空格(默认), all:去除所有空格, left:去除左边空格, right:去除右边空格,
+     * @returns {string} 去除空格后的字符串
+     */
+    trim(str: string, pos?: string): string;
+    /**
+     * 去除字符左边空格
+     * @param {string} str 字符串
+     * @returns {string} 去除空格后的字符串
+     */
+    trimLeft(str: string): string;
+    /**
+     * 去除字符右边空格
+     * @param {string} str 字符串
+     * @returns {string} 去除空格后的字符串
+     */
+    trimRight(str: string): string;
+    /**
+     * 去除字符中的所有空格
+     * @param {string} str 字符串
+     * @returns {string} 去除空格后的字符串
+     */
+    trimAll(str: string): string;
+    /**
+     * 去除字符中的指定字符
+     * @param {string} str 字符串
+     * @param {string} char 要去除的字符
+     * @param {string} pos 去除位置, both:去除前后空格(默认), all:去除所有空格, left:去除左边空格, right:去除右边空格,
+     * @returns {string} 去除空格后的字符串
+     */
+    trimChar(str: string, char: string, pos?: string): string;
+    /**
+     * 首字母大写
+     * @param {string} str 字符串
+     * @returns {string} 首字母大写后的字符串
+     */
+    firstLetterToUpper(str: string): string;
+    /**
+     * 将url参数字符串转换为对象
+     * @param {string} str url参数字符串
+     * @param {qs.IParseOptions} option qs.parse的配置项
+     * @returns {object} 转换后的url参数对象
+     */
+    fromUrlParams(str: string, option?: QueryString.IParseOptions): {
+        [key: string]: unknown;
+    };
+    /**
+     * 是否为数值型字符串
+     * @param {string} str 字符串
+     * @returns {boolean}
+     */
+    isNumeric(str: string): boolean;
+    /**
+     * 将数值型字符串转换为固定小数位数的数值型字符串, 无法转换默认输出 '0.00'
+     * @param {string} str - 需要转换的输入字符串
+     * @param {number} fixed - 结果数字的小数位数，默认为2
+     * @returns {string} - 返回固定小数位数的数值型字符串
+     */
+    toFixed(str: string, fixed?: number): string;
+    /**
+     * 加法运算
+     * @param {number | string} arg1 - 被加数
+     * @param {number | string} arg2 - 加数
+     * @returns {string} 加法运算的结果
+     */
+    accAdd(arg1: string | number, arg2: string | number): string;
+    /**
+     * 减法运算
+     * @param {number | string} arg1 - 被减数
+     * @param {number | string} arg2 - 减数
+     * @returns {string} 减法运算结果
+     */
+    accSub(arg1: string | number, arg2: string | number): string;
+    /**
+     * 乘法运算
+     * @param {number | string} arg1 被乘数
+     * @param {number | string} arg2 乘数
+     * @return {number} 乘积结果
+     */
+    accMul(arg1: string | number, arg2: string | number): number;
+    /**
+     * 除法运算
+     * @param arg1 被除数
+     * @param arg2 除数
+     * @param retainNum 保留小数点后的位数, 默认3
+     * @returns {string} 商
+     */
+    accDiv(arg1: string | number, arg2: string | number, retainNum?: number): string;
+    /**
+     * 比较版本号大小
+     * @param {string} v1 版本号1
+     * @param {string} v2 版本号2
+     * @returns {number} 如果 v1 > v2，返回 1；如果 v1 < v2，返回 -1；如果 v1 = v2，返回 0。
+     */
+    compareVersion(v1: string, v2: string): number;
+    /**
+    * 将驼峰命名转换为连字符 - 命名
+    * @param {string} str 驼峰命名的字符串
+    * @param {string} separator 连字符的分隔符，默认为 '-'
+    * @returns {string} 连字符命名的字符串
+    */
+    camelToKebab(str: string, separator?: string): string;
+    /**
+     * 将连字符命名转换为驼峰命名
+     * @param {string} str 连字符命名的字符串
+     * @param {string} separator 连字符的分隔符，默认为 '-'
+     * @returns {string} 驼峰命名的字符串
+     */
+    kebabToCamel(str: string, separator?: string): string;
+};
+
+export { debounce, guid, numberUtils, objectUtils, QueryString as qs, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };

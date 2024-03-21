@@ -8,10 +8,10 @@ import qs from "qs"
  * @param obj 对象
  * @param {boolean} addPrefix  是否添加 ? 前缀
  * @param {boolean} encode 是否使用 decodeURIComponent 编码
- * @param {object} option qs.stringify第二个参数
+ * @param {qs.IStringifyOptions} option qs.stringify第二个参数
  * @returns {string} 转换后的字符串
  */
-function toUrlParams(obj: any, addPrefix = true, encode = false, option: { [key: string]: any; } = {}): string {
+function toUrlParams(obj: any, addPrefix = true, encode = false, option: qs.IStringifyOptions = {}): string {
   if ([null, undefined].includes(obj)) return ''
   const opt = {
     addQueryPrefix: addPrefix,
