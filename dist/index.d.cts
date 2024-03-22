@@ -248,6 +248,74 @@ declare function to(promise: Promise<any>): Promise<any>;
 declare function random(min: number, max: number): number;
 
 /**
+ * 功能：对 同一个 promise 的多次调用，保证只调用一次，待第一次调用成功后，其余的才继续执行
+ * 一般使用方法：
+ * 采用 队列的使用进行处理，保证多次调用只会请求一次
+ * 首次调用 那么会创建队列，之后的请求，会使用队列进行阻塞，待第一次完成，再继续执行
+ * 1. 首次调用，使用的是请求返回的结果
+ * 2. 队列中的调用，继续执行，应该使用的是缓存中的结果
+ */
+type InterceptFunction = (arg: any) => Promise<any>;
+declare class PromiseIntercept {
+    /** 是否是在请求等待中*/
+    private isHttp;
+    /** 是否已经加载过 */
+    private isHaveInit;
+    /** 是否只执行一次，true：执行成功后往后在调用都不会拦截了 */
+    private once;
+    /** 等待时进入的放入数组中，执行后在释放 */
+    private eventTask;
+    /** 传入的拦截方法走了.then() 还是 .catch() */
+    private awaitInterceptState;
+    /** 拦截器的成功信息 */
+    private handlerRes;
+    /** 拦截器的失败信息 */
+    private handlerErr;
+    /** 拦截的方法 promise,必须存在resolve或者reject */
+    private interceptFun;
+    /**
+     * @Description
+     * 对 同一个 promise 的多次调用，保证只调用一次，待第一次调用成功后，其余的才继续执行
+     * 一般使用方法：
+     * 采用 队列的使用进行处理，保证多次调用只会请求一次
+     * 首次调用 那么会创建队列，之后的请求，会使用队列进行阻塞，待第一次完成，再继续执行
+     * 1. 首次调用，使用的是请求返回的结果
+     * 2. 队列中的调用，继续执行，应该使用的是缓存中的结果
+     * @param {InterceptFunction} interceptFun - 需要被拦截的请求函数，它必须返回一个 Promise。
+     * @param {Object} param1 - 可选参数对象，once 默认值false
+     * @example 使用示例
+     *    // 提供给外部调用的方法
+     *    async function syncServerTime(isSecond = false) {
+     *      return new Promise(async(resolve, reject) => {
+     *        const [err, res] = await uni.hua5Utils.to(queueSyncServerTime.handler(isSecond))
+     *        // 请求的最终结果
+     *        resolve(res)
+     *     })
+     *   }
+     *   // 采用队列的方式进行网络请求
+     *   const queueSyncServerTime = new InterceptQueue(awaitSyncServerTime)
+     *   // 请求方法
+     *   async function awaitSyncServerTime(isSecond) {
+     *     return new Promise(async(resolve, reject) => {
+     *       const [err, res] = await getServerTimestamp()
+     *       if (err) resolve("")
+     *       resolve(res)
+     *     })
+     *   }
+     */
+    constructor(interceptFun: InterceptFunction, { once }?: {
+        once?: boolean | undefined;
+    });
+    /**
+     * @Description 拦截函数
+     * @param arg 请求参数
+     * @returns {Promise<any>} 请求结果
+     */
+    handler(arg?: any): Promise<unknown>;
+    private loading;
+}
+
+/**
  * 主要概念：
  * 时间：date, new Date(...), 其实也就是某一时刻
  * 时间戳：Timestamp, 以毫秒数字表示。一个时间戳对应的其实也就是一个时刻
@@ -739,4 +807,4 @@ declare const stringUtils: {
     kebabToCamel(str: string, separator?: string): string;
 };
 
-export { debounce, guid, numberUtils, objectUtils, QueryString as qs, random, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };
+export { PromiseIntercept, debounce, guid, numberUtils, objectUtils, QueryString as qs, random, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };

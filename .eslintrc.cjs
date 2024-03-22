@@ -188,6 +188,7 @@ module.exports = {
       objectsInObjects: false,
     }],
     'array-bracket-spacing': [2, 'never'],
+    "no-async-promise-executor": 0,
 
     // 单引号规则
     'jsx-quotes': [0, 'prefer-single'],
@@ -203,5 +204,6 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": "off", // 允许any, 或者设置为警告 warn
     "@typescript-eslint/no-this-alias": "off", // 允许使用 this 进行赋值
     "@typescript-eslint/no-empty-function": "off", // 允许空函数
+    "@typescript-eslint/no-non-null-assertion": "off", // 允许非空断言
   },
 }

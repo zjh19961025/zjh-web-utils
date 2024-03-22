@@ -424,6 +424,105 @@ function random(min, max) {
   }
 }
 
+class PromiseIntercept {
+  /**
+   * @Description
+   * 对 同一个 promise 的多次调用，保证只调用一次，待第一次调用成功后，其余的才继续执行
+   * 一般使用方法：
+   * 采用 队列的使用进行处理，保证多次调用只会请求一次
+   * 首次调用 那么会创建队列，之后的请求，会使用队列进行阻塞，待第一次完成，再继续执行
+   * 1. 首次调用，使用的是请求返回的结果
+   * 2. 队列中的调用，继续执行，应该使用的是缓存中的结果
+   * @param {InterceptFunction} interceptFun - 需要被拦截的请求函数，它必须返回一个 Promise。
+   * @param {Object} param1 - 可选参数对象，once 默认值false
+   * @example 使用示例
+   *    // 提供给外部调用的方法
+   *    async function syncServerTime(isSecond = false) {
+   *      return new Promise(async(resolve, reject) => {
+   *        const [err, res] = await uni.hua5Utils.to(queueSyncServerTime.handler(isSecond))
+   *        // 请求的最终结果
+   *        resolve(res)
+   *     })
+   *   }
+   *   // 采用队列的方式进行网络请求
+   *   const queueSyncServerTime = new InterceptQueue(awaitSyncServerTime)
+   *   // 请求方法
+   *   async function awaitSyncServerTime(isSecond) {
+   *     return new Promise(async(resolve, reject) => {
+   *       const [err, res] = await getServerTimestamp()
+   *       if (err) resolve("")
+   *       resolve(res)
+   *     })
+   *   }
+   */
+  constructor(interceptFun, { once = false } = {}) {
+    /** 是否是在请求等待中*/
+    this.isHttp = false;
+    /** 是否已经加载过 */
+    this.isHaveInit = false;
+    /** 是否只执行一次，true：执行成功后往后在调用都不会拦截了 */
+    this.once = false;
+    /** 等待时进入的放入数组中，执行后在释放 */
+    this.eventTask = [];
+    /** 传入的拦截方法走了.then() 还是 .catch() */
+    this.awaitInterceptState = false;
+    /** 拦截器的成功信息 */
+    this.handlerRes = null;
+    /** 拦截器的失败信息 */
+    this.handlerErr = null;
+    this.interceptFun = interceptFun;
+    this.once = once;
+  }
+  /**
+   * @Description 拦截函数
+   * @param arg 请求参数
+   * @returns {Promise<any>} 请求结果
+   */
+  handler(arg) {
+    return new Promise(async (resolve, reject) => {
+      if (this.isHaveInit && this.once)
+        return resolve(this.handlerRes);
+      if (!this.isHttp) {
+        this.handlerErr = null;
+        this.handlerRes = null;
+        this.isHttp = true;
+        const fun = this.interceptFun(arg);
+        if (!!fun && typeof fun.then == "function") {
+          await fun.then((res) => {
+            this.handlerRes = res;
+            this.awaitInterceptState = true;
+          }).catch((err) => {
+            this.handlerErr = err;
+            this.awaitInterceptState = false;
+          });
+        }
+        this.isHttp = false;
+        for (let i = 0; i < this.eventTask.length; i++)
+          this.eventTask[i].resolve();
+        this.eventTask.splice(0);
+        if (this.awaitInterceptState)
+          this.isHaveInit = true;
+      } else if (this.isHttp) {
+        const data = {
+          resolve: null
+        };
+        this.eventTask.push(data);
+        await this.loading(data);
+      }
+      if (this.awaitInterceptState)
+        resolve(this.handlerRes);
+      else
+        reject(this.handlerErr);
+    });
+  }
+  // 这个是阻塞等待函数
+  loading(data) {
+    return new Promise((resove) => {
+      data.resolve = resove;
+    });
+  }
+}
+
 if (!String.prototype.padStart) {
   String.prototype.padStart = function(maxLength, fillString = " ") {
     if (Object.prototype.toString.call(fillString) !== "[object String]") {
@@ -2044,4 +2143,4 @@ const stringUtils = {
   }
 };
 
-export { debounce, guid, numberUtils, objectUtils, qs, random, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };
+export { PromiseIntercept, debounce, guid, numberUtils, objectUtils, qs, random, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };
