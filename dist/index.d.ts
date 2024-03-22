@@ -1,36 +1,81 @@
 /**
- * 获取类型
- * @param {Object} obj 对象
- * @return {Boolean}
+ * 类型相关方法
  */
-declare function getType(obj: any): string;
-/**
- * 判断是否Date对象
- *
- * @param {Object} obj 对象
- * @return {Boolean}
- */
-declare function isDate(obj: any): boolean;
-/**
- * 判断是否RegExp对象
- *
- * @param {Object} obj 对象
- * @return {Boolean}
- */
-declare function isRegExp(obj: any): boolean;
 declare const typeUtils: {
-    getType: typeof getType;
-    isNumber: (obj: any) => boolean;
-    isBool: (obj: any) => boolean;
-    isString: (obj: any) => boolean;
-    isObject: (obj: any) => boolean;
-    isArray: (obj: any) => boolean;
-    isFunction: (obj: any) => boolean;
-    isNull: (obj: any) => boolean;
-    isUndefined: (obj: any) => boolean;
-    isNullOrUndefined: (obj: any) => boolean;
-    isDate: typeof isDate;
-    isRegExp: typeof isRegExp;
+    /**
+     * 获取类型
+     * @param {Object} obj 对象
+     * @return {Boolean}
+     */
+    getType(obj: any): string;
+    /**
+     * 是否为数字
+     * @param {Object} obj 对象
+     * @return {Boolean}
+     */
+    isNumber(obj: any): boolean;
+    /**
+     * 是否为bool
+     * @param {Object} obj 对象
+     * @return {Boolean}
+     */
+    isBool(obj: any): boolean;
+    /**
+     * 是否为字符串
+     * @param {Object} obj 对象
+     * @return {Boolean}
+     */
+    isString(obj: any): boolean;
+    /**
+     * 是否为普通对象 即 通过对象字面量 {} 或者 new Object() 创建的
+     * @param {Object} obj 对象
+     * @return {Boolean}
+     */
+    isObject(obj: any): boolean;
+    /**
+     * 是否为数组
+     * @param {Object} obj 对象
+     * @return {Boolean}
+     */
+    isArray(obj: any): boolean;
+    /**
+     * 是否为方法
+     * @param {Object} obj 对象
+     * @return {Boolean}
+     */
+    isFunction(obj: any): boolean;
+    /**
+     * 是否为 null  或者 undefined
+     * @param {Object} obj 对象
+     * @return {Boolean}
+     */
+    isNull(obj: any): boolean;
+    /**
+     * 是否为 null  或者 undefined
+     * @param {Object} obj 对象
+     * @return {Boolean}
+     */
+    isUndefined(obj: any): boolean;
+    /**
+     * 是否为 null  或者 undefined
+     * @param {Object} obj 对象
+     * @return {Boolean}
+     */
+    isNullOrUndefined(obj: any): boolean;
+    /**
+     * 判断是否Date对象
+     *
+     * @param {Object} obj 对象
+     * @return {Boolean}
+     */
+    isDate(obj: any): boolean;
+    /**
+     * 判断是否RegExp对象
+     *
+     * @param {Object} obj 对象
+     * @return {Boolean}
+     */
+    isRegExp(obj: any): boolean;
 };
 
 /**
@@ -321,87 +366,69 @@ declare class PromiseIntercept {
  * 时间戳：Timestamp, 以毫秒数字表示。一个时间戳对应的其实也就是一个时刻
  *        unix 时间戳精确到秒，为10位。其他精确到毫秒，为13位
  * 时间字符：可能为时间，也可能为时间戳
- * 使用：
- *   nowFullTime, // 当前时间的格式化输出
- *   nowTimestamp, // 当前时间的时间戳
- *   toDate, // 转化为时间
- *   toTimestamp, // 时间戳
- *   timeFormat, // 格式化
- *   timeFrom, // 多久前
- *   startTime, // 一天的开始时间
- *   endTime, // 一天的结束时间
  */
-/**
- * 当前时间的完整显示
- * timeFormat(null, "yyyy-mm-dd hh:MM:ss")
- * @returns yyyy-mm-dd hh:MM:ss 格式时间
- * @example nowFullTime()
- */
-declare function nowFullTime(): string;
-/**
- * 当前时间时间戳
- * @param isUnix 普通的为 13位(包含毫秒); unix 的为10位，不包含毫秒
- * @returns 时间戳数值
- */
-declare function nowTimestamp(isUnix?: boolean): number;
-/**
- * 转时间
- * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以
- *        date不传或传入null 表示取当前时间
- */
-declare function toDate(dateTime: string | number | Date | null | undefined): Date;
-/**
- * 转时间戳
- * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以
- *        date不传或传入null 表示取当前时间
- * @param {boolean} isUnix 是否为unix格式
- */
-declare function toTimestamp(dateTime: string | number | Date | null | undefined, isUnix?: boolean): number;
-/**
- * 格式化时间，输出时间字符串, yyyy-mm-dd hh:MM:ss
- * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
- * @param {String} formatStr 格式化规则 yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合 默认yyyy-mm-dd。yyyy-mm-dd hh:MM:ss 显示时分秒
- * @returns {string} 返回格式化后的字符串
- */
-declare function timeFormat(dateTime?: string | number | Date | null | undefined, formatStr?: string): string;
-/**
- * 距离现在多久
- * @param {String|Number|dateTime} date 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
- * @param {String|Boolean} format
- * 格式化规则如果为时间格式字符串，超出一定时间范围，返回固定的时间格式；
- * 如果为布尔值false，无论什么时间，都返回多久以前的格式
- * @returns {string} 转化后的内容
- */
-declare function timeFrom(date?: string | number | Date | null | undefined, format?: string): string;
-/**
- * 年月日 +  00:00:00
- * @param dateTime date不传或传入null 表示取当前时间
- * @returns 年月日 +  00:00:00
- */
-declare function startTime(dateTime: string | number | Date | null | undefined): string;
-/**
- * 年月日 +  23:59:59
- * @param dateTime date不传或传入null 表示取当前时间
- * @returns 年月日 +  23:59:59
- */
-declare function endTime(dateTime: string | number | Date | null | undefined): string;
-/**
- * 转时间加文字 例：(2022-12-01 转 2022年12月01日)  ||  (12-01 转 12月01日)；
- * @param {String|Number} dateTime 时间戳，时间字符串（仅支持  转  年月日字符）
- * @param {Boolean} isYear 是否有年 默认为true 转 2022年10月12日, false 转 10月12日
- * @returns {String} 返回格式化后的字符串
- */
-declare function chineseDate(dateTime?: string | number | Date | null | undefined, isYear?: boolean): string;
 declare const timeUtils: {
-    nowFullTime: typeof nowFullTime;
-    nowTimestamp: typeof nowTimestamp;
-    toDate: typeof toDate;
-    toTimestamp: typeof toTimestamp;
-    timeFormat: typeof timeFormat;
-    timeFrom: typeof timeFrom;
-    startTime: typeof startTime;
-    endTime: typeof endTime;
-    chineseDate: typeof chineseDate;
+    /**
+     * 当前时间的完整显示
+     * timeFormat(null, "yyyy-mm-dd hh:MM:ss")
+     * @returns yyyy-mm-dd hh:MM:ss 格式时间
+     * @example nowFullTime()
+     */
+    nowFullTime(): string;
+    /**
+     * 当前时间时间戳
+     * @param isUnix 普通的为 13位(包含毫秒); unix 的为10位，不包含毫秒
+     * @returns 时间戳数值
+     */
+    nowTimestamp(isUnix?: boolean): number;
+    /**
+     * 转时间
+     * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以
+     *        date不传或传入null 表示取当前时间
+     */
+    toDate(dateTime: string | number | Date | null | undefined): Date;
+    /**
+     * 转时间戳
+     * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以
+     *        date不传或传入null 表示取当前时间
+     * @param {boolean} isUnix 是否为unix格式
+     */
+    toTimestamp(dateTime: string | number | Date | null | undefined, isUnix?: boolean): number;
+    /**
+     * 格式化时间，输出时间字符串, yyyy-mm-dd hh:MM:ss
+     * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
+     * @param {String} formatStr 格式化规则 yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合 默认yyyy-mm-dd。yyyy-mm-dd hh:MM:ss 显示时分秒
+     * @returns {string} 返回格式化后的字符串
+     */
+    timeFormat(dateTime?: string | number | Date | null | undefined, formatStr?: string): string;
+    /**
+     * 距离现在多久
+     * @param {String|Number|dateTime} date 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
+     * @param {String|Boolean} format
+     * 格式化规则如果为时间格式字符串，超出一定时间范围，返回固定的时间格式；
+     * 如果为布尔值false，无论什么时间，都返回多久以前的格式
+     * @returns {string} 转化后的内容
+     */
+    timeFrom(date?: string | number | Date | null | undefined, format?: string): string;
+    /**
+     * 年月日 +  00:00:00
+     * @param dateTime date不传或传入null 表示取当前时间
+     * @returns 年月日 +  00:00:00
+     */
+    startTime(dateTime: string | number | Date | null | undefined): string;
+    /**
+     * 年月日 +  23:59:59
+     * @param dateTime date不传或传入null 表示取当前时间
+     * @returns 年月日 +  23:59:59
+     */
+    endTime(dateTime: string | number | Date | null | undefined): string;
+    /**
+     * 转时间加文字 例：(2022-12-01 转 2022年12月01日)  ||  (12-01 转 12月01日)；
+     * @param {String|Number} dateTime 时间戳，时间字符串（仅支持  转  年月日字符）
+     * @param {Boolean} isYear 是否有年 默认为true 转 2022年10月12日, false 转 10月12日
+     * @returns {String} 返回格式化后的字符串
+     */
+    chineseDate(dateTime?: string | number | Date | null | undefined, isYear?: boolean): string;
 };
 
 interface CancelOptions {
@@ -576,44 +603,39 @@ declare namespace QueryString {
 /**
  * 对象相关工具方法
  */
-
-/**
- * 对象转url参数
- * 转为普通的 连接参数, 默认不编码，从而能正常传递中文
- * @param obj 对象
- * @param {boolean} addPrefix  是否添加 ? 前缀
- * @param {boolean} encode 是否使用 decodeURIComponent 编码
- * @param {qs.IStringifyOptions} option qs.stringify第二个参数
- * @returns {string} 转换后的字符串
- */
-declare function toUrlParams(obj: any, addPrefix?: boolean, encode?: boolean, option?: QueryString.IStringifyOptions): string;
-/**
- * 对象转url参数
- * 转为编码后的url参数
- * @param obj 对象
- * @param {string} prefix 前缀，默认值？
- * @param {string} key 前缀后的固定字符串，默认值encodeParams
- * @returns {string} 转换后的字符串
- */
-declare function toEncodeParams(obj: any, prefix?: string, key?: string): string;
-/**
- * 深拷贝
- * @param obj 对象
- * @returns {any} 深拷贝后的对象
- */
-declare function deepClone(obj: any): any;
-/**
- * 深度合并
- * @param {object} target 目标对象
- * @param {object} source 源对象
- * @returns {object} 拷贝并合并后的对象
- */
-declare function deepMerge(target: any, source: any): any;
 declare const objectUtils: {
-    toUrlParams: typeof toUrlParams;
-    toEncodeParams: typeof toEncodeParams;
-    deepClone: typeof deepClone;
-    deepMerge: typeof deepMerge;
+    /**
+     * 对象转url参数
+     * 转为普通的 连接参数, 默认不编码，从而能正常传递中文
+     * @param obj 对象
+     * @param {boolean} addPrefix  是否添加 ? 前缀
+     * @param {boolean} encode 是否使用 decodeURIComponent 编码
+     * @param {qs.IStringifyOptions} option qs.stringify第二个参数
+     * @returns {string} 转换后的字符串
+     */
+    toUrlParams(obj: any, addPrefix?: boolean, encode?: boolean, option?: QueryString.IStringifyOptions): string;
+    /**
+     * 对象转url参数
+     * 转为编码后的url参数
+     * @param obj 对象
+     * @param {string} prefix 前缀，默认值？
+     * @param {string} key 前缀后的固定字符串，默认值encodeParams
+     * @returns {string} 转换后的字符串
+     */
+    toEncodeParams(obj: any, prefix?: string, key?: string): string;
+    /**
+     * 深拷贝
+     * @param obj 对象
+     * @returns {any} 深拷贝后的对象
+     */
+    deepClone(obj: any): any;
+    /**
+     * 深度合并
+     * @param {object} target 目标对象
+     * @param {object} source 源对象
+     * @returns {object} 拷贝并合并后的对象
+     */
+    deepMerge(target: any, source: any): any;
 };
 
 /**
@@ -792,11 +814,11 @@ declare const stringUtils: {
      */
     compareVersion(v1: string, v2: string): number;
     /**
-    * 将驼峰命名转换为连字符 - 命名
-    * @param {string} str 驼峰命名的字符串
-    * @param {string} separator 连字符的分隔符，默认为 '-'
-    * @returns {string} 连字符命名的字符串
-    */
+     * 将驼峰命名转换为连字符 - 命名
+     * @param {string} str 驼峰命名的字符串
+     * @param {string} separator 连字符的分隔符，默认为 '-'
+     * @returns {string} 连字符命名的字符串
+     */
     camelToKebab(str: string, separator?: string): string;
     /**
      * 将连字符命名转换为驼峰命名

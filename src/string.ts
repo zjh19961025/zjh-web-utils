@@ -253,11 +253,11 @@ export const stringUtils = {
   },
 
   /**
-  * 将驼峰命名转换为连字符 - 命名
-  * @param {string} str 驼峰命名的字符串
-  * @param {string} separator 连字符的分隔符，默认为 '-'
-  * @returns {string} 连字符命名的字符串
-  */
+   * 将驼峰命名转换为连字符 - 命名
+   * @param {string} str 驼峰命名的字符串
+   * @param {string} separator 连字符的分隔符，默认为 '-'
+   * @returns {string} 连字符命名的字符串
+   */
   camelToKebab(str: string, separator = '-') {
     // 如果字符串包含非英文字符，直接返回原字符串
     if (!/^[A-Za-z]+$/.test(str)) return str

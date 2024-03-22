@@ -17,59 +17,109 @@ const TYPE_STR = {
   WeakSet: "WeakSet",
   Error: "Error"
 };
-function getType(obj) {
-  const toStringType = Object.prototype.toString.call(obj);
-  return toStringType.substring(8, toStringType.length - 1);
-}
-const isNumber = function(obj) {
-  return getType(obj) === TYPE_STR.Number;
-};
-const isBool = function(obj) {
-  return getType(obj) === TYPE_STR.Boolean;
-};
-const isString = function(obj) {
-  return getType(obj) === TYPE_STR.String;
-};
-const isObject = function(obj) {
-  return getType(obj) === TYPE_STR.Object;
-};
-const isArray$3 = function(obj) {
-  return Array.isArray(obj);
-};
-const isFunction = function(obj) {
-  return getType(obj) === TYPE_STR.Function;
-};
-const isNull = function(obj) {
-  const type = getType(obj);
-  return type === TYPE_STR.Null;
-};
-const isUndefined = function(obj) {
-  const type = getType(obj);
-  return type == TYPE_STR.Undefined;
-};
-const isNullOrUndefined = function(obj) {
-  const type = getType(obj);
-  return type === TYPE_STR.Null || type === TYPE_STR.Undefined;
-};
-function isDate(obj) {
-  return getType(obj) === TYPE_STR.Date;
-}
-function isRegExp$1(obj) {
-  return getType(obj) === TYPE_STR.RegExp;
-}
 const typeUtils = {
-  getType,
-  isNumber,
-  isBool,
-  isString,
-  isObject,
-  isArray: isArray$3,
-  isFunction,
-  isNull,
-  isUndefined,
-  isNullOrUndefined,
-  isDate,
-  isRegExp: isRegExp$1
+  /**
+   * 获取类型
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  getType(obj) {
+    const toStringType = Object.prototype.toString.call(obj);
+    return toStringType.substring(8, toStringType.length - 1);
+  },
+  /**
+   * 是否为数字
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isNumber(obj) {
+    return this.getType(obj) === TYPE_STR.Number;
+  },
+  /**
+   * 是否为bool
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isBool(obj) {
+    return this.getType(obj) === TYPE_STR.Boolean;
+  },
+  /**
+   * 是否为字符串
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isString(obj) {
+    return this.getType(obj) === TYPE_STR.String;
+  },
+  /**
+   * 是否为普通对象 即 通过对象字面量 {} 或者 new Object() 创建的
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isObject(obj) {
+    return this.getType(obj) === TYPE_STR.Object;
+  },
+  /**
+   * 是否为数组
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isArray(obj) {
+    return Array.isArray(obj);
+  },
+  /**
+   * 是否为方法
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isFunction(obj) {
+    return this.getType(obj) === TYPE_STR.Function;
+  },
+  /**
+   * 是否为 null  或者 undefined
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isNull(obj) {
+    const type = this.getType(obj);
+    return type === TYPE_STR.Null;
+  },
+  /**
+   * 是否为 null  或者 undefined
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isUndefined(obj) {
+    const type = this.getType(obj);
+    return type == TYPE_STR.Undefined;
+  },
+  /**
+   * 是否为 null  或者 undefined
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isNullOrUndefined(obj) {
+    const type = this.getType(obj);
+    return type === TYPE_STR.Null || type === TYPE_STR.Undefined;
+  },
+  /**
+   * 判断是否Date对象
+   *
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isDate(obj) {
+    return this.getType(obj) === TYPE_STR.Date;
+  },
+  /**
+   * 判断是否RegExp对象
+   *
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isRegExp(obj) {
+    return this.getType(obj) === TYPE_STR.RegExp;
+  }
 };
 
 const testUtils = {
@@ -544,134 +594,168 @@ if (!String.prototype.padStart) {
     return fillString.slice(0, fillLength) + str;
   };
 }
-function nowFullTime() {
-  return timeFormat(null, "yyyy-mm-dd hh:MM:ss");
-}
-function nowTimestamp(isUnix = false) {
-  return toTimestamp(null, isUnix);
-}
-function toDate(dateTime) {
-  let date;
-  if (!dateTime) {
-    date = /* @__PURE__ */ new Date();
-  } else if (/^\d{10}$/.test(dateTime == null ? void 0 : dateTime.toString().trim())) {
-    date = new Date(dateTime * 1e3);
-  } else if (typeof dateTime === "string" && /^\d+$/.test(dateTime.trim())) {
-    date = new Date(Number(dateTime));
-  } else {
-    date = new Date(
-      typeof dateTime === "string" ? dateTime.replace(/-/g, "/") : dateTime
-    );
-  }
-  return date;
-}
-function toTimestamp(dateTime, isUnix = false) {
-  const date = toDate(dateTime);
-  return isUnix ? Math.floor(date.getTime() / 1e3) : date.valueOf();
-}
-function timeFormat(dateTime = null, formatStr = "yyyy-mm-dd") {
-  const date = toDate(dateTime);
-  const timeSource = {
-    "y": date.getFullYear().toString(),
-    // 年
-    "m": (date.getMonth() + 1).toString().padStart(2, "0"),
-    // 月
-    "d": date.getDate().toString().padStart(2, "0"),
-    // 日
-    "h": date.getHours().toString().padStart(2, "0"),
-    // 时
-    "M": date.getMinutes().toString().padStart(2, "0"),
-    // 分
-    "s": date.getSeconds().toString().padStart(2, "0")
-    // 秒
-    // 有其他格式化字符需求可以继续添加，必须转化成字符串
-  };
-  let key;
-  for (key in timeSource) {
-    const [ret] = new RegExp(`${key}+`).exec(formatStr) || [];
-    if (ret) {
-      const beginIndex = key === "y" && ret.length === 2 ? 2 : 0;
-      formatStr = formatStr.replace(ret, timeSource[key].slice(beginIndex));
-    }
-  }
-  return formatStr;
-}
-function timeFrom(date = null, format = "yyyy-mm-dd") {
-  let timer = (/* @__PURE__ */ new Date()).getTime() - toTimestamp(date, false);
-  timer = Math.floor(timer / 1e3);
-  let tips = "";
-  switch (true) {
-    case timer < 300:
-      tips = "\u521A\u521A";
-      break;
-    case (timer >= 300 && timer < 3600):
-      tips = `${Math.floor(timer / 60)}\u5206\u949F\u524D`;
-      break;
-    case (timer >= 3600 && timer < 86400):
-      tips = `${Math.floor(timer / 3600)}\u5C0F\u65F6\u524D`;
-      break;
-    case (timer >= 86400 && timer < 2592e3):
-      tips = `${Math.floor(timer / 86400)}\u5929\u524D`;
-      break;
-    default:
-      if (!format) {
-        if (timer >= 2592e3 && timer < 365 * 86400) {
-          tips = `${Math.floor(timer / (86400 * 30))}\u4E2A\u6708\u524D`;
-        } else {
-          tips = `${Math.floor(timer / (86400 * 365))}\u5E74\u524D`;
-        }
-      } else {
-        tips = timeFormat(date, format);
-      }
-  }
-  return tips;
-}
-function startTime(dateTime) {
-  const date = timeFormat(dateTime, "yyyy-mm-dd");
-  return date + " 00:00:00";
-}
-function endTime(dateTime) {
-  const date = timeFormat(dateTime, "yyyy-mm-dd");
-  return date + " 23:59:59";
-}
-function chineseDate(dateTime = null, isYear = true) {
-  const date = toDate(dateTime);
-  const timeSource = {
-    "y": date.getFullYear().toString(),
-    // 年
-    "m": (date.getMonth() + 1).toString().padStart(2, "0"),
-    // 月
-    "d": date.getDate().toString().padStart(2, "0")
-    // 日
-    // 有其他格式化字符需求可以继续添加，必须转化成字符串
-  };
-  let numStrTime = "";
-  if (isYear) {
-    numStrTime = timeSource["y"] + "\u5E74" + timeSource["m"] + "\u6708" + timeSource["d"] + "\u65E5";
-  } else {
-    numStrTime = timeSource["m"] + "\u6708" + timeSource["d"] + "\u65E5";
-  }
-  return numStrTime;
-}
 const timeUtils = {
-  nowFullTime,
-  // 当前时间的格式化输出
-  nowTimestamp,
-  // 当前时间的时间戳
-  toDate,
-  // 转化为时间
-  toTimestamp,
-  // 时间戳
-  timeFormat,
-  // 格式化
-  timeFrom,
-  // 多久钱
-  startTime,
-  // 一天的开始时间
-  endTime,
-  // 一天的结束时间
-  chineseDate
-  // 转时间加文字 例：(2022-12-01 转 2022年12月1日)
+  /**
+   * 当前时间的完整显示
+   * timeFormat(null, "yyyy-mm-dd hh:MM:ss")
+   * @returns yyyy-mm-dd hh:MM:ss 格式时间
+   * @example nowFullTime()
+   */
+  nowFullTime() {
+    return this.timeFormat(null, "yyyy-mm-dd hh:MM:ss");
+  },
+  /**
+   * 当前时间时间戳
+   * @param isUnix 普通的为 13位(包含毫秒); unix 的为10位，不包含毫秒
+   * @returns 时间戳数值
+   */
+  nowTimestamp(isUnix = false) {
+    return this.toTimestamp(null, isUnix);
+  },
+  /**
+   * 转时间
+   * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以
+   *        date不传或传入null 表示取当前时间
+   */
+  toDate(dateTime) {
+    let date;
+    if (!dateTime) {
+      date = /* @__PURE__ */ new Date();
+    } else if (/^\d{10}$/.test(dateTime == null ? void 0 : dateTime.toString().trim())) {
+      date = new Date(dateTime * 1e3);
+    } else if (typeof dateTime === "string" && /^\d+$/.test(dateTime.trim())) {
+      date = new Date(Number(dateTime));
+    } else {
+      date = new Date(
+        typeof dateTime === "string" ? dateTime.replace(/-/g, "/") : dateTime
+      );
+    }
+    return date;
+  },
+  /**
+   * 转时间戳
+   * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以
+   *        date不传或传入null 表示取当前时间
+   * @param {boolean} isUnix 是否为unix格式
+   */
+  toTimestamp(dateTime, isUnix = false) {
+    const date = this.toDate(dateTime);
+    return isUnix ? Math.floor(date.getTime() / 1e3) : date.valueOf();
+  },
+  /**
+   * 格式化时间，输出时间字符串, yyyy-mm-dd hh:MM:ss
+   * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
+   * @param {String} formatStr 格式化规则 yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合 默认yyyy-mm-dd。yyyy-mm-dd hh:MM:ss 显示时分秒
+   * @returns {string} 返回格式化后的字符串
+   */
+  timeFormat(dateTime = null, formatStr = "yyyy-mm-dd") {
+    const date = this.toDate(dateTime);
+    const timeSource = {
+      "y": date.getFullYear().toString(),
+      // 年
+      "m": (date.getMonth() + 1).toString().padStart(2, "0"),
+      // 月
+      "d": date.getDate().toString().padStart(2, "0"),
+      // 日
+      "h": date.getHours().toString().padStart(2, "0"),
+      // 时
+      "M": date.getMinutes().toString().padStart(2, "0"),
+      // 分
+      "s": date.getSeconds().toString().padStart(2, "0")
+      // 秒
+      // 有其他格式化字符需求可以继续添加，必须转化成字符串
+    };
+    let key;
+    for (key in timeSource) {
+      const [ret] = new RegExp(`${key}+`).exec(formatStr) || [];
+      if (ret) {
+        const beginIndex = key === "y" && ret.length === 2 ? 2 : 0;
+        formatStr = formatStr.replace(ret, timeSource[key].slice(beginIndex));
+      }
+    }
+    return formatStr;
+  },
+  /**
+   * 距离现在多久
+   * @param {String|Number|dateTime} date 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
+   * @param {String|Boolean} format
+   * 格式化规则如果为时间格式字符串，超出一定时间范围，返回固定的时间格式；
+   * 如果为布尔值false，无论什么时间，都返回多久以前的格式
+   * @returns {string} 转化后的内容
+   */
+  timeFrom(date = null, format = "yyyy-mm-dd") {
+    let timer = (/* @__PURE__ */ new Date()).getTime() - this.toTimestamp(date, false);
+    timer = Math.floor(timer / 1e3);
+    let tips = "";
+    switch (true) {
+      case timer < 300:
+        tips = "\u521A\u521A";
+        break;
+      case (timer >= 300 && timer < 3600):
+        tips = `${Math.floor(timer / 60)}\u5206\u949F\u524D`;
+        break;
+      case (timer >= 3600 && timer < 86400):
+        tips = `${Math.floor(timer / 3600)}\u5C0F\u65F6\u524D`;
+        break;
+      case (timer >= 86400 && timer < 2592e3):
+        tips = `${Math.floor(timer / 86400)}\u5929\u524D`;
+        break;
+      default:
+        if (!format) {
+          if (timer >= 2592e3 && timer < 365 * 86400) {
+            tips = `${Math.floor(timer / (86400 * 30))}\u4E2A\u6708\u524D`;
+          } else {
+            tips = `${Math.floor(timer / (86400 * 365))}\u5E74\u524D`;
+          }
+        } else {
+          tips = this.timeFormat(date, format);
+        }
+    }
+    return tips;
+  },
+  /**
+   * 年月日 +  00:00:00
+   * @param dateTime date不传或传入null 表示取当前时间
+   * @returns 年月日 +  00:00:00
+   */
+  startTime(dateTime) {
+    const date = this.timeFormat(dateTime, "yyyy-mm-dd");
+    return date + " 00:00:00";
+  },
+  /**
+   * 年月日 +  23:59:59
+   * @param dateTime date不传或传入null 表示取当前时间
+   * @returns 年月日 +  23:59:59
+   */
+  endTime(dateTime) {
+    const date = this.timeFormat(dateTime, "yyyy-mm-dd");
+    return date + " 23:59:59";
+  },
+  /**
+   * 转时间加文字 例：(2022-12-01 转 2022年12月01日)  ||  (12-01 转 12月01日)；
+   * @param {String|Number} dateTime 时间戳，时间字符串（仅支持  转  年月日字符）
+   * @param {Boolean} isYear 是否有年 默认为true 转 2022年10月12日, false 转 10月12日
+   * @returns {String} 返回格式化后的字符串
+   */
+  chineseDate(dateTime = null, isYear = true) {
+    const date = this.toDate(dateTime);
+    const timeSource = {
+      "y": date.getFullYear().toString(),
+      // 年
+      "m": (date.getMonth() + 1).toString().padStart(2, "0"),
+      // 月
+      "d": date.getDate().toString().padStart(2, "0")
+      // 日
+      // 有其他格式化字符需求可以继续添加，必须转化成字符串
+    };
+    let numStrTime = "";
+    if (isYear) {
+      numStrTime = timeSource["y"] + "\u5E74" + timeSource["m"] + "\u6708" + timeSource["d"] + "\u65E5";
+    } else {
+      numStrTime = timeSource["m"] + "\u6708" + timeSource["d"] + "\u65E5";
+    }
+    return numStrTime;
+  }
 };
 
 /* eslint-disable no-undefined,no-param-reassign,no-shadow */
@@ -1675,67 +1759,91 @@ var lib = {
 
 var qs = /*@__PURE__*/getDefaultExportFromCjs(lib);
 
-function toUrlParams(obj, addPrefix = true, encode = false, option = {}) {
-  if ([null, void 0].includes(obj))
-    return "";
-  const opt = {
-    addQueryPrefix: addPrefix,
-    encode,
-    ...option
-  };
-  return qs.stringify(obj, opt);
-}
-function toEncodeParams(obj, prefix = "?", key = "encodeParams") {
-  if ([null, void 0].includes(obj))
-    return "";
-  return prefix + key + "=" + encodeURIComponent(JSON.stringify(obj));
-}
-function deepClone(obj) {
-  if ([null, void 0, NaN, false].includes(obj))
-    return obj;
-  if (typeof obj !== "object" && typeof obj !== "function") {
-    return obj;
-  }
-  const o = Array.isArray(obj) ? [] : {};
-  for (const i in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, i)) {
-      o[i] = typeof obj[i] === "object" ? deepClone(obj[i]) : obj[i];
+const objectUtils = {
+  /**
+   * 对象转url参数
+   * 转为普通的 连接参数, 默认不编码，从而能正常传递中文
+   * @param obj 对象
+   * @param {boolean} addPrefix  是否添加 ? 前缀
+   * @param {boolean} encode 是否使用 decodeURIComponent 编码
+   * @param {qs.IStringifyOptions} option qs.stringify第二个参数
+   * @returns {string} 转换后的字符串
+   */
+  toUrlParams(obj, addPrefix = true, encode = false, option = {}) {
+    if ([null, void 0].includes(obj))
+      return "";
+    const opt = {
+      addQueryPrefix: addPrefix,
+      encode,
+      ...option
+    };
+    return qs.stringify(obj, opt);
+  },
+  /**
+   * 对象转url参数
+   * 转为编码后的url参数
+   * @param obj 对象
+   * @param {string} prefix 前缀，默认值？
+   * @param {string} key 前缀后的固定字符串，默认值encodeParams
+   * @returns {string} 转换后的字符串
+   */
+  toEncodeParams(obj, prefix = "?", key = "encodeParams") {
+    if ([null, void 0].includes(obj))
+      return "";
+    return prefix + key + "=" + encodeURIComponent(JSON.stringify(obj));
+  },
+  /**
+   * 深拷贝
+   * @param obj 对象
+   * @returns {any} 深拷贝后的对象
+   */
+  deepClone(obj) {
+    if ([null, void 0, NaN, false].includes(obj))
+      return obj;
+    if (typeof obj !== "object" && typeof obj !== "function") {
+      return obj;
     }
-  }
-  return o;
-}
-function deepMerge(target, source) {
-  target = deepClone(target);
-  if (typeof target !== "object" || typeof source !== "object")
-    return target;
-  for (const prop in source) {
-    if (!Object.prototype.hasOwnProperty.call(source, prop))
-      continue;
-    if (prop in target) {
-      if (typeof target[prop] !== "object" || target[prop] === null) {
-        target[prop] = source[prop];
-      } else {
-        if (typeof source[prop] !== "object" || source[prop] === null) {
+    const o = Array.isArray(obj) ? [] : {};
+    for (const i in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, i)) {
+        o[i] = typeof obj[i] === "object" ? this.deepClone(obj[i]) : obj[i];
+      }
+    }
+    return o;
+  },
+  /**
+   * 深度合并
+   * @param {object} target 目标对象
+   * @param {object} source 源对象
+   * @returns {object} 拷贝并合并后的对象
+   */
+  deepMerge(target, source) {
+    target = this.deepClone(target);
+    if (typeof target !== "object" || typeof source !== "object")
+      return target;
+    for (const prop in source) {
+      if (!Object.prototype.hasOwnProperty.call(source, prop))
+        continue;
+      if (prop in target) {
+        if (typeof target[prop] !== "object" || target[prop] === null) {
           target[prop] = source[prop];
         } else {
-          if (Array.isArray(target[prop]) && Array.isArray(source[prop])) {
-            target[prop] = target[prop].concat(source[prop]);
+          if (typeof source[prop] !== "object" || source[prop] === null) {
+            target[prop] = source[prop];
           } else {
-            target[prop] = deepMerge(target[prop], source[prop]);
+            if (Array.isArray(target[prop]) && Array.isArray(source[prop])) {
+              target[prop] = target[prop].concat(source[prop]);
+            } else {
+              target[prop] = this.deepMerge(target[prop], source[prop]);
+            }
           }
         }
+      } else {
+        target[prop] = source[prop];
       }
-    } else {
-      target[prop] = source[prop];
     }
+    return target;
   }
-  return target;
-}
-const objectUtils = {
-  toUrlParams,
-  toEncodeParams,
-  deepClone,
-  deepMerge
 };
 
 const numberUtils = {
@@ -2117,11 +2225,11 @@ const stringUtils = {
     return 0;
   },
   /**
-  * 将驼峰命名转换为连字符 - 命名
-  * @param {string} str 驼峰命名的字符串
-  * @param {string} separator 连字符的分隔符，默认为 '-'
-  * @returns {string} 连字符命名的字符串
-  */
+   * 将驼峰命名转换为连字符 - 命名
+   * @param {string} str 驼峰命名的字符串
+   * @param {string} separator 连字符的分隔符，默认为 '-'
+   * @returns {string} 连字符命名的字符串
+   */
   camelToKebab(str, separator = "-") {
     if (!/^[A-Za-z]+$/.test(str))
       return str;
