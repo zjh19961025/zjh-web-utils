@@ -601,6 +601,140 @@ declare namespace QueryString {
 }
 
 /**
+ *  base64.ts
+ *
+ *  Licensed under the BSD 3-Clause License.
+ *    http://opensource.org/licenses/BSD-3-Clause
+ *
+ *  References:
+ *    http://en.wikipedia.org/wiki/Base64
+ *
+ * @author Dan Kogai (https://github.com/dankogai)
+ */
+declare const version = "3.7.7";
+/**
+ * @deprecated use lowercase `version`.
+ */
+declare const VERSION = "3.7.7";
+/**
+ * polyfill version of `btoa`
+ */
+declare const btoaPolyfill: (bin: string) => string;
+/**
+ * does what `window.btoa` of web browsers do.
+ * @param {String} bin binary string
+ * @returns {string} Base64-encoded string
+ */
+declare const _btoa: (bin: string) => string;
+/**
+ * converts a Uint8Array to a Base64 string.
+ * @param {boolean} [urlsafe] URL-and-filename-safe a la RFC4648 §5
+ * @returns {string} Base64 string
+ */
+declare const fromUint8Array: (u8a: Uint8Array, urlsafe?: boolean) => string;
+/**
+ * @deprecated should have been internal use only.
+ * @param {string} src UTF-8 string
+ * @returns {string} UTF-16 string
+ */
+declare const utob: (u: string) => string;
+/**
+ * converts a UTF-8-encoded string to a Base64 string.
+ * @param {boolean} [urlsafe] if `true` make the result URL-safe
+ * @returns {string} Base64 string
+ */
+declare const encode: (src: string, urlsafe?: boolean) => string;
+/**
+ * converts a UTF-8-encoded string to URL-safe Base64 RFC4648 §5.
+ * @returns {string} Base64 string
+ */
+declare const encodeURI: (src: string) => string;
+/**
+ * @deprecated should have been internal use only.
+ * @param {string} src UTF-16 string
+ * @returns {string} UTF-8 string
+ */
+declare const btou: (b: string) => string;
+/**
+ * polyfill version of `atob`
+ */
+declare const atobPolyfill: (asc: string) => string;
+/**
+ * does what `window.atob` of web browsers do.
+ * @param {String} asc Base64-encoded string
+ * @returns {string} binary string
+ */
+declare const _atob: (asc: string) => string;
+/**
+ * converts a Base64 string to a Uint8Array.
+ */
+declare const toUint8Array: (a: string) => Uint8Array;
+/**
+ * converts a Base64 string to a UTF-8 string.
+ * @param {String} src Base64 string.  Both normal and URL-safe are supported
+ * @returns {string} UTF-8 string
+ */
+declare const decode: (src: string) => string;
+/**
+ * check if a value is a valid Base64 string
+ * @param {String} src a value to check
+  */
+declare const isValid: (src: any) => boolean;
+/**
+ * extend String.prototype with relevant methods
+ */
+declare const extendString: () => void;
+/**
+ * extend Uint8Array.prototype with relevant methods
+ */
+declare const extendUint8Array: () => void;
+/**
+ * extend Builtin prototypes with relevant methods
+ */
+declare const extendBuiltins: () => void;
+declare const gBase64: {
+    version: string;
+    VERSION: string;
+    atob: (asc: string) => string;
+    atobPolyfill: (asc: string) => string;
+    btoa: (bin: string) => string;
+    btoaPolyfill: (bin: string) => string;
+    fromBase64: (src: string) => string;
+    toBase64: (src: string, urlsafe?: boolean) => string;
+    encode: (src: string, urlsafe?: boolean) => string;
+    encodeURI: (src: string) => string;
+    encodeURL: (src: string) => string;
+    utob: (u: string) => string;
+    btou: (b: string) => string;
+    decode: (src: string) => string;
+    isValid: (src: any) => boolean;
+    fromUint8Array: (u8a: Uint8Array, urlsafe?: boolean) => string;
+    toUint8Array: (a: string) => Uint8Array;
+    extendString: () => void;
+    extendUint8Array: () => void;
+    extendBuiltins: () => void;
+};
+
+declare const base64_d_VERSION: typeof VERSION;
+declare const base64_d_atobPolyfill: typeof atobPolyfill;
+declare const base64_d_btoaPolyfill: typeof btoaPolyfill;
+declare const base64_d_btou: typeof btou;
+declare const base64_d_decode: typeof decode;
+declare const base64_d_encode: typeof encode;
+declare const base64_d_encodeURI: typeof encodeURI;
+declare const base64_d_extendBuiltins: typeof extendBuiltins;
+declare const base64_d_extendString: typeof extendString;
+declare const base64_d_extendUint8Array: typeof extendUint8Array;
+declare const base64_d_fromUint8Array: typeof fromUint8Array;
+declare const base64_d_isValid: typeof isValid;
+declare const base64_d_toUint8Array: typeof toUint8Array;
+declare const base64_d_utob: typeof utob;
+declare const base64_d_version: typeof version;
+declare namespace base64_d {
+  export { gBase64 as Base64, base64_d_VERSION as VERSION, _atob as atob, base64_d_atobPolyfill as atobPolyfill, _btoa as btoa, base64_d_btoaPolyfill as btoaPolyfill, base64_d_btou as btou, base64_d_decode as decode, base64_d_encode as encode, base64_d_encodeURI as encodeURI, encodeURI as encodeURL, base64_d_extendBuiltins as extendBuiltins, base64_d_extendString as extendString, base64_d_extendUint8Array as extendUint8Array, decode as fromBase64, base64_d_fromUint8Array as fromUint8Array, base64_d_isValid as isValid, encode as toBase64, base64_d_toUint8Array as toUint8Array, base64_d_utob as utob, base64_d_version as version };
+}
+
+/**
  * 对象相关工具方法
  */
 declare const objectUtils: {
@@ -829,4 +963,4 @@ declare const stringUtils: {
     kebabToCamel(str: string, separator?: string): string;
 };
 
-export { PromiseIntercept, debounce, guid, numberUtils, objectUtils, QueryString as qs, random, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };
+export { base64_d as Base64, PromiseIntercept, debounce, guid, numberUtils, objectUtils, QueryString as qs, random, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };
