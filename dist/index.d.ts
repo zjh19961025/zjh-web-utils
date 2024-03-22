@@ -34,7 +34,7 @@ declare const typeUtils: {
 };
 
 /**
- * testUtils
+ * 逻辑判断相关方法
  */
 declare const testUtils: {
     /**
@@ -78,17 +78,147 @@ declare const testUtils: {
      */
     isNotEmpty(...values: any[]): boolean;
     /**
-     * 判断单个值是否为空,数字0 或者 字符0 表示不为空
+     * 判断是否为空,数字0 或者 字符0 表示不为空
      * @param value 传入数据
      * @returns {Boolean} 是否不为空
      */
     isEmptyNoZero(value: any): boolean;
     /**
-     * 判断单个值是否为0
+     * 判断是否为0
      * @param value 传入数据
      * @returns {Boolean} 是否为0
      */
     isZero(value: any): boolean;
+    /**
+     * 判断是否为数字
+     * @param value 传入数据
+     * @returns {Boolean} 是否为数字
+     */
+    isNum(value: any): boolean;
+    /**
+     * 判断是否为非负的整数
+     * @param value 传入数据
+     * @returns {Boolean}
+     */
+    isNonNegInt(value: any): boolean;
+    /**
+     * 判断是否全为字母
+     * @param value 传入数据
+     * @returns {Boolean}
+     */
+    isLetter(value: any): boolean;
+    /**
+     * 判断是否为字母、数字 或 字母数字组合
+     * @param value 传入数据
+     * @returns {Boolean}
+     */
+    isLetterOrNum(value: any): boolean;
+    /**
+     * 判断是否为中文
+     * @param value 传入数据
+     * @returns {Boolean}
+     */
+    isChinese(value: any): boolean;
+    /**
+     * 判断是否为短信验证码，或指定位数的纯数字
+     * @param value 传入数据
+     * @param len 数字的预期长度, 默认6
+     * @returns {Boolean}
+     */
+    isCode(value: any, len?: number): boolean;
+    /**
+     * 判断是否为电子邮箱格式
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isEmail(value: any): boolean;
+    /**
+     * 判断是否为手机或座机格式
+     * 全部是数字，或者数字之间至多包含一个 - ，因为座机号包含 -
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isMobile(value: any): boolean;
+    /**
+     * 判断是否为URL格式
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isUrl(value: any): boolean;
+    /**
+     * 判断是否为日期格式
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isDate(value: any): boolean;
+    /**
+     * 判断是否为ios日期格式
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isDateISO(value: any): boolean;
+    /**
+     * 判断是否为身份证号
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isIdCard(value: any): boolean;
+    /**
+     * 判断是否为车牌号
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isCarNo(value: any): boolean;
+    /**
+     * 判断是否在范围内
+     * @param {string | number} value 传入数据
+     * @param {number[]} param 范围参数, [min, max]
+     * @return {Boolean}
+     */
+    isInRange(value: string | number, param: number[]): boolean;
+    /**
+     * 判断长度是否在范围内
+     * @param {string | any[]} value 传入数据
+     * @param {number[]} param 范围参数, [min, max]
+     * @return {Boolean}
+     */
+    isInLength(value: string | any[], param: number[]): boolean;
+    /**
+     * 判断是否为座机号
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isLandline(value: any): boolean;
+    /**
+     * 判断是否为JSON字符串
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isJsonString(value: any): boolean;
+    /**
+     * 判断是否为Promise对象
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isPromise(value: any): boolean;
+    /**
+     * 判断是否为图片格式
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isImage(value: string): boolean;
+    /**
+     * 判断是否为视频格式
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isVideo(value: string): boolean;
+    /**
+     * 判断是否为银行卡号
+     * @param value 传入数据
+     * @return {Boolean}
+     */
+    isBankCard(value: any): boolean;
 };
 
 /**

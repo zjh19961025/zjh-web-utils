@@ -163,7 +163,7 @@ const testUtils = {
     return isNotEmpty;
   },
   /**
-   * 判断单个值是否为空,数字0 或者 字符0 表示不为空
+   * 判断是否为空,数字0 或者 字符0 表示不为空
    * @param value 传入数据
    * @returns {Boolean} 是否不为空
    */
@@ -173,12 +173,215 @@ const testUtils = {
     return this.isSingleEmpty(value);
   },
   /**
-   * 判断单个值是否为0
+   * 判断是否为0
    * @param value 传入数据
    * @returns {Boolean} 是否为0
    */
   isZero(value) {
     return value === 0 || value === "0";
+  },
+  /**
+   * 判断是否为数字
+   * @param value 传入数据
+   * @returns {Boolean} 是否为数字
+   */
+  isNum(value) {
+    return /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(value);
+  },
+  /**
+   * 判断是否为非负的整数
+   * @param value 传入数据
+   * @returns {Boolean}
+   */
+  isNonNegInt(value) {
+    return /^\d+$/.test(value);
+  },
+  /**
+   * 判断是否全为字母
+   * @param value 传入数据
+   * @returns {Boolean}
+   */
+  isLetter(value) {
+    return /^[a-zA-Z]*$/.test(value);
+  },
+  /**
+   * 判断是否为字母、数字 或 字母数字组合
+   * @param value 传入数据
+   * @returns {Boolean}
+   */
+  isLetterOrNum(value) {
+    const reg = /^[0-9a-zA-Z]*$/g;
+    return reg.test(value);
+  },
+  /**
+   * 判断是否为中文
+   * @param value 传入数据
+   * @returns {Boolean}
+   */
+  isChinese(value) {
+    const reg = /^[\u4e00-\u9fa5]+$/gi;
+    return reg.test(value);
+  },
+  /**
+   * 判断是否为短信验证码，或指定位数的纯数字
+   * @param value 传入数据
+   * @param len 数字的预期长度, 默认6
+   * @returns {Boolean}
+   */
+  isCode(value, len = 6) {
+    return new RegExp(`^\\d{${len}}$`).test(value);
+  },
+  /**
+   * 判断是否为电子邮箱格式
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isEmail(value) {
+    return /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(value);
+  },
+  /**
+   * 判断是否为手机或座机格式
+   * 全部是数字，或者数字之间至多包含一个 - ，因为座机号包含 -
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isMobile(value) {
+    return /^(?!.*-.*-)(?!.*-$)(?!^-.*)\d+-?\d+$/.test(value);
+  },
+  /**
+   * 判断是否为URL格式
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isUrl(value) {
+    const v = new RegExp("^(?!mailto:)(?:(?:http|https|ftp)://|//)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$", "i");
+    return v.test(value);
+  },
+  /**
+   * 判断是否为日期格式
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isDate(value) {
+    if (!value)
+      return false;
+    if (this.isNum(value))
+      value = +value;
+    return !/Invalid|NaN/.test(new Date(value).toString());
+  },
+  /**
+   * 判断是否为ios日期格式
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isDateISO(value) {
+    return /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/.test(value);
+  },
+  /**
+   * 判断是否为身份证号
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isIdCard(value) {
+    return /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(value);
+  },
+  /**
+   * 判断是否为车牌号
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isCarNo(value) {
+    const xreg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF]$)|([DF][A-HJ-NP-Z0-9][0-9]{4}$))/;
+    const creg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}$/;
+    if (value.length === 7) {
+      return creg.test(value);
+    } else if (value.length === 8) {
+      return xreg.test(value);
+    } else {
+      return false;
+    }
+  },
+  /**
+   * 判断是否在范围内
+   * @param {string | number} value 传入数据
+   * @param {number[]} param 范围参数, [min, max]
+   * @return {Boolean}
+   */
+  isInRange(value, param) {
+    return value >= param[0] && value <= param[1];
+  },
+  /**
+   * 判断长度是否在范围内
+   * @param {string | any[]} value 传入数据
+   * @param {number[]} param 范围参数, [min, max]
+   * @return {Boolean}
+   */
+  isInLength(value, param) {
+    return value.length >= param[0] && value.length <= param[1];
+  },
+  /**
+   * 判断是否为座机号
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isLandline(value) {
+    const reg = /^\d{3,4}-\d{7,8}(-\d{3,4})?$/;
+    return reg.test(value);
+  },
+  /**
+   * 判断是否为JSON字符串
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isJsonString(value) {
+    if (typeof value == "string") {
+      try {
+        const obj = JSON.parse(value);
+        if (typeof obj == "object" && obj) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (e) {
+        return false;
+      }
+    }
+    return false;
+  },
+  /**
+   * 判断是否为Promise对象
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isPromise(value) {
+    return value instanceof Object && typeof value.then === "function" && typeof value.catch === "function";
+  },
+  /**
+   * 判断是否为图片格式
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isImage(value) {
+    const newValue = value.split("?")[0];
+    const IMAGE_REGEXP = /\.(jpeg|jpg|gif|png|svg|webp|jfif|bmp|dpg)/i;
+    return IMAGE_REGEXP.test(newValue);
+  },
+  /**
+   * 判断是否为视频格式
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isVideo(value) {
+    const VIDEO_REGEXP = /\.(mp4|mpg|mpeg|dat|asf|avi|rm|rmvb|mov|wmv|flv|mkv|m3u8)/i;
+    return VIDEO_REGEXP.test(value);
+  },
+  /**
+   * 判断是否为银行卡号
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isBankCard(value) {
+    return /^([1-9]{1})(\d{15,24})$/.test(value);
   }
 };
 
