@@ -137,7 +137,7 @@ const testUtils = {
     return false;
   },
   /**
-   * 判断多个值是否全部为空
+   * 判断一个或多个值是否全部为空
    * @param values 传入多个数据
    * @returns {Boolean} 是否为空
    */
@@ -151,7 +151,7 @@ const testUtils = {
     return isEmpty;
   },
   /**
-   * 判断多个值是否全部不为空
+   * 判断一个或多个值是否全部不为空
    * @param values 传入多个数据
    * @returns {Boolean} 是否不为空
    */
@@ -415,6 +415,15 @@ function guid(len = 16, firstU = true, radix = null) {
 
 function to(promise) {
   return promise.then((res) => [null, res]).catch((error) => [error, null]);
+}
+
+function random(min, max) {
+  if (min >= 0 && max > 0 && max >= min) {
+    const gab = max - min + 1;
+    return Math.floor(Math.random() * gab + min);
+  } else {
+    return 0;
+  }
 }
 
 if (!String.prototype.padStart) {
@@ -2042,6 +2051,7 @@ exports.guid = guid;
 exports.numberUtils = numberUtils;
 exports.objectUtils = objectUtils;
 exports.qs = qs;
+exports.random = random;
 exports.stringUtils = stringUtils;
 exports.testUtils = testUtils;
 exports.throttle = throttle;

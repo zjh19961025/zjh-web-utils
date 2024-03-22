@@ -66,13 +66,13 @@ declare const testUtils: {
      */
     isSingleEmpty(value: any): boolean;
     /**
-     * 判断多个值是否全部为空
+     * 判断一个或多个值是否全部为空
      * @param values 传入多个数据
      * @returns {Boolean} 是否为空
      */
     isEmpty(...values: any[]): boolean;
     /**
-     * 判断多个值是否全部不为空
+     * 判断一个或多个值是否全部不为空
      * @param values 传入多个数据
      * @returns {Boolean} 是否不为空
      */
@@ -239,6 +239,13 @@ declare function guid(len?: number, firstU?: boolean, radix?: any): string;
  * @return { Promise }
  */
 declare function to(promise: Promise<any>): Promise<any>;
+
+/**
+ * 生成指定范围的随机数
+ * @param min 最小值, >= 0
+ * @param max 最大值, > 0
+ */
+declare function random(min: number, max: number): number;
 
 /**
  * 主要概念：
@@ -732,4 +739,4 @@ declare const stringUtils: {
     kebabToCamel(str: string, separator?: string): string;
 };
 
-export { debounce, guid, numberUtils, objectUtils, QueryString as qs, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };
+export { debounce, guid, numberUtils, objectUtils, QueryString as qs, random, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };

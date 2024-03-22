@@ -3,3 +3,4 @@
  */
 export * from "./guid"
 export * from "./to"
+export * from "./random"
