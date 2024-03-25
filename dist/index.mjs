@@ -9737,7 +9737,7 @@ const stringUtils = {
    * @param {number} end 在字符串结束处保留的字符数量, 默认4
    * @param {string} replaceStr 替换的字符串, 默认为*
    * @return {string} 替换后的字符串
-  */
+   */
   hideChar(str, start = 4, end = 4, replaceStr = "*") {
     if (str && str.length > start + end) {
       const middle = replaceStr.repeat(str.length - start - end);
@@ -9751,7 +9751,7 @@ const stringUtils = {
   /**
    * 金额 添加 + 或 - 号
    * @param {number | string} val 金额
-   * @param {string} unit 单位, 只能是 + 或 -
+   * @param {string} unit 单位, 只能是 + 或 -, 默认 +
    * @returns {string} 带符号的金额
    */
   moneyUnit(val, unit = "+") {
@@ -9977,4 +9977,12 @@ const stringUtils = {
   }
 };
 
-export { base64 as Base64, index as CryptoJS, PromiseIntercept, debounce, guid, numberUtils, objectUtils, qs, random, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };
+function stringExpand() {
+  Object.keys(stringUtils).forEach(function(key) {
+    String.prototype[key] = function(...arg) {
+      return stringUtils[key](this, ...arg);
+    };
+  });
+}
+
+export { base64 as Base64, index as CryptoJS, PromiseIntercept, debounce, guid, numberUtils, objectUtils, qs, random, stringExpand, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };

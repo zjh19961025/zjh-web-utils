@@ -196,6 +196,7 @@ module.exports = {
       'avoidEscape': true,
       'allowTemplateLiterals': true,
     }],
+    'prefer-rest-params': 0,
 
     // 一些情况还是需要使用 == ，所以允许存在
     // 'eqeqeq': ['error', 'always', { 'null': 'ignore' }]
@@ -205,5 +206,6 @@ module.exports = {
     "@typescript-eslint/no-this-alias": "off", // 允许使用 this 进行赋值
     "@typescript-eslint/no-empty-function": "off", // 允许空函数
     "@typescript-eslint/no-non-null-assertion": "off", // 允许非空断言
+    "@typescript-eslint/no-empty-interface": 'off',
   },
 }

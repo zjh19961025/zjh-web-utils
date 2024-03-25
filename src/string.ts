@@ -23,7 +23,7 @@ export const stringUtils = {
    * @param {number} end 在字符串结束处保留的字符数量, 默认4
    * @param {string} replaceStr 替换的字符串, 默认为*
    * @return {string} 替换后的字符串
-  */
+   */
   hideChar(str: string, start = 4, end = 4, replaceStr = '*'): string {
     if (str && str.length > start + end) {
       const middle: string = replaceStr.repeat(str.length - start - end)
@@ -38,7 +38,7 @@ export const stringUtils = {
   /**
    * 金额 添加 + 或 - 号
    * @param {number | string} val 金额
-   * @param {string} unit 单位, 只能是 + 或 -
+   * @param {string} unit 单位, 只能是 + 或 -, 默认 +
    * @returns {string} 带符号的金额
    */
   moneyUnit(val: number | string, unit = '+'): string {
@@ -258,7 +258,7 @@ export const stringUtils = {
    * @param {string} separator 连字符的分隔符，默认为 '-'
    * @returns {string} 连字符命名的字符串
    */
-  camelToKebab(str: string, separator = '-') {
+  camelToKebab(str: string, separator = '-'): string {
     // 如果字符串包含非英文字符，直接返回原字符串
     if (!/^[A-Za-z]+$/.test(str)) return str
     return str.replace(/([a-z])([A-Z])/g, `\$1${separator}\$2`).toLowerCase()
@@ -270,7 +270,7 @@ export const stringUtils = {
    * @param {string} separator 连字符的分隔符，默认为 '-'
    * @returns {string} 驼峰命名的字符串
    */
-  kebabToCamel(str: string, separator = '-') {
+  kebabToCamel(str: string, separator = '-'): string {
     // 对分隔符进行转义
     separator = separator.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
     // 包含非英文字符,和非separator,直接返回原字符串
