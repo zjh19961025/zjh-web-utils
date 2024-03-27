@@ -2625,6 +2625,38 @@ declare const stringUtils: {
     kebabToCamel(str: string, separator?: string): string;
 };
 
+/**
+ * 数组相关工具方法
+ */
+declare const arrayUtils: {
+    /**
+     * 检查索引是否合法
+     * @param {Array} array 数组
+     * @param {number} index 索引
+     * @returns {boolean}
+     */
+    checkIndexLegal(array: any[], index: number): boolean;
+    /**
+     * 基本数据类型的数组去重
+     * @param {Array} array 数组
+     * @returns {Array} 去重后的数组
+     */
+    distinct(array: any[]): any[];
+    /**
+     * 对象数组去重, 后面的覆盖前面的，但位置顺序不变
+     * @param {Array} array 数组
+     * @param {string} primaryKey 主键,默认为id
+     * @returns {Array} 去重后的数组
+     */
+    distinctObjList(array: any[], primaryKey?: string): any[];
+    /**
+     * 随机打乱数组
+     * @param array 数组
+     * @returns {Array} 打乱后的数组
+     */
+    shuffleArray(array: any[]): any[];
+};
+
 declare global {
     interface String {
         /**
@@ -2831,4 +2863,4 @@ declare global {
  */
 declare function objectExpand(): void;
 
-export { base64_d as Base64, CryptoJS$1 as CryptoJS, PromiseIntercept, debounce, guid, numberExpand, numberUtils, objectExpand, objectUtils, QueryString as qs, random, stringExpand, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };
+export { base64_d as Base64, CryptoJS$1 as CryptoJS, PromiseIntercept, arrayUtils, debounce, guid, numberExpand, numberUtils, objectExpand, objectUtils, QueryString as qs, random, stringExpand, stringUtils, testUtils, throttle, timeUtils, to, typeUtils };
