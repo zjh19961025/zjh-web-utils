@@ -57,5 +57,12 @@ export function numberExpand() {
       return (numberUtils[key as NumberUtilsKeys] as any)(this, ...arg)
     }
   })
+
+  // 防止 Number.prototype 中的自定义属性被迭代
+  Object.keys(numberUtils).forEach((name) => {
+    Object.defineProperty(Number.prototype, name, {
+      "enumerable": false,
+    })
+  })
 }
 

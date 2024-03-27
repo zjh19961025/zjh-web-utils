@@ -9985,6 +9985,12 @@ function stringExpand() {
       return stringUtils[key](this, ...arg);
     };
   });
+  Object.keys(stringUtils).forEach((name) => {
+    console.log(name);
+    Object.defineProperty(String.prototype, name, {
+      "enumerable": false
+    });
+  });
 }
 
 function numberExpand() {
@@ -9992,6 +9998,24 @@ function numberExpand() {
     Number.prototype[key] = function(...arg) {
       return numberUtils[key](this, ...arg);
     };
+  });
+  Object.keys(numberUtils).forEach((name) => {
+    Object.defineProperty(Number.prototype, name, {
+      "enumerable": false
+    });
+  });
+}
+
+function objectExpand() {
+  Object.keys(objectUtils).forEach(function(key) {
+    Object.prototype[key] = function(...arg) {
+      return objectUtils[key](this, ...arg);
+    };
+  });
+  Object.keys(objectUtils).forEach((name) => {
+    Object.defineProperty(Object.prototype, name, {
+      "enumerable": false
+    });
   });
 }
 
@@ -10002,6 +10026,7 @@ exports.debounce = debounce;
 exports.guid = guid;
 exports.numberExpand = numberExpand;
 exports.numberUtils = numberUtils;
+exports.objectExpand = objectExpand;
 exports.objectUtils = objectUtils;
 exports.qs = qs;
 exports.random = random;
