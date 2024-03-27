@@ -9580,7 +9580,7 @@ const numberUtils = {
    *
    * @param {string | number} num - 需要转化的数字。
    * @param {boolean} isAddUnit - true，返回带有单位的字符串；false，则返回一个包含数字和单位的对象。
-   * @returns {(string | { num: string | number, unit: string })} 转换后带单位的数字, 或者包含数字和单位的对象。
+   * @returns {((string | number) | { num: string | number, unit: string })} 转换后带单位的数字, 或者包含数字和单位的对象。
    */
   tokw(num, isAddUnit = true) {
     if (testUtils.isEmpty(num)) {
@@ -9987,11 +9987,20 @@ function stringExpand() {
   });
 }
 
+function numberExpand() {
+  Object.keys(numberUtils).forEach(function(key) {
+    Number.prototype[key] = function(...arg) {
+      return numberUtils[key](this, ...arg);
+    };
+  });
+}
+
 exports.Base64 = base64;
 exports.CryptoJS = index;
 exports.PromiseIntercept = PromiseIntercept;
 exports.debounce = debounce;
 exports.guid = guid;
+exports.numberExpand = numberExpand;
 exports.numberUtils = numberUtils;
 exports.objectUtils = objectUtils;
 exports.qs = qs;

@@ -8,9 +8,9 @@ export const numberUtils = {
    *
    * @param {string | number} num - 需要转化的数字。
    * @param {boolean} isAddUnit - true，返回带有单位的字符串；false，则返回一个包含数字和单位的对象。
-   * @returns {(string | { num: string | number, unit: string })} 转换后带单位的数字, 或者包含数字和单位的对象。
+   * @returns {((string | number) | { num: string | number, unit: string })} 转换后带单位的数字, 或者包含数字和单位的对象。
    */
-  tokw(num: string | number, isAddUnit = true) {
+  tokw(num: string | number, isAddUnit = true): (string | number) | { num: string | number, unit: string } {
     if (testUtils.isEmpty(num)) {
       return isAddUnit ? 0 : {
         num: "0",
@@ -36,7 +36,7 @@ export const numberUtils = {
    * @param {number | string} num - 需要转换的数字。
    * @returns {string} 转换后的数字。
    */
-  isDot(num: number | string) {
+  isDot(num: number | string): string {
     const toNum = Number(num)
     const str = String(num)
     if (isNaN(Number(num))) {
@@ -91,7 +91,7 @@ export const numberUtils = {
    * @param {number | string} arg2 - 减数
    * @returns {string} 减法运算结果
    */
-  accSub(arg1: number | string, arg2: number | string) {
+  accSub(arg1: number | string, arg2: number | string): string {
     let r1, r2
     try {
       r1 = this.isDot(arg1).split(".")[1].length
@@ -114,7 +114,7 @@ export const numberUtils = {
    * @param {number | string} arg2 乘数
    * @return {number} 乘积结果
    */
-  accMul(arg1: number | string, arg2: number | string) {
+  accMul(arg1: number | string, arg2: number | string): number {
     let m = 0
     const s1 = this.isDot(arg1)
     const s2 = this.isDot(arg2)
@@ -134,7 +134,7 @@ export const numberUtils = {
    * @param retainNum 保留小数点后的位数, 默认3
    * @returns {string} 商
    */
-  accDiv(arg1: number | string, arg2: number | string, retainNum = 3) {
+  accDiv(arg1: number | string, arg2: number | string, retainNum = 3): string {
     let t1 = 0
     let t2 = 0
     try {
