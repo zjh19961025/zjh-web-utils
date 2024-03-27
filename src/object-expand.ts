@@ -43,7 +43,7 @@ declare global {
  */
 export function objectExpand() {
   Object.keys(objectUtils).forEach(function(key) {
-    (Object.prototype as any)[key] = function(...arg: any[]) {
+    Object.prototype[key as ObjectUtilsKeys] = function(...arg: any[]) {
       return (objectUtils[key as ObjectUtilsKeys] as any)(this, ...arg)
     }
   })
