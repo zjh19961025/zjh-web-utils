@@ -149,8 +149,6 @@ export function stringExpand() {
 
   // 防止 String.prototype 中的自定义属性被迭代
   Object.keys(stringUtils).forEach((name) => {
-    console.log(name)
-
     Object.defineProperty(String.prototype, name, {
       "enumerable": false,
     })

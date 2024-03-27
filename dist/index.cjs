@@ -10042,7 +10042,6 @@ function stringExpand() {
     };
   });
   Object.keys(stringUtils).forEach((name) => {
-    console.log(name);
     Object.defineProperty(String.prototype, name, {
       "enumerable": false
     });
