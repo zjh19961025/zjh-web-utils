@@ -22,6 +22,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "registry": "https://packages.aliyun.com/5f678e57db0493ecef911d98/npm/npm-registry/"
+  },
   "scripts": {
     "build": "rollup -c",
     "dev": "nr build --watch",
