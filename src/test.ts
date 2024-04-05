@@ -48,10 +48,9 @@ export const testUtils = {
         if (value.replace(/(^[ \t\n\r]*)|([ \t\n\r]*$)/g, '').length === 0) return true
         break
       case 'boolean':
-        if (!value) return true
-        break
+        return false
       case 'number':
-        if (value === 0 || isNaN(value)) return true
+        if (isNaN(value)) return true
         break
       case 'object':
       // typeof null 也是 object 类型

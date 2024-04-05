@@ -165,11 +165,9 @@ const testUtils = {
           return true;
         break;
       case "boolean":
-        if (!value)
-          return true;
-        break;
+        return false;
       case "number":
-        if (value === 0 || isNaN(value))
+        if (isNaN(value))
           return true;
         break;
       case "object":
