@@ -249,4 +249,9 @@ describe("typeUtils", () => {
     expect(testUtils.isBankCard('62220103001000440011112356')).toBe(false)
     expect(testUtils.isBankCard('6222010300100044001111235')).toBe(true)
   })
+
+  it('isVersion', () => {
+    expect(testUtils.isVersion('1234561651')).toBe(false)
+    expect(testUtils.isVersion('0.0.1')).toBe(true)
+  })
 })

@@ -339,4 +339,12 @@ export const testUtils = {
     return /^([1-9]{1})(\d{15,24})$/.test(value)
   },
 
+  /**
+   * 是否版本号
+   * @param value 传入数据
+   * @return {Boolean}
+   */
+  isVersion(value: string): boolean {
+    return /^\d+\.\d+\.\d+$/.test(value)
+  },
 }
