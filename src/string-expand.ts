@@ -134,6 +134,19 @@ declare global {
      * @returns {string} 驼峰命名的字符串
      */
     kebabToCamel(separator?: string): string
+
+    /**
+     * 数值型字符串转换为百分比
+     * @param {number} fiexd - 保留的小数位数，默认为 4。
+     * @returns {string | number} 返回转换后的百分比值，如果输入无效或小于等于 0，则返回 0。
+     */
+    to100Rate(fiexd?: number): string | number
+
+    /**
+     * 字符串百分比转换为数值
+     * @returns {number} 返回转换后的数字值，如果输入无效或小于等于 0，则返回 0。
+     */
+    to100Num(): number
   }
 }
 

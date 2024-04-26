@@ -45,6 +45,19 @@ declare global {
      * @returns {string} 商
      */
     accDiv(arg2: number | string, retainNum?: number): string
+
+    /**
+     * 数字转换为百分比
+     * @param {number} fiexd - 保留的小数位数，默认为 4。
+     * @returns {string | number} 返回转换后的百分比值，如果输入无效或小于等于 0，则返回 0。
+     */
+    to100Rate(fiexd?: number): string | number
+
+    /**
+     * 百分比转换为数字
+     * @returns {number} 返回转换后的数字值，如果输入无效或小于等于 0，则返回 0。
+     */
+    to100Num(): number
   }
 }
 

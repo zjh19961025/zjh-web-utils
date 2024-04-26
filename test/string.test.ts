@@ -138,5 +138,20 @@ describe("stringUtils", () => {
     expect(stringUtils.kebabToCamel('kebab_case哈string', '_')).toBe('kebab_case哈string')
     expect(stringUtils.kebabToCamel('kebab case哈 string')).toBe('kebab case哈 string')
   })
+  it('to100Rate', () => {
+    expect(stringUtils.to100Rate(20)).toBe('0.2000')
+    expect(stringUtils.to100Rate(0.2)).toBe('0.0020')
+    expect(stringUtils.to100Rate(0.02)).toBe('0.0002')
+    expect(stringUtils.to100Rate(-2)).toBe(0)
+    expect(stringUtils.to100Rate(20, 2)).toBe('0.20')
+  })
+  it('to100Num ', () => {
+    expect(stringUtils.to100Num(0.2)).toBe(20)
+    expect(stringUtils.to100Num(0.02)).toBe(2)
+    expect(stringUtils.to100Num(0.002)).toBe(0.2)
+    expect(stringUtils.to100Num(20.2)).toBe(2020)
+    expect(stringUtils.to100Num(0.002)).toBe(0.2)
+    expect(stringUtils.to100Num(-1)).toBe(0)
+  })
 })
 

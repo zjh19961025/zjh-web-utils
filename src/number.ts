@@ -147,4 +147,27 @@ export const numberUtils = {
     const r2 = arg2 == 0 ? 1 : Number(this.isDot(arg2).replace(".", ""))
     return ((r1 / r2) * Math.pow(10, t2 - t1)).toFixed(retainNum)
   },
+
+  /**
+   * 数字转换为百分比
+   * @param {number | string} num - 要转换为百分比的数字。
+   * @param {number} fiexd - 保留的小数位数，默认为 4。
+   * @returns {string | number} 返回转换后的百分比值，如果输入无效或小于等于 0，则返回 0。
+   */
+  to100Rate(num: number | string, fiexd = 4): string | number {
+    const numberValue = Number(num)
+    if (isNaN(numberValue) || numberValue <= 0) return 0
+    return this.accDiv(num, 100, fiexd)
+  },
+
+  /**
+   * 百分比转换为数字
+   * @param {number | string} rate - 要转换为数字的百分比值。
+   * @returns {number} 返回转换后的数字值，如果输入无效或小于等于 0，则返回 0。
+   */
+  to100Num(rate: number | string): number {
+    const numberValue = Number(rate)
+    if (isNaN(numberValue) || numberValue <= 0) return 0
+    return this.accMul(rate, 100)
+  },
 }

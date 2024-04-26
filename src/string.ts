@@ -280,4 +280,23 @@ export const stringUtils = {
     const regex = new RegExp(separator + '([a-z])', 'g')
     return str.replace(regex, g => g[1].toUpperCase())
   },
+
+  /**
+   * 数值型字符串转换为百分比
+   * @param {number | string} str - 要转换为百分比的数值型字符串。
+   * @param {number} fiexd - 保留的小数位数，默认为 4。
+   * @returns {string | number} 返回转换后的百分比值，如果输入无效或小于等于 0，则返回 0。
+   */
+  to100Rate(str: number | string, fiexd = 4): string | number {
+    return numberUtils.to100Rate(str, fiexd)
+  },
+
+  /**
+   * 字符串百分比转换为数值
+   * @param {number | string} rate - 要转换为数字的百分比值。
+   * @returns {number} 返回转换后的数字值，如果输入无效或小于等于 0，则返回 0。
+   */
+  to100Num(rate: number | string): number {
+    return numberUtils.to100Num(rate)
+  },
 }

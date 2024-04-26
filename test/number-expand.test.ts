@@ -72,4 +72,24 @@ describe("numberUtils", () => {
     expect(num2.accDiv(2.01, 5)).toBe('0.49801')
     expect(num2.accDiv(2.01, 2)).toBe('0.50')
   })
+  it('to100Rate', () => {
+    const num1 = 1
+    const num2 = 12
+    const num3 = 1.05
+    expect(num1.to100Rate()).toBe('0.0100')
+    expect(num2.to100Rate()).toBe('0.1200')
+    expect(num3.to100Rate()).toBe('0.0105')
+    expect(num2.to100Rate(2)).toBe('0.12')
+    expect(num2.to100Rate(3)).toBe('0.120')
+  })
+  it('to100Num', () => {
+    const num1 = 0.2
+    const num2 = 0.13
+    const num3 = 1.05
+    const num5 = -1
+    expect(num1.to100Num()).toBe(20)
+    expect(num2.to100Num()).toBe(13)
+    expect(num3.to100Num()).toBe(105)
+    expect(num5.to100Num()).toBe(0)
+  })
 })

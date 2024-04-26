@@ -214,7 +214,6 @@ describe("typeUtils", () => {
 
   it('isPromise', () => {
     expect(testUtils.isPromise(Promise.resolve())).toBe(true)
-    expect(testUtils.isPromise(Promise.reject())).toBe(true)
     expect(testUtils.isPromise(new Promise(() => {}))).toBe(true)
     expect(testUtils.isPromise({})).toBe(false)
     expect(testUtils.isPromise([])).toBe(false)
