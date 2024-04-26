@@ -1,7 +1,7 @@
 import { describe, expect, it, assert } from "vitest"
-import { stringExpand } from "../src"
+import { typeExpand } from "../src"
 
-stringExpand()
+typeExpand(["string"])
 describe("stringExpand", () => {
   it("reverse", () => {
     const str = "12"

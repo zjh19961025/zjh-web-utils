@@ -1,7 +1,7 @@
 import { describe, it, expect, assert } from "vitest"
-import { numberExpand } from "../src/number-expand"
+import { typeExpand } from "../src"
 
-numberExpand()
+typeExpand(["number"])
 
 describe("numberUtils", () => {
   it("tokw", () => {

@@ -1,7 +1,7 @@
 import { describe, it, expect, assert } from "vitest"
-import { objectExpand } from "../src"
+import { typeExpand } from "../src"
 
-objectExpand()
+typeExpand(["object"])
 
 describe("objectUtils", () => {
   it("toUrlParams", () => {
