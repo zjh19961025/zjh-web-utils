@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { testUtils } from "../src"
 
-describe("typeUtils", () => {
+describe("testUtils", () => {
   it("isInteger isFloat", () => {
     expect(testUtils.isInteger("12")).toBe(true)
     expect(testUtils.isInteger(12.01)).toBe(false)
@@ -252,5 +252,37 @@ describe("typeUtils", () => {
   it('isVersion', () => {
     expect(testUtils.isVersion('1234561651')).toBe(false)
     expect(testUtils.isVersion('0.0.1')).toBe(true)
+  })
+
+  it("isArray", () => {
+    expect(testUtils.isArray([])).toBe(true)
+    expect(testUtils.isArray({})).toBe(false)
+    expect(testUtils.isArray(null)).toBe(false)
+  })
+
+  it("isFunction", () => {
+    expect(testUtils.isFunction(() => 1)).toBe(true)
+    type funcType = (a: string) => string
+    const temp:funcType = (a) => "hello " + a
+    expect(testUtils.isFunction(temp)).toBe(true)
+    expect(testUtils.isFunction({})).toBe(false)
+  })
+
+  it("isNull", () => {
+    expect(testUtils.isNull(null)).toBe(true)
+    expect(testUtils.isNull(undefined)).toBe(false)
+    expect(testUtils.isNull(0)).toBe(false)
+  })
+
+  it("isUndefined", () => {
+    expect(testUtils.isUndefined(undefined)).toBe(true)
+    expect(testUtils.isUndefined(null)).toBe(false)
+    expect(testUtils.isUndefined("")).toBe(false)
+  })
+
+  it("isNullOrUndefined", () => {
+    expect(testUtils.isNullOrUndefined(null)).toBe(true)
+    expect(testUtils.isNullOrUndefined(undefined)).toBe(true)
+    expect(testUtils.isNullOrUndefined("")).toBe(false)
   })
 })

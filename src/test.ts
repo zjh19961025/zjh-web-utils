@@ -347,4 +347,49 @@ export const testUtils = {
   isVersion(value: string): boolean {
     return /^\d+\.\d+\.\d+$/.test(value)
   },
+
+  /**
+   * 是否为数组
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isArray(obj: any) {
+    return typeUtils.isArray(obj)
+  },
+
+  /**
+   * 是否为方法
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isFunction(obj: any) {
+    return typeUtils.isFunction(obj)
+  },
+
+  /**
+   * 是否为 null  或者 undefined
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isNull(obj: any) {
+    return typeUtils.isNull(obj)
+  },
+
+  /**
+   * 是否为 null  或者 undefined
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isUndefined(obj: any) {
+    return typeUtils.isUndefined(obj)
+  },
+
+  /**
+   * 是否为 null  或者 undefined
+   * @param {Object} obj 对象
+   * @return {Boolean}
+   */
+  isNullOrUndefined(obj: any) {
+    return typeUtils.isNullOrUndefined(obj)
+  },
 }
