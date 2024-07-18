@@ -299,4 +299,16 @@ export const stringUtils = {
   to100Num(rate: number | string): number {
     return numberUtils.to100Num(rate)
   },
+
+  /**
+   * 字符串转数组
+   * 扩展这个方法的原因，原生split的分割(''.split(',') => [''])，无法得到一个[]
+   * @param {string} str 被分割的字符串
+   * @param {string} separator 分隔符，默认值 ','
+   * @returns {any[]} 分割后的数组
+   */
+  hua5Split(str:string, separator = ','): any[] {
+    if (testUtils.isEmpty(str)) return []
+    return str.split(separator)
+  },
 }

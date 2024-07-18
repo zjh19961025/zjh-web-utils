@@ -147,7 +147,16 @@ declare global {
      * @returns {number} 返回转换后的数字值，如果输入无效或小于等于 0，则返回 0。
      */
     to100Num(): number
-  }
+
+    /**
+     * 字符串转数组
+     * 扩展这个方法的原因，原生split的分割(''.split(',') => [''])，无法得到一个[]
+     * @param {string} separator 分隔符，默认值 ','
+     * @returns {any[]} 分割后的数组
+     */
+    hua5Split(separator?: string): any[]
+
+    }
 }
 
 /**

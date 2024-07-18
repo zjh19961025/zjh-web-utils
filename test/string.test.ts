@@ -153,5 +153,10 @@ describe("stringUtils", () => {
     expect(stringUtils.to100Num(0.002)).toBe(0.2)
     expect(stringUtils.to100Num(-1)).toBe(0)
   })
+  it('hua5Split', () => {
+    expect(stringUtils.hua5Split('')).toStrictEqual([])
+    expect(stringUtils.hua5Split('123')).toStrictEqual(['123'])
+    expect(stringUtils.hua5Split('123,456,789,,123,')).toStrictEqual(['123', '456', '789', '', '123', ''])
+  })
 })
 

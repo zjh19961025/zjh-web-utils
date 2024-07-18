@@ -152,5 +152,10 @@ describe("stringExpand", () => {
     expect('1.05'.to100Num()).toBe(105)
     expect('-1'.to100Num()).toBe(0)
   })
+  it('hua5Split', () => {
+    expect(''.hua5Split()).toStrictEqual([])
+    expect('123'.hua5Split()).toStrictEqual(['123'])
+    expect('123-456-789-123'.hua5Split('-')).toStrictEqual(['123', '456', '789', '123'])
+  })
 })
 
