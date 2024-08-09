@@ -65,6 +65,7 @@ export class PromiseIntercept {
    * @param {InterceptFunction} interceptFun - 需要被拦截的请求函数，它必须返回一个 Promise。
    * @param {Object} param1 - 可选参数对象，once 默认值false
    * @example 使用示例
+   * ``` js
    *    // 提供给外部调用的方法
    *    async function syncServerTime(isSecond = false) {
    *      return new Promise(async(resolve, reject) => {
@@ -83,6 +84,7 @@ export class PromiseIntercept {
    *       resolve(res)
    *     })
    *   }
+   * ```
    */
   constructor(interceptFun: InterceptFunction, { once = false } = {}) {
     this.interceptFun = interceptFun

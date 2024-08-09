@@ -9,7 +9,10 @@ export const testUtils = {
   *
   * @param {string | number} obj 传入数据
   * @return {Boolean} 是否整数
-  * @example
+ * @example
+ * ```typescript
+ * testUtils.isInteger(2.1); // false
+ * ```
   */
   isInteger(obj: string | number) {
     return !typeUtils.isNull(obj) && !isNaN(Number(obj)) && !typeUtils.isArray(obj) && Number(obj) % 1 === 0
@@ -21,6 +24,9 @@ export const testUtils = {
   * @param {string | number} obj 传入数据
   * @return {Boolean} 是否小数
   * @example
+  * ``` js
+  * testUtils.isFloat("12.01") // false
+  * ```
   */
   isFloat(obj: string | number) {
     return !typeUtils.isNull(obj) && !isNaN(Number(obj)) && !typeUtils.isArray(obj) && !this.isInteger(obj)

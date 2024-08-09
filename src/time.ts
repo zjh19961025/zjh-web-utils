@@ -38,7 +38,10 @@ export const timeUtils = {
    * 当前时间的完整显示
    * timeFormat(null, "yyyy-mm-dd hh:MM:ss")
    * @returns yyyy-mm-dd hh:MM:ss 格式时间
-   * @example nowFullTime()
+   * @example
+   * ```js
+   * timeUtils.nowFullTime() // 2024-01-01 17:11:35
+   * ```
    */
   nowFullTime() {
     return this.timeFormat(null, "yyyy-mm-dd hh:MM:ss")
