@@ -9,6 +9,11 @@ export const stringUtils = {
    * 翻转字符串
    * @param {string} str 字符串
    * @return {string} 翻转的结果
+   * @example
+   * ``` js
+   * stringUtils.reverse("12") // '21'
+   * stringUtils.reverse("测试") // '试测'
+   * ```
    */
   reverse(str: string): string {
     if (testUtils.isEmpty(str)) return ''
@@ -23,6 +28,11 @@ export const stringUtils = {
    * @param {number} end 在字符串结束处保留的字符数量, 默认4
    * @param {string} replaceStr 替换的字符串, 默认为*
    * @return {string} 替换后的字符串
+   * @example
+   * ``` js
+   * stringUtils.hideChar("12345678910") // '1234***8910'
+   * stringUtils.hideChar("12345678910",3,4) // '123****8910'
+   * ```
    */
   hideChar(str: string, start = 4, end = 4, replaceStr = '*'): string {
     if (str && str.length > start + end) {
@@ -40,6 +50,17 @@ export const stringUtils = {
    * @param {number | string} val 金额
    * @param {string} unit 单位, 只能是 + 或 -, 默认 +
    * @returns {string} 带符号的金额
+   * @example
+   * ``` js
+   * stringUtils.moneyUnit("12") // '+12'
+   * stringUtils.moneyUnit("12", '-') // '-12'
+   * stringUtils.moneyUnit("12", ' ') // ''
+   * stringUtils.moneyUnit("-12") // '-12'
+   * stringUtils.moneyUnit("+12") // '+12'
+   * stringUtils.moneyUnit(-12,'+') // '-12'
+   * stringUtils.moneyUnit(+12,' ') // ''
+   * stringUtils.moneyUnit(12,'-') // '-12'
+   * ```
    */
   moneyUnit(val: number | string, unit = '+'): string {
     const num = val.toString()
@@ -66,6 +87,15 @@ export const stringUtils = {
    * @param {string} str 字符串
    * @param {string} pos 去除位置, both:去除前后空格(默认), all:去除所有空格, left:去除左边空格, right:去除右边空格,
    * @returns {string} 去除空格后的字符串
+   * @example
+   * ``` js
+   * stringUtils.trim("  asad ") // 'asad'
+   * stringUtils.trim("  asad ", ' ') // '  asad '
+   * stringUtils.trim("  asad ", left) // 'asad '
+   * stringUtils.trim("  asad ",right) // '  asad'
+   * stringUtils.trim("  asad ",both) // 'asad'
+   * stringUtils.trim('  asad ','all') // 'asad'
+   * ```
    */
   trim(str: string, pos = 'both'): string {
     if (pos == 'both') {
@@ -85,6 +115,11 @@ export const stringUtils = {
    * 去除字符左边空格
    * @param {string} str 字符串
    * @returns {string} 去除空格后的字符串
+   * @example
+   * ``` js
+   * stringUtils.trimLeft("  asad ") // 'asad '
+   * stringUtils.trimLeft("  asad") // '  asad'
+   * ```
    */
   trimLeft(str: string): string {
     return str.replace(/^\s*/, '')
@@ -94,6 +129,11 @@ export const stringUtils = {
    * 去除字符右边空格
    * @param {string} str 字符串
    * @returns {string} 去除空格后的字符串
+   * @example
+   * ``` js
+   * stringUtils.trimRight("  asad ") // '  asad'
+   * stringUtils.trimRight("asad  ") // 'asad'
+   * ```
    */
   trimRight(str: string): string {
     return str.replace(/(\s*$)/g, "")
@@ -103,6 +143,11 @@ export const stringUtils = {
    * 去除字符中的所有空格
    * @param {string} str 字符串
    * @returns {string} 去除空格后的字符串
+   * @example
+   * ``` js
+   * stringUtils.trimAll("  asad ") // 'asad'
+   * stringUtils.trimAll(" as ad  ") // 'asad'
+   * ```
    */
   trimAll(str:string): string {
     return str.replace(/\s+/g, "")
@@ -114,6 +159,15 @@ export const stringUtils = {
    * @param {string} char 要去除的字符
    * @param {string} pos 去除位置, both:去除前后空格(默认), all:去除所有空格, left:去除左边空格, right:去除右边空格,
    * @returns {string} 去除空格后的字符串
+   * @example
+   * ``` js
+   * stringUtils.trimChar("-asad-",'-') // 'asad'
+   * stringUtils.trimChar(-asad-", '-', 'left') // 'asad-'
+   * stringUtils.trimChar("-asad-", '-', 'right') // '-asad'
+   * stringUtils.trimChar("-asad-", '-', 'both') // 'asad'
+   * stringUtils.trimChar("-a-sad-", '-', 'all') // 'asad'
+   * stringUtils.trimChar(" a sad ", ' ', 'all') // 'asad'
+   * ```
    */
   trimChar(str: string, char: string, pos = "both"): string {
     if (char) {
@@ -134,6 +188,12 @@ export const stringUtils = {
    * 首字母大写
    * @param {string} str 字符串
    * @returns {string} 首字母大写后的字符串
+   * @example
+   * ``` js
+   * stringUtils.firstLetterToUpper(asa) // 'Asa'
+   * stringUtils.firstLetterToUpper("哈哈哈") // '哈哈哈'
+   * stringUtils.firstLetterToUpper("hhhh") // 'Hhhh'
+   * ```
    */
   firstLetterToUpper(str: string): string {
     if (testUtils.isEmpty(str)) return str
@@ -145,6 +205,13 @@ export const stringUtils = {
    * @param {string} str url参数字符串
    * @param {qs.IParseOptions} option qs.parse的配置项
    * @returns {object} 转换后的url参数对象
+   * @example
+   * ``` js
+   * stringUtils.fromUrlParams("?a=1&b[c]=3&b[d]=4") // { a: '1', b: { c: '3', d: '4' }}
+   * stringUtils.fromUrlParams("?a=1^b[c]=3^b[d]=4",{ delimiter: '^' }) // { a: '1', b: { c: '3', d: '4' }}
+   * stringUtils.fromUrlParams("a&b=", { strictNullHandling: true }) // { a: null, b: '' }
+   * stringUtils.fromUrlParams("a&b=") // { a: '', b: '' }
+   * ```
    */
   fromUrlParams(str:string, option: qs.IParseOptions = {}) {
     if (str.length <= 0) return {}
@@ -157,6 +224,12 @@ export const stringUtils = {
    * 是否为数值型字符串
    * @param {string} str 字符串
    * @returns {boolean}
+   * @example
+   * ``` js
+   * stringUtils.isNumeric("123") // true
+   * stringUtils.isNumeric("3213a") // false
+   * stringUtils.isNumeric("123.11") // true
+   * ```
    */
   isNumeric(str: string): boolean {
     const toNum = Number(str)
@@ -171,6 +244,13 @@ export const stringUtils = {
    * @param {string} str - 需要转换的输入字符串
    * @param {number} fixed - 结果数字的小数位数，默认为2
    * @returns {string} - 返回固定小数位数的数值型字符串
+   * @example
+   * ``` js
+   * stringUtils.toFixed("123") // '123.00'
+   * stringUtils.toFixed("123.120,3") // '123.120'
+   * stringUtils.toFixed("123.1205",3) // '123.121'
+   * stringUtils.toFixed("123ad") // '0.00'
+   * ```
    */
   toFixed(str: string, fixed = 2): string {
     const toNum = Number(str)
@@ -186,6 +266,12 @@ export const stringUtils = {
    * @param {number | string} arg1 - 被加数
    * @param {number | string} arg2 - 加数
    * @returns {string} 加法运算的结果
+   * @example
+   * ``` js
+   * stringUtils.accAdd('1', '2') // '3.00'
+   * stringUtils.accAdd('1.000000', '2.000000') // '3.000000'
+   * stringUtils.accAdd('1.001', '2.01') // '3.011'
+   * ```
    */
   accAdd(arg1: string | number, arg2: string | number): string {
     return numberUtils.accAdd(arg1, arg2)
@@ -196,6 +282,12 @@ export const stringUtils = {
    * @param {number | string} arg1 - 被减数
    * @param {number | string} arg2 - 减数
    * @returns {string} 减法运算结果
+   * @example
+   * ``` js
+   * stringUtils.accSub('1', '2') // '-1.00'
+   * stringUtils.accSub('1.000000', '2.000000') // '-1.000000'
+   * stringUtils.accSub('1.001', '2.01') // '-1.009'
+   * ```
    */
   accSub(arg1: string | number, arg2: string | number): string {
     return numberUtils.accSub(arg1, arg2)
@@ -206,6 +298,11 @@ export const stringUtils = {
    * @param {number | string} arg1 被乘数
    * @param {number | string} arg2 乘数
    * @return {number} 乘积结果
+   * @example
+   * ``` js
+   * stringUtils.accMul('1', '2') // 2
+   * stringUtils.accMul('1.001', '2.01') // 2.01201
+   * ```
    */
   accMul(arg1: string | number, arg2: string | number): number {
     return numberUtils.accMul(arg1, arg2)
@@ -217,6 +314,11 @@ export const stringUtils = {
    * @param arg2 除数
    * @param retainNum 保留小数点后的位数, 默认3
    * @returns {string} 商
+   * @example
+   * ``` js
+   * stringUtils.accDiv('1', '2') // '0.500'
+   * stringUtils.accDiv('1.001', '2.01') // '0.498'
+   * ```
    */
   accDiv(arg1: string | number, arg2: string | number, retainNum = 3): string {
     return numberUtils.accDiv(arg1, arg2, retainNum)
@@ -227,6 +329,12 @@ export const stringUtils = {
    * @param {string} v1 版本号1
    * @param {string} v2 版本号2
    * @returns {number} 如果 v1 > v2，返回 1；如果 v1 < v2，返回 -1；如果 v1 = v2，返回 0。
+   * @example
+   * ``` js
+   * stringUtils.compareVersion("1.0.1", "1.1.1") // -1
+   * stringUtils.compareVersion("1.1.1", "1.0.1") // 1
+   * stringUtils.compareVersion("1.1.1", "1.1.1") // 0
+   * ```
    */
   compareVersion(v1: string, v2: string): number {
     const v1Arr = v1.split('.')
@@ -257,6 +365,11 @@ export const stringUtils = {
    * @param {string} str 驼峰命名的字符串
    * @param {string} separator 连字符的分隔符，默认为 '-'
    * @returns {string} 连字符命名的字符串
+   * @example
+   * ``` js
+   * stringUtils.camelToKebab('camelToKebab') // 'camel-to-kebab
+   * stringUtils.camelToKebab('CamelToKebab', '-') // 'camel-to-kebab'
+   * ```
    */
   camelToKebab(str: string, separator = '-'): string {
     // 如果字符串包含非英文字符，直接返回原字符串
@@ -269,6 +382,11 @@ export const stringUtils = {
    * @param {string} str 连字符命名的字符串
    * @param {string} separator 连字符的分隔符，默认为 '-'
    * @returns {string} 驼峰命名的字符串
+   * @example
+   * ``` js
+   * stringUtils.kebabToCamel('kebab-case-string') // 'kebabCaseString
+   * stringUtils.kebabToCamel('kebab_case_string', '_') // 'kebabCaseString'
+   * ```
    */
   kebabToCamel(str: string, separator = '-'): string {
     // 对分隔符进行转义
@@ -286,6 +404,11 @@ export const stringUtils = {
    * @param {number | string} str - 要转换为百分比的数值型字符串。
    * @param {number} fiexd - 保留的小数位数，默认为 4。
    * @returns {string | number} 返回转换后的百分比值，如果输入无效或小于等于 0，则返回 0。
+   * @example
+   * ``` js
+   * stringUtils.to100Rate(20) // '0.2000'
+   * stringUtils.to100Rate(0.2) // '0.0020'
+   * ```
    */
   to100Rate(str: number | string, fiexd = 4): string | number {
     return numberUtils.to100Rate(str, fiexd)
@@ -295,6 +418,11 @@ export const stringUtils = {
    * 字符串百分比转换为数值
    * @param {number | string} rate - 要转换为数字的百分比值。
    * @returns {number} 返回转换后的数字值，如果输入无效或小于等于 0，则返回 0。
+   * @example
+   * ``` js
+   * stringUtils.to100Num(20) //2000
+   * stringUtils.to100Num(0.2) // 2
+   * ```
    */
   to100Num(rate: number | string): number {
     return numberUtils.to100Num(rate)
@@ -306,6 +434,12 @@ export const stringUtils = {
    * @param {string} str 被分割的字符串
    * @param {string} separator 分隔符，默认值 ','
    * @returns {any[]} 分割后的数组
+   * @example
+   * ``` js
+   * stringUtils.hua5Split('') // []
+   * stringUtils.hua5Split('123') // ['123']
+   * stringUtils.hua5Split('123,456,789,,123,') // ['123', '456', '789', '', '123', '']
+   * ```
    */
   hua5Split(str:string, separator = ','): any[] {
     if (testUtils.isEmpty(str)) return []

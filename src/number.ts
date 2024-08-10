@@ -9,6 +9,15 @@ export const numberUtils = {
    * @param {string | number} num - 需要转化的数字。
    * @param {boolean} isAddUnit - true，返回带有单位的字符串；false，则返回一个包含数字和单位的对象。
    * @returns {((string | number) | { num: string | number, unit: string })} 转换后带单位的数字, 或者包含数字和单位的对象。
+   * @example
+   * ``` js
+   * numberUtils.tokw('') // 0
+   * numberUtils.tokw('1') // '1'
+   * numberUtils.tokw('1000') // '1k'
+   * numberUtils.tokw('1000000') // '100w'
+   * numberUtils.tokw(1000000, false) // { num: 100, unit: "w" }
+   * numberUtils.tokw(1000, false) // { num: 1, unit: "k" }
+   * ```
    */
   tokw(num: string | number, isAddUnit = true): (string | number) | { num: string | number, unit: string } {
     if (testUtils.isEmpty(num)) {
@@ -35,6 +44,17 @@ export const numberUtils = {
    * 为数字添加小数点，并保留2位数，如果已经有小数点则不处理
    * @param {number | string} num - 需要转换的数字。
    * @returns {string} 转换后的数字。
+   * @example
+   * ``` js
+   * numberUtils.isDot(0) // '0.00'
+   * numberUtils.isDot(0.001) // '0.001'
+   * numberUtils.isDot(1000) // '1000.00'
+   * numberUtils.isDot(1000.001) // '1000.001'
+   * numberUtils.isDot(1.000000) // '1.00'
+   * numberUtils.isDot(1.000100) // '1.0001'
+   * numberUtils.isDot('1') // '1.00'
+   * numberUtils.isDot('1.000000') // '1.000000'
+   * ```
    */
   isDot(num: number | string): string {
     const toNum = Number(num)
@@ -51,6 +71,12 @@ export const numberUtils = {
    * @param {number | string} arg1 - 被加数
    * @param {number | string} arg2 - 加数
    * @returns {string} 加法运算的结果
+   * @example
+   * ``` js
+   * numberUtils.accAdd(1, 2) // '3.00'
+   * numberUtils.accAdd(1.000000, 2.000000) // '3.00'
+   * numberUtils.accAdd(1.001, 2.01) // '3.011'
+   * ```
    */
   accAdd(arg1: number | string, arg2: number | string): string {
     let r1: number, r2: number
@@ -90,6 +116,12 @@ export const numberUtils = {
    * @param {number | string} arg1 - 被减数
    * @param {number | string} arg2 - 减数
    * @returns {string} 减法运算结果
+   * @example
+   * ``` js
+   * numberUtils.accSub(1, 2) // '-1.00'
+   * numberUtils.accSub(1.000000, 2.000000) // '-1.00'
+   * numberUtils.accSub(1.001, 2.01) // '-1.009'
+   * ```
    */
   accSub(arg1: number | string, arg2: number | string): string {
     let r1, r2
@@ -113,6 +145,13 @@ export const numberUtils = {
    * @param {number | string} arg1 被乘数
    * @param {number | string} arg2 乘数
    * @return {number} 乘积结果
+   * @example
+   * ``` js
+   * numberUtils.accMul(1, 2) // 2
+   * numberUtils.accMul(1.001, 2.01) // 2.01201
+   * numberUtils.accMul(2.00, 1.00) // 2
+   * numberUtils.accMul(2.00, 1.001) // 2.002
+   * ```
    */
   accMul(arg1: number | string, arg2: number | string): number {
     let m = 0
@@ -133,6 +172,12 @@ export const numberUtils = {
    * @param arg2 除数
    * @param retainNum 保留小数点后的位数, 默认3
    * @returns {string} 商
+   * @example
+   * ``` js
+   * numberUtils.accDiv(1, 2) // '0.500'
+   * numberUtils.accDiv(1.001, 2.01) // '0.498'
+   * numberUtils.accDiv(1.05, 50) // '0.021'
+   * ```
    */
   accDiv(arg1: number | string, arg2: number | string, retainNum = 3): string {
     let t1 = 0
@@ -153,6 +198,14 @@ export const numberUtils = {
    * @param {number | string} num - 要转换为百分比的数字。
    * @param {number} fiexd - 保留的小数位数，默认为 4。
    * @returns {string | number} 返回转换后的百分比值，如果输入无效或小于等于 0，则返回 0。
+   * @example
+   * ``` js
+   * numberUtils.to100Rate(20) // '0.2000'
+   * numberUtils.to100Rate(0.2) // '0.0020'
+   * numberUtils.to100Rate(0.02) // '0.0002'
+   * numberUtils.to100Rate(-2) // 0
+   * numberUtils.to100Rate(20, 2) // '0.20'
+   * ```
    */
   to100Rate(num: number | string, fiexd = 4): string | number {
     const numberValue = Number(num)
@@ -164,6 +217,13 @@ export const numberUtils = {
    * 百分比转换为数字
    * @param {number | string} rate - 要转换为数字的百分比值。
    * @returns {number} 返回转换后的数字值，如果输入无效或小于等于 0，则返回 0。
+   * @example
+   * ``` js
+   * numberUtils.to100Num(20.2) // 2020
+   * numberUtils.to100Num(0.2) // 20
+   * numberUtils.to100Num(0.02) // 2
+   * numberUtils.to100Num(-2) // 0
+   * ```
    */
   to100Num(rate: number | string): number {
     const numberValue = Number(rate)

@@ -11,6 +11,13 @@ export const objectUtils = {
    * @param {boolean} encode 是否使用 decodeURIComponent 编码
    * @param {qs.IStringifyOptions} option qs.stringify第二个参数
    * @returns {string} 转换后的字符串
+   * @example
+   * ``` js
+   * objectUtils.toUrlParams({ a: 1 }) // ?a=1
+   * objectUtils.toUrlParams({ a: '哈哈' }, false) // a=哈哈
+   * objectUtils.toUrlParams({ a: '哈哈' }, false, true) // a=%E5%93%88%E5%93%88
+   * objectUtils.toUrlParams({ a: 1, b: 2 }, true, true, { delimiter: '^' }) // ?a=1^b=2
+   * ```
    */
   toUrlParams(obj: any, addPrefix = true, encode = false, option: qs.IStringifyOptions = {}): string {
     if ([null, undefined].includes(obj)) return ''
@@ -29,6 +36,13 @@ export const objectUtils = {
    * @param {string} prefix 前缀，默认值？
    * @param {string} key 前缀后的固定字符串，默认值encodeParams
    * @returns {string} 转换后的字符串
+   * @example
+   * ``` js
+   * objectUtils.toEncodeParams({ a: 1 }) // ?encodeParams=%7B%22a%22%3A1%7D
+   * objectUtils.toEncodeParams({ a: '哈哈' }) // ?encodeParams=%7B%22a%22%3A%22%E5%93%88%E5%93%88%22%7D
+   * objectUtils.toEncodeParams({ a: '哈哈' }, '^') // ^encodeParams=%7B%22a%22%3A%22%E5%93%88%E5%93%88%22%7D
+   * objectUtils.toEncodeParams({ a: 1, b: 2 }, '^', 'test) // ^test=%7B%22a%22%3A%22%E5%93%88%E5%93%88%22%7D
+   * ```
    */
   toEncodeParams(obj: any, prefix = "?", key = "encodeParams"): string {
     if ([null, undefined].includes(obj)) return ''
@@ -39,6 +53,13 @@ export const objectUtils = {
    * 深拷贝
    * @param obj 对象
    * @returns {any} 深拷贝后的对象
+   * @example
+   * ``` js
+   * const obj = { a: 1, b: [1, 2, 3], c: { d: 4 }}
+   * const clonedObj = objectUtils.deepClone(obj)
+   * delete obj.a
+   * console.log(clonedObj) // { a: 1, b: [1, 2, 3], c: { d: 4 }}
+   * ```
    */
   deepClone(obj: any): any {
   // 对常见的“非”值，直接返回原来值
@@ -61,6 +82,12 @@ export const objectUtils = {
    * @param {object} target 目标对象
    * @param {object} source 源对象
    * @returns {object} 拷贝并合并后的对象
+   * @example
+   * ``` js
+   * const obj1 = { a: 1, b: { c: 3, d: 4 }}
+   * const obj2 = { b: { c: 5, e: 6 }, f: 7 }
+   * const result = objectUtils.deepMerge(obj1, obj2) // { a: 1, b: { c: 5, d: 4, e: 6 }, f: 7, arr: [1, 2, 3, 4, 5, 6] }
+   * ```
    */
   deepMerge(target: any, source: any): any {
     target = this.deepClone(target)

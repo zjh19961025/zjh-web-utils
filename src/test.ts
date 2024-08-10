@@ -45,6 +45,16 @@ export const testUtils = {
    * 判断单个值是否为空
    * @param value 传入数据
    * @returns {Boolean} 是否为空
+   * @example
+   * ```typescript
+   * testUtils.isSingleEmpty({}); // true
+   * testUtils.isSingleEmpty({ a: 1 }) // false
+   * testUtils.isSingleEmpty(12.01) // false
+   * testUtils.isSingleEmpty(null) // true
+   * testUtils.isSingleEmpty(undefined) // true
+   * testUtils.isSingleEmpty(NaN) // true
+   * testUtils.isSingleEmpty(false) // false
+   * ```
    */
   isSingleEmpty(value: any): boolean {
     switch (typeof value) {
@@ -74,6 +84,11 @@ export const testUtils = {
    * 判断一个或多个值是否全部为空
    * @param values 传入多个数据
    * @returns {Boolean} 是否为空
+   * @example
+   * ```typescript
+   * testUtils.isEmpty([1], {}); // false
+   * testUtils.isEmpty([], {}) // true
+   * ```
    */
   isEmpty(...values: any[]): boolean {
     let isEmpty = false
@@ -88,6 +103,11 @@ export const testUtils = {
    * 判断一个或多个值是否全部不为空
    * @param values 传入多个数据
    * @returns {Boolean} 是否不为空
+   * @example
+   * ```typescript
+   * testUtils.isNotEmpty([1], {}); // false
+   * testUtils.isNotEmpty({ a: 1 }, ['1']) // true
+   * ```
    */
   isNotEmpty(...values: any[]): boolean {
     let isNotEmpty = false
@@ -102,6 +122,13 @@ export const testUtils = {
    * 判断是否为空,数字0 或者 字符0 表示不为空
    * @param value 传入数据
    * @returns {Boolean} 是否不为空
+   * @example
+   * ```typescript
+   * testUtils.isEmptyNoZero(1); // false
+   * testUtils.isEmptyNoZero(0) // false
+   * testUtils.isEmptyNoZero('12.00') // false
+   * testUtils.isEmptyNoZero('') // true
+   * ```
    */
   isEmptyNoZero(value: any): boolean {
   // 数字0 或者 字符0 表示不为空
@@ -113,6 +140,13 @@ export const testUtils = {
    * 判断是否为0
    * @param value 传入数据
    * @returns {Boolean} 是否为0
+   * @example
+   * ```typescript
+   * testUtils.isZero(1); // false
+   * testUtils.isZero(0) // true
+   * testUtils.isZero('0') // true
+   * testUtils.isZero(null) // false
+   * ```
    */
   isZero(value:any): boolean {
     return value === 0 || value === '0'
@@ -122,6 +156,13 @@ export const testUtils = {
    * 判断是否为数字
    * @param value 传入数据
    * @returns {Boolean} 是否为数字
+   * @example
+   * ```typescript
+   * testUtils.isNum(1); // true
+   * testUtils.isNum(-1.1) // true
+   * testUtils.isNum('0') // true
+   * testUtils.isNum('12.a2') // false
+   * ```
    */
   isNum(value: any): boolean {
     return /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(value)
@@ -131,6 +172,14 @@ export const testUtils = {
    * 判断是否为非负的整数
    * @param value 传入数据
    * @returns {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isNonNegInt(1.1); // false
+   * testUtils.isNonNegInt(0) // true
+   * testUtils.isNonNegInt('0') // true
+   * testUtils.isNonNegInt('12.12') // false
+   * testUtils.isNonNegInt('-12.12') // true
+   * ```
    */
   isNonNegInt(value: any): boolean {
     return /^\d+$/.test(value)
@@ -140,6 +189,11 @@ export const testUtils = {
    * 判断是否全为字母
    * @param value 传入数据
    * @returns {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isLetter('aasdas'); // true
+   * testUtils.isLetter('aasdasd123') // false
+   * ```
    */
   isLetter(value: any): boolean {
     return /^[a-zA-Z]*$/.test(value)
@@ -149,6 +203,12 @@ export const testUtils = {
    * 判断是否为字母、数字 或 字母数字组合
    * @param value 传入数据
    * @returns {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isLetterOrNum('aasdas'); // true
+   * testUtils.isLetterOrNum('aasdasd123') // true
+   * testUtils.isLetterOrNum('aas哈哈asd') // false
+   * ```
    */
   isLetterOrNum(value: any):boolean {
     // 英文或者数字
@@ -160,6 +220,12 @@ export const testUtils = {
    * 判断是否为中文
    * @param value 传入数据
    * @returns {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isChinese('aasdas'); // false
+   * testUtils.isChinese('aasdasd123') // false
+   * testUtils.isChinese('哈哈') // true
+   * ```
    */
   isChinese(value: any):boolean {
     const reg = /^[\u4e00-\u9fa5]+$/gi
@@ -171,6 +237,12 @@ export const testUtils = {
    * @param value 传入数据
    * @param len 数字的预期长度, 默认6
    * @returns {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isCode('123'); // false
+   * testUtils.isCode('123456') // true
+   * testUtils.isCode('123哈哈哈') // false
+   * ```
    */
   isCode(value: any, len = 6) {
     return new RegExp(`^\\d{${len}}$`).test(value)
@@ -180,6 +252,12 @@ export const testUtils = {
    * 判断是否为电子邮箱格式
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isEmail('123'); // false
+   * testUtils.isEmail('123456') // false
+   * testUtils.isEmail('123asd@qq.com') // true
+   * ```
    */
   isEmail(value: any): boolean {
     return /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(value)
@@ -190,6 +268,12 @@ export const testUtils = {
    * 全部是数字，或者数字之间至多包含一个 - ，因为座机号包含 -
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isMobile('1234561651'); // true
+   * testUtils.isMobile('1234-561651') // true
+   * testUtils.isMobile('12345哈23@qq.com') // false
+   * ```
    */
   isMobile(value: any): boolean {
     return /^(?!.*-.*-)(?!.*-$)(?!^-.*)\d+-?\d+$/.test(value)
@@ -199,6 +283,12 @@ export const testUtils = {
    * 判断是否为URL格式
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isUrl('http://baidu.com'); // true
+   * testUtils.isUrl('https://baidu.com/123?a=1&b=2&c=哈哈') // true
+   * testUtils.isUrl('www.baidu.com') // false
+   * ```
    */
   isUrl(value: any): boolean {
     const v = new RegExp('^(?!mailto:)(?:(?:http|https|ftp)://|//)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$', 'i')
@@ -209,6 +299,13 @@ export const testUtils = {
    * 判断是否为日期格式
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isDate('2020-01-01'); // true
+   * testUtils.isDate('2020-01-01 12:00:00') // true
+   * testUtils.isDate('2020-13-01 12:00:00.000') // false
+   * testUtils.isDate('1711013650') // true 时间戳
+   * ```
    */
   isDate(value: any): boolean {
     if (!value) return false
@@ -221,6 +318,11 @@ export const testUtils = {
    * 判断是否为ios日期格式
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isDateISO('2020-01-01'); // true
+   * testUtils.isDateISO('2024/03/21') // true
+   * ```
    */
   isDateISO(value: any): boolean {
     return /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/.test(value)
@@ -230,6 +332,11 @@ export const testUtils = {
    * 判断是否为身份证号
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isIdCard('1234561651'); // false
+   * testUtils.isIdCard('533001199912112325') // true
+   * ```
    */
   isIdCard(value: any): boolean {
     return /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/.test(value)
@@ -239,6 +346,11 @@ export const testUtils = {
    * 判断是否为车牌号
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isCarNo('1234561651'); // false
+   * testUtils.isCarNo('粤B12345') // true
+   * ```
    */
   isCarNo(value: any): boolean {
     // 新能源车牌
@@ -259,6 +371,12 @@ export const testUtils = {
    * @param {string | number} value 传入数据
    * @param {number[]} param 范围参数, [min, max]
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isInRange(1, [1, 2]); // true
+   * testUtils.isInRange(1, [2, 1]) // false
+   * testUtils.isInRange('5', [1, 3]) // false
+   * ```
    */
   isInRange(value: string | number, param: number[]): boolean {
     return (value as number) >= param[0] && (value as number) <= param[1]
@@ -269,6 +387,12 @@ export const testUtils = {
    * @param {string | any[]} value 传入数据
    * @param {number[]} param 范围参数, [min, max]
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isInLength('123', [1, 3]); // true
+   * testUtils.isInLength('123qwe', [1, 3]) // false
+   * testUtils.isInLength('[1, 2, 3, 4, 5], [1, 5]) // true
+   * ```
    */
   isInLength(value: string | any[], param: number[]): boolean {
     return value.length >= param[0] && value.length <= param[1]
@@ -278,6 +402,11 @@ export const testUtils = {
    * 判断是否为座机号
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isLandline('1234561651'); // false
+   * testUtils.isLandline('020-1234535') // true
+   * ```
    */
   isLandline(value: any): boolean {
     const reg = /^\d{3,4}-\d{7,8}(-\d{3,4})?$/
@@ -288,6 +417,11 @@ export const testUtils = {
    * 判断是否为JSON字符串
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isJsonString('123'); // false
+   * testUtils.isJsonString('{"a":1}') // true
+   * ```
    */
   isJsonString(value: any): boolean {
     if (typeof value == 'string') {
@@ -309,6 +443,12 @@ export const testUtils = {
    * 判断是否为Promise对象
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isPromise(Promise.resolve()); // true
+   * testUtils.isPromise(new Promise(() => {})) // true
+   * testUtils.isPromise(function fun() {}) // false
+   * ```
    */
   isPromise(value: any): boolean {
     return value instanceof Object && typeof value.then === 'function' && typeof value.catch === 'function'
@@ -318,6 +458,12 @@ export const testUtils = {
    * 判断是否为图片格式
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isImage('123'); // false
+   * testUtils.isImage('123.png') // true
+   * testUtils.isImage('123.gif?a=1&b=2) // true
+   * ```
    */
   isImage(value: string): boolean {
     const newValue = value.split('?')[0]
@@ -329,6 +475,12 @@ export const testUtils = {
    * 判断是否为视频格式
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isVideo('123'); // false
+   * testUtils.isVideo('123.mp4') // true
+   * testUtils.isVideo('123.mpg?a=1&b=2') // true
+   * ```
    */
   isVideo(value: string): boolean {
     const VIDEO_REGEXP = /\.(mp4|mpg|mpeg|dat|asf|avi|rm|rmvb|mov|wmv|flv|mkv|m3u8)/i
@@ -339,6 +491,12 @@ export const testUtils = {
    * 判断是否为银行卡号
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isBankCard('1234561651'); // false
+   * testUtils.isBankCard('6222010300100044001') // true
+   * testUtils.isBankCard('62220103001000440011112356') // false
+   * ```
    */
   isBankCard(value: any): boolean {
     // return  /^([1-9]{1})(\d{15}|\d{18})$/.test(value);
@@ -349,6 +507,11 @@ export const testUtils = {
    * 是否版本号
    * @param value 传入数据
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isVersion('1234561651'); // false
+   * testUtils.isVersion(''0.0.1') // true
+   * ```
    */
   isVersion(value: string): boolean {
     return /^\d+\.\d+\.\d+$/.test(value)
@@ -358,6 +521,11 @@ export const testUtils = {
    * 是否为数组
    * @param {Object} obj 对象
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isArray([]); // true
+   * testUtils.isArray({}) // false
+   * ```
    */
   isArray(obj: any) {
     return typeUtils.isArray(obj)
@@ -367,6 +535,11 @@ export const testUtils = {
    * 是否为方法
    * @param {Object} obj 对象
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isFunction(() => 1); // true
+   * testUtils.isFunction({}) // false
+   * ```
    */
   isFunction(obj: any) {
     return typeUtils.isFunction(obj)
@@ -376,6 +549,11 @@ export const testUtils = {
    * 是否为 null  或者 undefined
    * @param {Object} obj 对象
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isNull(null); // true
+   * testUtils.isNull(undefined) // false
+   * ```
    */
   isNull(obj: any) {
     return typeUtils.isNull(obj)
@@ -385,6 +563,11 @@ export const testUtils = {
    * 是否为 null  或者 undefined
    * @param {Object} obj 对象
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isUndefined(null); // false
+   * testUtils.isUndefined(undefined) // true
+   * ```
    */
   isUndefined(obj: any) {
     return typeUtils.isUndefined(obj)
@@ -394,6 +577,12 @@ export const testUtils = {
    * 是否为 null  或者 undefined
    * @param {Object} obj 对象
    * @return {Boolean}
+   * @example
+   * ```typescript
+   * testUtils.isNullOrUndefined(null); // true
+   * testUtils.isNullOrUndefined(undefined) // true
+   * testUtils.isNullOrUndefined('') // false
+   * ```
    */
   isNullOrUndefined(obj: any) {
     return typeUtils.isNullOrUndefined(obj)
