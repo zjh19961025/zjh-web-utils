@@ -51,6 +51,11 @@ export const timeUtils = {
    * 当前时间时间戳
    * @param isUnix 普通的为 13位(包含毫秒); unix 的为10位，不包含毫秒
    * @returns 时间戳数值
+   * @example
+   * ```js
+   * timeUtils.nowTimestamp() // 1723624829143
+   * timeUtils.nowTimestamp(false) // 1723624829
+   * ```
    */
   nowTimestamp(isUnix = false) {
     return this.toTimestamp(null, isUnix)
@@ -59,7 +64,12 @@ export const timeUtils = {
   /**
    * 转时间
    * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以
-   *        date不传或传入null 表示取当前时间
+   * date不传或传入null 表示取当前时间
+   * @example
+   * ```js
+   * timeUtils.toDate('1710486738911') // 2024-03-15T07:12:18.911Z
+   * timeUtils.toDate(null) // 2024-08-14T08:44:22.991Z
+   * ```
    */
   toDate(dateTime: string | number | Date | null | undefined): Date {
     let date
@@ -90,6 +100,12 @@ export const timeUtils = {
    * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以
    *        date不传或传入null 表示取当前时间
    * @param {boolean} isUnix 是否为unix格式
+   * @example
+   * ```js
+   * timeUtils.toTimestamp(null) // 1723625151828
+   * timeUtils.toTimestamp(null,true) // 1723625151
+   * timeUtils.toTimestamp('2024-02-15 15:12:18') // 1707981138000
+   * ```
    */
   toTimestamp(dateTime: string | number | Date | null | undefined, isUnix = false) {
     const date = this.toDate(dateTime)
@@ -101,6 +117,12 @@ export const timeUtils = {
    * @param {String|Number|dateTime} dateTime 时间，时间字符串，时间戳，时间戳字符串都可以。date不传或传入null 表示取当前时间
    * @param {String} formatStr 格式化规则 yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合 默认yyyy-mm-dd。yyyy-mm-dd hh:MM:ss 显示时分秒
    * @returns {string} 返回格式化后的字符串
+   * @example
+   * ```js
+   * timeUtils.timeFormat('1710486738911','yyyy-mm-dd hh:MM:ss') // 2024-03-15 15:12:18
+   * timeUtils.timeFormat('1710486738911','mm-dd hh:MM') // 03-15 15:12
+   * timeUtils.timeFormat('1710486738911','yyyy年mm月dd日 hh时MM分') // 2024年03月15日 15时12分
+   * ```
    */
   timeFormat(dateTime: string | number | Date | null | undefined = null, formatStr = 'yyyy-mm-dd') {
     const date = this.toDate(dateTime)
@@ -135,6 +157,11 @@ export const timeUtils = {
    * 格式化规则如果为时间格式字符串，超出一定时间范围，返回固定的时间格式；
    * 如果为布尔值false，无论什么时间，都返回多久以前的格式
    * @returns {string} 转化后的内容
+   * @example
+   * ```js
+   * timeUtils.timeFrom(timeUtils.nowFullTime()) // 刚刚
+   * timeUtils.timeFrom(timeUtils.nowTimestamp() - 3600000) // 1小时前
+   * ```
    */
   timeFrom(date: string | number | Date | null | undefined = null, format = 'yyyy-mm-dd') {
     let timer = (new Date()).getTime() - this.toTimestamp(date, false)
@@ -173,6 +200,11 @@ export const timeUtils = {
    * 年月日 +  00:00:00
    * @param dateTime date不传或传入null 表示取当前时间
    * @returns 年月日 +  00:00:00
+   * @example
+   * ```js
+   * timeUtils.startTime('1710486738911') // 2024-03-15 00:00:00
+   * timeUtils.startTime('') // 2024-08-14 00:00:00
+   * ```
    */
   startTime(dateTime: string | number | Date | null | undefined) {
     const date = this.timeFormat(dateTime, 'yyyy-mm-dd')
@@ -183,6 +215,11 @@ export const timeUtils = {
    * 年月日 +  23:59:59
    * @param dateTime date不传或传入null 表示取当前时间
    * @returns 年月日 +  23:59:59
+   * @example
+   * ```js
+   * timeUtils.endTime('2024-02-15 15:12:18') // 2024-02-15 23:59:59
+   * timeUtils.startTime('') // 2024-08-14 23:59:59
+   * ```
    */
   endTime(dateTime: string | number | Date | null | undefined) {
     const date = this.timeFormat(dateTime, 'yyyy-mm-dd')
@@ -194,6 +231,11 @@ export const timeUtils = {
    * @param {String|Number} dateTime 时间戳，时间字符串（仅支持  转  年月日字符）
    * @param {Boolean} isYear 是否有年 默认为true 转 2022年10月12日, false 转 10月12日
    * @returns {String} 返回格式化后的字符串
+   * @example
+   * ```js
+   * timeUtils.chineseDate('2023-12-01',false) // 12月01日
+   * timeUtils.chineseDate('2023-12-01') // 2023年12月01日
+   * ```
    */
   chineseDate(dateTime: string | number | Date | null | undefined = null, isYear = true) {
     const date = this.toDate(dateTime)

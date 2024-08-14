@@ -20,13 +20,25 @@ describe("time-utils", () => {
     console.log(timeUtils.nowTimestamp())
     console.log(timeUtils.nowTimestamp(true))
     console.log(timeUtils.timeFormat("1710486738911", "yyyy-mm-dd hh:MM:ss"))
+    console.log(timeUtils.timeFormat("1710486738911", "mm-dd hh:MM"))
+    console.log(timeUtils.timeFormat("1710486738911", "yyyy年mm月dd日 hh时MM分"))
 
     console.log(timeUtils.startTime("1710486738911"))
+    console.log(timeUtils.startTime(''))
     console.log(timeUtils.endTime("2024-02-15 15:12:18"))
+    console.log(timeUtils.endTime(""))
 
     console.log(timeUtils.timeFrom(timeUtils.nowFullTime()))
     console.log(timeUtils.timeFrom(timeUtils.nowTimestamp() - 3600000))
 
     console.log(timeUtils.chineseDate("2023-12-01", false))
+    console.log(timeUtils.chineseDate("2023-12-01"))
+
+    console.log(timeUtils.toDate('1710486738911'))
+    console.log(timeUtils.toDate(null))
+
+    console.log(timeUtils.toTimestamp(null))
+    console.log(timeUtils.toTimestamp(null,true))
+    console.log(timeUtils.toTimestamp('2024-02-15 15:12:18'))
   })
 })

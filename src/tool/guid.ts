@@ -9,8 +9,8 @@
  * @param {Nubmer} radix 生成uuid的基数(意味着返回的字符串都是这个基数),2-二进制,8-八进制,10-十进制,16-十六进制
  * @example
  * ``` js
- * guid(32) // 123
- * guid(24) // 123
+ * guid(32) // ui77cGoBfjlj68FiDkQm7Ivpyei7t3dA
+ * guid(24) // uL70tjNPlMvbXCcoHtzeuv50
  * ```
  */
 export function guid(len = 16, firstU = true, radix:any = null): string {
