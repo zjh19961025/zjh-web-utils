@@ -25,7 +25,8 @@ export const testUtils = {
   * @return {Boolean} 是否小数
   * @example
   * ``` js
-  * testUtils.isFloat("12.01") // false
+  * testUtils.isFloat("12.01") // true
+   * testUtils.isFloat(12.0) // false 会转化成12
   * ```
   */
   isFloat(obj: string | number) {
@@ -107,6 +108,8 @@ export const testUtils = {
    * ```typescript
    * testUtils.isNotEmpty([1], {}); // false
    * testUtils.isNotEmpty({ a: 1 }, ['1']) // true
+   * testUtils.isNotEmpty(false) // false
+   * testUtils.isNotEmpty(0) // false
    * ```
    */
   isNotEmpty(...values: any[]): boolean {
@@ -118,23 +121,6 @@ export const testUtils = {
     return isNotEmpty
   },
 
-  /**
-   * 判断是否为空,数字0 或者 字符0 表示不为空
-   * @param value 传入数据
-   * @returns {Boolean} 是否不为空
-   * @example
-   * ```typescript
-   * testUtils.isEmptyNoZero(1); // false
-   * testUtils.isEmptyNoZero(0) // false
-   * testUtils.isEmptyNoZero('12.00') // false
-   * testUtils.isEmptyNoZero('') // true
-   * ```
-   */
-  isEmptyNoZero(value: any): boolean {
-  // 数字0 或者 字符0 表示不为空
-    if (value === 0 || value === '0') return false
-    return this.isSingleEmpty(value)
-  },
 
   /**
    * 判断是否为0

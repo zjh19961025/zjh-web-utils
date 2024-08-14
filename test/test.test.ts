@@ -49,13 +49,6 @@ describe("testUtils", () => {
     expect(testUtils.isNotEmpty({ a: 1 }, ['1'], '2')).toBe(true)
   })
 
-  it("isEmptyNoZero", () => {
-    expect(testUtils.isEmptyNoZero(1)).toBe(false)
-    expect(testUtils.isEmptyNoZero(0)).toBe(false)
-    expect(testUtils.isEmptyNoZero('12.0')).toBe(false)
-    expect(testUtils.isEmptyNoZero('')).toBe(true)
-    expect(testUtils.isEmptyNoZero('0')).toBe(false)
-  })
 
   it('isZero', () => {
     expect(testUtils.isZero(1)).toBe(false)

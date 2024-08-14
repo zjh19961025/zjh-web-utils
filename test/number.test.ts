@@ -13,16 +13,16 @@ describe("numberUtils", () => {
     assert.deepEqual(numberUtils.tokw(1000, false), { num: 1, unit: "k" })
   })
 
-  it('isDot', () => {
-    expect(numberUtils.isDot(0)).toBe('0.00')
-    expect(numberUtils.isDot(0.001)).toBe('0.001')
-    expect(numberUtils.isDot(1000)).toBe('1000.00')
-    expect(numberUtils.isDot(1000.001)).toBe('1000.001')
-    expect(numberUtils.isDot(0.1)).toBe('0.1')
-    expect(numberUtils.isDot(1.000000)).toBe('1.00')
-    expect(numberUtils.isDot(1.000100)).toBe('1.0001')
-    expect(numberUtils.isDot('1')).toBe('1.00')
-    expect(numberUtils.isDot('1.000000')).toBe('1.000000')
+  it('addDot', () => {
+    expect(numberUtils.addDot(0)).toBe('0.00')
+    expect(numberUtils.addDot(0.001)).toBe('0.001')
+    expect(numberUtils.addDot(1000)).toBe('1000.00')
+    expect(numberUtils.addDot(1000.001)).toBe('1000.001')
+    expect(numberUtils.addDot(0.1)).toBe('0.1')
+    expect(numberUtils.addDot(1.000000)).toBe('1.00')
+    expect(numberUtils.addDot(1.000100)).toBe('1.0001')
+    expect(numberUtils.addDot('1')).toBe('1.00')
+    expect(numberUtils.addDot('1.000000')).toBe('1.000000')
   })
 
   it('accAdd', () => {

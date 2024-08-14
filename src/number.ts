@@ -46,17 +46,17 @@ export const numberUtils = {
    * @returns {string} 转换后的数字。
    * @example
    * ``` js
-   * numberUtils.isDot(0) // '0.00'
-   * numberUtils.isDot(0.001) // '0.001'
-   * numberUtils.isDot(1000) // '1000.00'
-   * numberUtils.isDot(1000.001) // '1000.001'
-   * numberUtils.isDot(1.000000) // '1.00'
-   * numberUtils.isDot(1.000100) // '1.0001'
-   * numberUtils.isDot('1') // '1.00'
-   * numberUtils.isDot('1.000000') // '1.000000'
+   * numberUtils.addDot(0) // '0.00'
+   * numberUtils.addDot(0.001) // '0.001'
+   * numberUtils.addDot(1000) // '1000.00'
+   * numberUtils.addDot(1000.001) // '1000.001'
+   * numberUtils.addDot(1.000000) // '1.00'
+   * numberUtils.addDot(1.000100) // '1.0001'
+   * numberUtils.addDot('1') // '1.00'
+   * numberUtils.addDot('1.000000') // '1.000000'
    * ```
    */
-  isDot(num: number | string): string {
+  addDot(num: number | string): string {
     const toNum = Number(num)
     const str = String(num)
     if (isNaN(Number(num))) {
@@ -81,13 +81,13 @@ export const numberUtils = {
   accAdd(arg1: number | string, arg2: number | string): string {
     let r1: number, r2: number
     try {
-      r1 = this.isDot(arg1).split(".")[1].length
+      r1 = this.addDot(arg1).split(".")[1].length
     } catch (e) {
       r1 = 0
       arg1 = 0
     }
     try {
-      r2 = this.isDot(arg2).split(".")[1].length
+      r2 = this.addDot(arg2).split(".")[1].length
     } catch (e) {
       r2 = 0
       arg2 = 0
@@ -97,15 +97,15 @@ export const numberUtils = {
     if (c > 0) {
       const cm = Math.pow(10, c)
       if (r1 > r2) {
-        arg1 = Number(this.isDot(arg1).replace(".", ""))
-        arg2 = Number(this.isDot(arg2).replace(".", "")) * cm
+        arg1 = Number(this.addDot(arg1).replace(".", ""))
+        arg2 = Number(this.addDot(arg2).replace(".", "")) * cm
       } else {
-        arg1 = Number(this.isDot(arg1).replace(".", "")) * cm
-        arg2 = Number(this.isDot(arg2).replace(".", ""))
+        arg1 = Number(this.addDot(arg1).replace(".", "")) * cm
+        arg2 = Number(this.addDot(arg2).replace(".", ""))
       }
     } else {
-      arg1 = Number(this.isDot(arg1).replace(".", ""))
-      arg2 = Number(this.isDot(arg2).replace(".", ""))
+      arg1 = Number(this.addDot(arg1).replace(".", ""))
+      arg2 = Number(this.addDot(arg2).replace(".", ""))
     }
     const n = (r1 >= r2) ? r1 : r2
     return ((arg1 + arg2) / m).toFixed(n)
@@ -126,12 +126,12 @@ export const numberUtils = {
   accSub(arg1: number | string, arg2: number | string): string {
     let r1, r2
     try {
-      r1 = this.isDot(arg1).split(".")[1].length
+      r1 = this.addDot(arg1).split(".")[1].length
     } catch (e) {
       r1 = 0
     }
     try {
-      r2 = this.isDot(arg2).split(".")[1].length
+      r2 = this.addDot(arg2).split(".")[1].length
     } catch (e) {
       r2 = 0
     }
@@ -155,8 +155,8 @@ export const numberUtils = {
    */
   accMul(arg1: number | string, arg2: number | string): number {
     let m = 0
-    const s1 = this.isDot(arg1)
-    const s2 = this.isDot(arg2)
+    const s1 = this.addDot(arg1)
+    const s2 = this.addDot(arg2)
     try {
       m += s1.split(".")[1].length
     } catch (e) { /* empty */ }
@@ -183,13 +183,13 @@ export const numberUtils = {
     let t1 = 0
     let t2 = 0
     try {
-      t1 = this.isDot(arg1).split(".")[1].length
+      t1 = this.addDot(arg1).split(".")[1].length
     } catch (e) { /* empty */ }
     try {
-      t2 = this.isDot(arg2).split(".")[1].length
+      t2 = this.addDot(arg2).split(".")[1].length
     } catch (e) { /* empty */ }
-    const r1 = Number(this.isDot(arg1).replace(".", ""))
-    const r2 = arg2 == 0 ? 1 : Number(this.isDot(arg2).replace(".", ""))
+    const r1 = Number(this.addDot(arg1).replace(".", ""))
+    const r2 = arg2 == 0 ? 1 : Number(this.addDot(arg2).replace(".", ""))
     return ((r1 / r2) * Math.pow(10, t2 - t1)).toFixed(retainNum)
   },
 

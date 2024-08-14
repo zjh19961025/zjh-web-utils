@@ -15,7 +15,7 @@ declare global {
      * 为数字添加小数点，并保留2位数，如果已经有小数点则不处理
      * @returns {string} 转换后的数字。
      */
-    isDot(): string
+    addDot(): string
 
     /**
      * 加法运算

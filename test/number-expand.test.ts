@@ -13,7 +13,7 @@ describe("numberUtils", () => {
     assert.deepEqual(num1.tokw(false), { num: 1, unit: "k" })
   })
 
-  it('isDot', () => {
+  it('addDot', () => {
     const num1 = 0
     const num2 = 0.001
     const num3 = 1000
@@ -21,13 +21,13 @@ describe("numberUtils", () => {
     const num5 = 0.1
     const num6 = 1.000000
     const num7 = 1.000100
-    expect(num1.isDot()).toBe('0.00')
-    expect(num2.isDot()).toBe('0.001')
-    expect(num3.isDot()).toBe('1000.00')
-    expect(num4.isDot()).toBe('1000.001')
-    expect(num5.isDot()).toBe('0.1')
-    expect(num6.isDot()).toBe('1.00')
-    expect(num7.isDot()).toBe('1.0001')
+    expect(num1.addDot()).toBe('0.00')
+    expect(num2.addDot()).toBe('0.001')
+    expect(num3.addDot()).toBe('1000.00')
+    expect(num4.addDot()).toBe('1000.001')
+    expect(num5.addDot()).toBe('0.1')
+    expect(num6.addDot()).toBe('1.00')
+    expect(num7.addDot()).toBe('1.0001')
   })
 
   it('accAdd', () => {
