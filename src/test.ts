@@ -26,7 +26,7 @@ export const testUtils = {
   * @example
   * ``` js
   * testUtils.isFloat("12.01") // true
-   * testUtils.isFloat(12.0) // false 会转化成12
+  * testUtils.isFloat(12.0) // false 会转化成12
   * ```
   */
   isFloat(obj: string | number) {
@@ -164,7 +164,7 @@ export const testUtils = {
    * testUtils.isNonNegInt(0) // true
    * testUtils.isNonNegInt('0') // true
    * testUtils.isNonNegInt('12.12') // false
-   * testUtils.isNonNegInt('-12.12') // true
+   * testUtils.isNonNegInt('-12.12') // false
    * ```
    */
   isNonNegInt(value: any): boolean {

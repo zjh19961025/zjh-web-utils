@@ -32,6 +32,7 @@ export const stringUtils = {
    * ``` js
    * stringUtils.hideChar("12345678910") // '1234***8910'
    * stringUtils.hideChar("12345678910",3,4) // '123****8910'
+   * stringUtils.hideChar("12345678910", 5, 4, '^') // '12345^^8910'
    * ```
    */
   hideChar(str: string, start = 4, end = 4, replaceStr = '*'): string {
@@ -94,7 +95,7 @@ export const stringUtils = {
    * stringUtils.trim("  asad ", left) // 'asad '
    * stringUtils.trim("  asad ",right) // '  asad'
    * stringUtils.trim("  asad ",both) // 'asad'
-   * stringUtils.trim('  asad ','all') // 'asad'
+   * stringUtils.trim('  a s ad ','all') // 'asad'
    * ```
    */
   trim(str: string, pos = 'both'): string {
@@ -118,7 +119,7 @@ export const stringUtils = {
    * @example
    * ``` js
    * stringUtils.trimLeft("  asad ") // 'asad '
-   * stringUtils.trimLeft("  asad") // '  asad'
+   * stringUtils.trimLeft("  asad ") // 'asad '
    * ```
    */
   trimLeft(str: string): string {
@@ -368,7 +369,7 @@ export const stringUtils = {
    * @example
    * ``` js
    * stringUtils.camelToKebab('camelToKebab') // 'camel-to-kebab
-   * stringUtils.camelToKebab('CamelToKebab', '-') // 'camel-to-kebab'
+   * stringUtils.camelToKebab('CamelToKebab', '_') // 'camel_to_kebab'
    * ```
    */
   camelToKebab(str: string, separator = '-'): string {
@@ -421,7 +422,7 @@ export const stringUtils = {
    * @example
    * ``` js
    * stringUtils.to100Num(20) //2000
-   * stringUtils.to100Num(0.2) // 2
+   * stringUtils.to100Num(0.2) // 20
    * ```
    */
   to100Num(rate: number | string): number {

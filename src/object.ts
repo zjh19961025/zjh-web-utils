@@ -86,7 +86,7 @@ export const objectUtils = {
    * ``` js
    * const obj1 = { a: 1, b: { c: 3, d: 4 }}
    * const obj2 = { b: { c: 5, e: 6 }, f: 7 }
-   * const result = objectUtils.deepMerge(obj1, obj2) // { a: 1, b: { c: 5, d: 4, e: 6 }, f: 7, arr: [1, 2, 3, 4, 5, 6] }
+   * const result = objectUtils.deepMerge(obj1, obj2) // { a: 1, b: { c: 5, d: 4, e: 6 }, f: 7}
    * ```
    */
   deepMerge(target: any, source: any): any {
