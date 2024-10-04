@@ -46,8 +46,8 @@ export function dictTransform(data: DictData, keyName = 'value', valueName = 'la
 
   // 对象处理
   if (testUtils.isPlainObject(data)) {
-    for (const key in data as { [key: string]: any }) {
-      const value = data[key]
+    for (const key in data) {
+      const value = (data as any)[key]
       obj[key] = value
       combo.push({
         [keyName]: key,

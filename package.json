@@ -1,7 +1,7 @@
 {
   "name": "@hua5/hua5-utils",
   "type": "module",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "packageManager": "pnpm@9.0.6",
   "description": "common JavaScript / TypeScript utils",
   "author": "hua5",
