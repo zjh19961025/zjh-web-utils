@@ -1,6 +1,7 @@
 import { numberExpand } from "./number-expand"
 import { objectExpand } from "./object-expand"
 import { stringExpand } from "./string-expand"
+import "./JSON"
 
 export * from "./type"
 export * from "./test"
