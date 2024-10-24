@@ -253,4 +253,34 @@ export const timeUtils = {
     }
     return numStrTime
   },
+  beforeOrAfterDay(dateString:string):string {
+    const inputDate = new Date(dateString)
+    const currentDate = new Date()
+    // 清除时间信息，只比较日期
+    inputDate.setHours(0, 0, 0, 0)
+    currentDate.setHours(0, 0, 0, 0)
+    const timeDifference = inputDate.getTime() - currentDate.getTime()
+    const dayDifference = Math.round(timeDifference / (1000 * 60 * 60 * 24))
+    if (dayDifference === 0) {
+      return "今天"
+    } else if (dayDifference === 1) {
+      return "明天"
+    } else if (dayDifference === 2) {
+      return "后天"
+    } else if (dayDifference > 2) {
+      return `${dayDifference}天后`
+    } else if (dayDifference === -1) {
+      return "1天前"
+    } else {
+      return `${Math.abs(dayDifference)}天前`
+    }
+  },
+  isAfterNow(dateString:string):boolean {
+    // 将输入的日期字符串转换为日期对象
+    const inputDateObj = new Date(dateString)
+    // 获取当前日期时间
+    const currentDate = new Date()
+    // 比较日期
+    return inputDateObj > currentDate
+  },
 }

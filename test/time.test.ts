@@ -38,7 +38,19 @@ describe("time-utils", () => {
     console.log(timeUtils.toDate(null))
 
     console.log(timeUtils.toTimestamp(null))
-    console.log(timeUtils.toTimestamp(null,true))
+    console.log(timeUtils.toTimestamp(null, true))
     console.log(timeUtils.toTimestamp('2024-02-15 15:12:18'))
+  })
+  it("beforeOrAfterDay", () => {
+    console.info("🚀 ~ file:time.test method: line:45 -----", timeUtils.beforeOrAfterDay('2024-10-21 23:11:11'))
+    console.info("🚀 ~ file:time.test method: line:46 -----", timeUtils.beforeOrAfterDay('2024-10-24 23:11:11'))
+    console.info("🚀 ~ file:time.test method: line:47 -----", timeUtils.beforeOrAfterDay('2024-10-24 01:11:11'))
+    console.info("🚀 ~ file:time.test method: line:48 -----", timeUtils.beforeOrAfterDay('2024-11-24 01:11:11'))
+    console.info("🚀 ~ file:time.test method: line:48 -----", timeUtils.beforeOrAfterDay('2024-10-25 01:11:11'))
+    console.info("🚀 ~ file:time.test method: line:48 -----", timeUtils.beforeOrAfterDay('2024-10-26 01:11:11'))
+  })
+  it("isAfterNow", () => {
+    console.info("🚀 ~ file:time.test method: line:45 -----", timeUtils.isAfterNow('2024-10-24 13:11:11'))
+    console.info("🚀 ~ file:time.test method: line:45 -----", timeUtils.isAfterNow('2024-10-25 13:11:11'))
   })
 })
