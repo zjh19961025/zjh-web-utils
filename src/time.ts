@@ -253,6 +253,17 @@ export const timeUtils = {
     }
     return numStrTime
   },
+  /**
+   * 根据当前时间计算出传递的时间是几天前或者几天后
+   * @param {String} dateString 时间字符串
+   * @returns {string} 计算后的返回结果
+   * @example
+   * ```js
+   * timeUtils.beforeOrAfterDay('2024-10-21 23:11:11') // 3天前
+   * timeUtils.beforeOrAfterDay('2024-10-24 23:11:11') // 今天
+   * timeUtils.beforeOrAfterDay('2024-11-24 23:11:11') // 31天后
+   * ```
+   */
   beforeOrAfterDay(dateString:string):string {
     const inputDate = new Date(dateString)
     const currentDate = new Date()
@@ -275,6 +286,17 @@ export const timeUtils = {
       return `${Math.abs(dayDifference)}天前`
     }
   },
+  /**
+   * 当前时间和传递的时间进行比较，传递的时间大于当前时间返回true 小于则返回false
+   * @param {String} dateString 时间字符串
+   * @returns {boolean}
+   * @example
+   * ```js
+   * timeUtils.isAfterNow('2024-10-21 23:11:11') // false
+   * timeUtils.isAfterNow('2024-10-24 23:11:11') // true
+   * timeUtils.isAfterNow('2024-11-24 23:11:11') // true
+   * ```
+   */
   isAfterNow(dateString:string):boolean {
     // 将输入的日期字符串转换为日期对象
     const inputDateObj = new Date(dateString)
