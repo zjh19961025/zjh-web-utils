@@ -28,6 +28,10 @@ describe("testUtils", () => {
 
   // 只有所有的值为空才是true
   it("isEmpty", () => {
+    expect(testUtils.isEmpty(0)).toBe(false)
+    expect(testUtils.isEmpty(false)).toBe(false)
+    expect(testUtils.isEmpty("")).toBe(true)
+
     expect(testUtils.isEmpty([1], {})).toBe(false)
     expect(testUtils.isEmpty([], {})).toBe(true)
     expect(testUtils.isEmpty([], { a: 1 })).toBe(false)
@@ -48,7 +52,6 @@ describe("testUtils", () => {
     expect(testUtils.isNotEmpty({}, [], null)).toBe(false)
     expect(testUtils.isNotEmpty({ a: 1 }, ['1'], '2')).toBe(true)
   })
-
 
   it('isZero', () => {
     expect(testUtils.isZero(1)).toBe(false)
@@ -277,5 +280,14 @@ describe("testUtils", () => {
     expect(testUtils.isNullOrUndefined(null)).toBe(true)
     expect(testUtils.isNullOrUndefined(undefined)).toBe(true)
     expect(testUtils.isNullOrUndefined("")).toBe(false)
+  })
+
+  it("isDeepEqual", () => {
+    expect(testUtils.isDeepEqual(null, null)).toBe(true)
+    expect(testUtils.isDeepEqual(123, 234)).toBe(false)
+    expect(testUtils.isDeepEqual({ test1: 1, test2: 2 }, { test2: 2, test1: 1 })).toBe(true)
+    expect(testUtils.isDeepEqual([], [])).toBe(true)
+    expect(testUtils.isDeepEqual([1, 2], [1, 2])).toBe(true)
+    expect(testUtils.isDeepEqual([2, 1], [1, 2])).toBe(false)
   })
 })

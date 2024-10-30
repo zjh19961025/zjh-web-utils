@@ -24,4 +24,21 @@ describe("arrayUtils", () => {
     expect(arrayUtils.shuffleArray([1, 2, 3, 4, 5])).not.toEqual([1, 2, 3, 4, 5])
     expect(arrayUtils.shuffleArray(['a', 2, 'b', 4, 5])).not.toEqual(['a', 2, 'b', 4, 5])
   })
+  it("mergeObjArrayByKey", () => {
+    expect(arrayUtils.mergeObjArrayByKey(
+      [{ test: 1, test2: 2, test4: 4, dict: [1, 2, 3] }],
+      [{ test: 1, test2: 4, test3: 3, dict: [1, 4] }],
+      "test",
+    )).toEqual([
+      { test: 1, test2: 4, test3: 3, test4: 4, dict: [1, 4] },
+    ])
+    expect(arrayUtils.mergeObjArrayByKey(
+      [{ test: 1, test2: 2, test4: 4, dict: [1, 2, 3] }],
+      [{ test: 2, test2: 4, test3: 3, dict: [1, 4] }],
+      "test",
+    )).toEqual([
+      { test: 1, test2: 2, test4: 4, dict: [1, 2, 3] },
+      { test: 2, test2: 4, test3: 3, dict: [1, 4] },
+    ])
+  })
 })

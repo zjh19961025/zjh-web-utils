@@ -80,4 +80,37 @@ export const arrayUtils = {
     array.sort(() => Math.random() - 0.5)
     return array
   },
+
+  /**
+   * 合并2个对象数组。
+   * 只对第一级进行合并，对象中的数组，后者会覆盖前者。(数组对象合并，必须指定key，因此无法做到递归合并对象数组)
+   * @param key, 用于对象对比的key
+   * @param source 源数组，最终会被修改
+   * @param target 合并目标
+   * @returns []
+   * @example
+   * ```js
+   * arrayUtils.mergeObjArrayByKey([{ test: 1, test2: 2, test4: 4, dict: [1, 2, 3] }],[{ test: 1, test2: 4, test3: 3, dict: [1, 4] }],"test")
+   * { test: 1, test2: 4, test3: 3, test4: 4, dict: [1, 4] }
+   * ```
+   */
+  mergeObjArrayByKey(source: any[] | undefined, target: any[] | undefined, key: string) {
+    if (!source) return target || []
+    if (!target) return source || []
+    if (!target && !source) return []
+    if (!Array.isArray(source)) return source
+    if (!Array.isArray(target)) return source
+
+    for (let i = 0; i < target.length; ++i) {
+      const value = target[i]
+      const targetObj = source.find(item => item[key] == value[key])
+      if (!targetObj) {
+        source.push(value)
+        continue
+      }
+      // 对象合并，对象中的数组覆盖
+      Object.assign(targetObj, value)
+    }
+    return source
+  },
 }

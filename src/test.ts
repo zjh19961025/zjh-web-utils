@@ -83,10 +83,15 @@ export const testUtils = {
 
   /**
    * 判断一个或多个值是否全部为空
+   * 0, false 均为有值, 返回 false
+   * "" 为无值，返回 true
    * @param values 传入多个数据
    * @returns {Boolean} 是否为空
    * @example
    * ```typescript
+   * testUtils.isEmpty("") // true
+   * testUtils.isEmpty(0) // false
+   * testUtils.isEmpty(false) // false
    * testUtils.isEmpty([1], {}); // false
    * testUtils.isEmpty([], {}) // true
    * ```
@@ -571,5 +576,54 @@ export const testUtils = {
    */
   isNullOrUndefined(obj: any) {
     return typeUtils.isNullOrUndefined(obj)
+  },
+
+  /**
+   * 深度比较2个对象是否相等
+   * @param obj1 {Object} obj 对象
+   * @param obj2 {Object} obj 对象
+   * @returns {Boolean}
+   * @example
+   * ```js
+   * testUtils.isDeepEqual({ test1: 1, test2: 2 }, { test2: 2, test1: 1 }) // true
+   * testUtils.isDeepEqual([1, 2], [1, 2]) // true
+   * testUtils.isDeepEqual([2, 1], [1, 2]) // false
+   * ```
+   */
+  isDeepEqual(obj1:any, obj2: any) {
+    // 如果两个对象是同一个引用，则它们相等
+    if (obj1 === obj2) {
+      return true
+    }
+
+    // 如果其中一个不是对象或者是 null，则它们不相等
+    if (typeof obj1 !== 'object' || obj1 === null ||
+      typeof obj2 !== 'object' || obj2 === null) {
+      return false
+    }
+
+    // 获取两个对象的键数组
+    const keys1 = Object.keys(obj1)
+    const keys2 = Object.keys(obj2)
+
+    // 如果键的数量不同，则两个对象不相等
+    if (keys1.length !== keys2.length) {
+      return false
+    }
+
+    // 检查每个键和值是否相等
+    for (const key of keys1) {
+    // 如果 obj2 中没有 obj1 的键，返回 false
+      if (!keys2.includes(key)) {
+        return false
+      }
+
+      // 递归比较每个键对应的值
+      if (!this.isDeepEqual(obj1[key], obj2[key])) {
+        return false
+      }
+    }
+
+    return true
   },
 }
