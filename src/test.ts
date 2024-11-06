@@ -106,6 +106,35 @@ export const testUtils = {
   },
 
   /**
+   * 判断一个对象的值是否全为空
+   * 0, false 均为有值, 返回 false
+   * "" 为无值，返回 true
+   * @param values 传入对象
+   * @returns {Boolean} 是否为空
+   * @example
+   * ```typescript
+   * testUtils.isObjAllFieldEmpty({}) // true
+   * testUtils.isObjAllFieldEmpty({a: ''}) // true
+   * testUtils.isObjAllFieldEmpty({a: undefined}) // true
+   * testUtils.isObjAllFieldEmpty({a: null}) // true
+   * testUtils.isObjAllFieldEmpty({a: undefined}) // true
+   * testUtils.isObjAllFieldEmpty({ a: '12', b: 1 }) // false
+   *
+   * ```
+   */
+  isObjAllFieldEmpty(value: any): boolean {
+    let isObjAllFieldEmpty = true
+    // 如果是空对象 直接返回true
+    if (this.isEmpty(value)) return isObjAllFieldEmpty
+    for (const val of Object.values(value)) {
+      // 如果有一个字段不为空，则返回 false
+      isObjAllFieldEmpty = this.isEmpty(val)
+      if (!isObjAllFieldEmpty) break
+    }
+    return isObjAllFieldEmpty
+  },
+
+  /**
    * 判断一个或多个值是否全部不为空
    * @param values 传入多个数据
    * @returns {Boolean} 是否不为空

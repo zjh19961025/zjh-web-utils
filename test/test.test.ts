@@ -43,6 +43,19 @@ describe("testUtils", () => {
     expect(testUtils.isEmpty([], {}, null)).toBe(true)
   })
 
+  // 只有对象全为空才是true
+  it("isObjAllFieldEmpty", () => {
+    expect(testUtils.isObjAllFieldEmpty('')).toBe(true)
+    expect(testUtils.isObjAllFieldEmpty({})).toBe(true)
+    expect(testUtils.isObjAllFieldEmpty({ a: '' })).toBe(true)
+    expect(testUtils.isObjAllFieldEmpty({ a: undefined })).toBe(true)
+    expect(testUtils.isObjAllFieldEmpty({ a: null })).toBe(true)
+    expect(testUtils.isObjAllFieldEmpty({ a: null, b: 1 })).toBe(false)
+    expect(testUtils.isObjAllFieldEmpty({ a: '12', b: 1 })).toBe(false)
+    expect(testUtils.isObjAllFieldEmpty({ a: false })).toBe(false)
+    expect(testUtils.isObjAllFieldEmpty({ a: 0 })).toBe(false)
+  })
+
   // 只有所有的值不为空是true,只要有一个值为空就是false
   it("isNotEmpty", () => {
     expect(testUtils.isNotEmpty({}, [1])).toBe(false)
