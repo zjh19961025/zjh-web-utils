@@ -45,7 +45,7 @@ describe("testUtils", () => {
 
   // 只有对象全为空才是true
   it("isObjAllFieldEmpty", () => {
-    expect(testUtils.isObjAllFieldEmpty('')).toBe(true)
+    expect(testUtils.isObjAllFieldEmpty([])).toBe(false)
     expect(testUtils.isObjAllFieldEmpty({})).toBe(true)
     expect(testUtils.isObjAllFieldEmpty({ a: '' })).toBe(true)
     expect(testUtils.isObjAllFieldEmpty({ a: undefined })).toBe(true)
