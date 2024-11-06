@@ -106,7 +106,7 @@ export const testUtils = {
   },
 
   /**
-   * 判断一个对象的值是否全为空
+   * 判断一个对象中的所有字段是否全为空
    * 非对象类型返回false
    * @param Obj 传入对象
    * @returns {Boolean} 是否为空
