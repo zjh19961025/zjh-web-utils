@@ -65,16 +65,20 @@ declare global {
  * 扩展Number对象, 执行此方法会将numberUtils中的方法添加到Number的原型上
  */
 export function numberExpand() {
-  Object.keys(numberUtils).forEach(function(key) {
-    Number.prototype[key as NumberUtilsKeys] = function(...arg: any[]) {
-      return (numberUtils[key as NumberUtilsKeys] as any)(this, ...arg)
-    }
-  })
-
   // 防止 Number.prototype 中的自定义属性被迭代
   Object.keys(numberUtils).forEach((name) => {
+    if (Number.prototype[name as NumberUtilsKeys]) {
+      console.error("number expand " + name + " repeat !!")
+      return
+    }
+
     Object.defineProperty(Number.prototype, name, {
-      "enumerable": false,
+      value: function(...arg: any[]) {
+        return (numberUtils[name as NumberUtilsKeys] as any)(this, ...arg)
+      },
+      enumerable: false, // 确保方法不可枚举
+      writable: true, // 允许重写
+      configurable: true, // 允许删除或修改
     })
   })
 }

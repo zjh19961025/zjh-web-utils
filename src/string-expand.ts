@@ -27,25 +27,6 @@ declare global {
     moneyUnit(unit?: string): string
 
     /**
-     * 去除字符串指定位置的空格
-     * @param {string} pos 去除位置, both:去除前后空格(默认), all:去除所有空格, left:去除左边空格, right:去除右边空格,
-     * @returns {string} 去除空格后的字符串
-     */
-    trim(pos?: string): string
-
-    /**
-     * 去除字符左边空格
-     * @returns {string} 去除空格后的字符串
-     */
-    trimLeft(): string
-
-    /**
-     * 去除字符右边空格
-     * @returns {string} 去除空格后的字符串
-     */
-    trimRight(): string
-
-    /**
      * 去除字符中的所有空格
      * @returns {string} 去除空格后的字符串
      */
@@ -163,16 +144,20 @@ declare global {
  * 扩展String对象, 执行此方法会将stringUtils中的方法添加到String的原型上
  */
 export function stringExpand() {
-  Object.keys(stringUtils).forEach(function(key) {
-    String.prototype[key as StringUtilsKeys] = function(...arg: any[]) {
-      return (stringUtils[key as StringUtilsKeys] as any)(this, ...arg)
-    }
-  })
-
   // 防止 String.prototype 中的自定义属性被迭代
   Object.keys(stringUtils).forEach((name) => {
+    if (String.prototype[name as StringUtilsKeys]) {
+      console.error("string expand " + name + " repeat !!")
+      return
+    }
+
     Object.defineProperty(String.prototype, name, {
-      "enumerable": false,
+      value: function(...arg: any[]) {
+        return (stringUtils[name as StringUtilsKeys] as any)(this, ...arg)
+      },
+      enumerable: false, // 确保方法不可枚举
+      writable: true, // 允许重写
+      configurable: true, // 允许删除或修改
     })
   })
 }

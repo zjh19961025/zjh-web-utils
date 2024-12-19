@@ -42,16 +42,20 @@ declare global {
  * 扩展Object对象, 执行此方法会将objectUtils中的方法添加到Object的原型上
  */
 export function objectExpand() {
-  Object.keys(objectUtils).forEach(function(key) {
-    Object.prototype[key as ObjectUtilsKeys] = function(...arg: any[]) {
-      return (objectUtils[key as ObjectUtilsKeys] as any)(this, ...arg)
-    }
-  })
-
   // 防止 Object.prototype 中的自定义属性被迭代
   Object.keys(objectUtils).forEach((name) => {
+    if (Object.prototype[name as ObjectUtilsKeys]) {
+      console.error("object expand " + name + " repeat !!")
+      return
+    }
+
     Object.defineProperty(Object.prototype, name, {
-      "enumerable": false,
+      value: function(...arg: any[]) {
+        return (objectUtils[name as ObjectUtilsKeys] as any)(this, ...arg)
+      },
+      enumerable: false, // 确保方法不可枚举
+      writable: true, // 允许重写
+      configurable: true, // 允许删除或修改
     })
   })
 }

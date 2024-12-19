@@ -23,25 +23,6 @@ describe("stringExpand", () => {
     expect("+12".moneyUnit()).toBe('+12')
   })
 
-  it("trim", () => {
-    expect("  asad ".trim()).toBe('asad')
-    expect("  asad ".trim(' ')).toBe('  asad ')
-    expect("  asad ".trim('left')).toBe('asad ')
-    expect("  asad ".trim('right')).toBe('  asad')
-    expect("  asad ".trim('both')).toBe('asad')
-    expect("  a s ad ".trim('all')).toBe('asad')
-  })
-
-  it("trimLeft", () => {
-    expect("  asad".trimLeft()).toBe('asad')
-    expect("  asad ".trimLeft()).toBe('asad ')
-  })
-
-  it("trimRight", () => {
-    expect(" asad  ".trimRight()).toBe(' asad')
-    expect("asad   ".trimRight()).toBe('asad')
-  })
-
   it("trimAll", () => {
     expect("  asad  ".trimAll()).toBe('asad')
     expect("as ad   ".trimAll()).toBe('asad')
