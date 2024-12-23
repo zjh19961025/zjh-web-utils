@@ -140,12 +140,15 @@ declare global {
     }
 }
 
+// 去除原型上已经已经存在的方法
+const noExpandFunc = ["trim", "trimLeft", "trimRight"]
 /**
  * 扩展String对象, 执行此方法会将stringUtils中的方法添加到String的原型上
  */
 export function stringExpand() {
   // 防止 String.prototype 中的自定义属性被迭代
   Object.keys(stringUtils).forEach((name) => {
+    if (noExpandFunc.includes(name)) return
     if (String.prototype[name as StringUtilsKeys]) {
       console.error("string expand " + name + " repeat !!")
       return
