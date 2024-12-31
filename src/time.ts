@@ -1,3 +1,5 @@
+import { testUtils } from "./test"
+
 // padStart 的 polyfill，因为某些机型或情况，还无法支持es7的padStart，比如电脑版的微信小程序
 // 所以这里做一个兼容polyfill的兼容处理
 if (!String.prototype.padStart) {
@@ -44,7 +46,7 @@ export const timeUtils = {
    * ```
    */
   nowFullTime() {
-    return this.timeFormat(null, "yyyy-mm-dd hh:MM:ss")
+    return this.timeFormat(this.toDate(), "yyyy-mm-dd hh:MM:ss")
   },
 
   /**
@@ -71,7 +73,7 @@ export const timeUtils = {
    * timeUtils.toDate(null) // 2024-08-14T08:44:22.991Z
    * ```
    */
-  toDate(dateTime: string | number | Date | null | undefined): Date {
+  toDate(dateTime?: string | number | Date | null | undefined): Date {
     let date
     if (!dateTime) {
     // 1. 若传入时间为假值，则取当前时间
@@ -124,9 +126,11 @@ export const timeUtils = {
    * timeUtils.timeFormat('1710486738911','yyyy年mm月dd日 hh时MM分') // 2024年03月15日 15时12分
    * ```
    */
-  timeFormat(dateTime: string | number | Date | null | undefined = null, formatStr = 'yyyy-mm-dd') {
-    const date = this.toDate(dateTime)
+  timeFormat(dateTime: string | number | Date | null | undefined = null, formatStr = 'yyyy-mm-dd', emptyResult = "-") {
+    // 为空直接返回
+    if (testUtils.isEmpty(dateTime)) return emptyResult
 
+    const date = this.toDate(dateTime)
     const timeSource = {
       'y': date.getFullYear().toString(), // 年
       'm': (date.getMonth() + 1).toString().padStart(2, '0'), // 月
@@ -163,7 +167,10 @@ export const timeUtils = {
    * timeUtils.timeFrom(timeUtils.nowTimestamp() - 3600000) // 1小时前
    * ```
    */
-  timeFrom(date: string | number | Date | null | undefined = null, format = 'yyyy-mm-dd') {
+  timeFrom(date: string | number | Date | null | undefined = null, format = 'yyyy-mm-dd', emptyResult = "-") {
+    // 为空直接返回
+    if (testUtils.isEmpty(date)) return emptyResult
+
     let timer = (new Date()).getTime() - this.toTimestamp(date, false)
     timer = Math.floor(timer / 1000)
     // 如果小于5分钟,则返回"刚刚",其他以此类推
@@ -207,7 +214,7 @@ export const timeUtils = {
    * ```
    */
   startTime(dateTime: string | number | Date | null | undefined) {
-    const date = this.timeFormat(dateTime, 'yyyy-mm-dd')
+    const date = this.timeFormat(dateTime || this.toDate(), 'yyyy-mm-dd')
     return date + " 00:00:00"
   },
 
@@ -222,7 +229,7 @@ export const timeUtils = {
    * ```
    */
   endTime(dateTime: string | number | Date | null | undefined) {
-    const date = this.timeFormat(dateTime, 'yyyy-mm-dd')
+    const date = this.timeFormat(dateTime || this.toDate(), 'yyyy-mm-dd')
     return date + " 23:59:59"
   },
 

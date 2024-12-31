@@ -16,6 +16,8 @@ describe("time-utils", () => {
   })
 
   it("nowFullTime", () => {
+    console.log("timeFormat empty =", timeUtils.timeFormat("", "", "123"))
+
     console.log(timeUtils.nowFullTime())
     console.log(timeUtils.nowTimestamp())
     console.log(timeUtils.nowTimestamp(true))
@@ -28,6 +30,7 @@ describe("time-utils", () => {
     console.log(timeUtils.endTime("2024-02-15 15:12:18"))
     console.log(timeUtils.endTime(""))
 
+    console.log("timeFrom empty =", timeUtils.timeFrom("", "", ""))
     console.log(timeUtils.timeFrom(timeUtils.nowFullTime()))
     console.log(timeUtils.timeFrom(timeUtils.nowTimestamp() - 3600000))
 
