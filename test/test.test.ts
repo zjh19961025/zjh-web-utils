@@ -240,6 +240,8 @@ describe("testUtils", () => {
     expect(testUtils.isImage('123.jpeg?a=1')).toBe(true)
     expect(testUtils.isImage('123.gif?a=1&b=2')).toBe(true)
     expect(testUtils.isImage('qeqwejpeg?a=1')).toBe(false)
+    expect(testUtils.isGif("123.gif?a=1&b=2")).toBe(true)
+    expect(testUtils.isGif("123.jpeg?a=1")).toBe(false)
   })
 
   it('isVideo', () => {

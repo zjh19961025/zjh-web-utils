@@ -487,10 +487,24 @@ export const testUtils = {
    */
   isImage(value: string): boolean {
     const newValue = value.split('?')[0]
-    const IMAGE_REGEXP = /\.(jpeg|jpg|gif|png|svg|webp|jfif|bmp|dpg)/i
+    const IMAGE_REGEXP = /\.(jpeg|jpg|gif|png|svg|webp|jfif|bmp|dpg|psd|pcx|tga|cdr|eps|apng)/i
     return IMAGE_REGEXP.test(newValue)
   },
-
+  /**
+   * 判断是否为gif格式
+   * @param value
+   * @returns {Boolean}
+   * @example
+   * ```
+   * testUtils.isImage('123.png') // false
+   * testUtils.isImage('123.gif?a=1&b=2) // true
+   * ```
+   */
+  isGif(value: string): boolean {
+    const newValue = value.split('?')[0]
+    const GIF_REGEXP = /\.gif$/i
+    return GIF_REGEXP.test(newValue)
+  },
   /**
    * 判断是否为视频格式
    * @param value 传入数据
@@ -503,7 +517,7 @@ export const testUtils = {
    * ```
    */
   isVideo(value: string): boolean {
-    const VIDEO_REGEXP = /\.(mp4|mpg|mpeg|dat|asf|avi|rm|rmvb|mov|wmv|flv|mkv|m3u8)/i
+    const VIDEO_REGEXP = /\.(mp4|mpg|mpeg|dat|asf|avi|rm|rmvb|mov|wmv|flv|f4v|mkv|m3u8|m4v|3gp|ogv|mts|vob)/i
     return VIDEO_REGEXP.test(value)
   },
 
