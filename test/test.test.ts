@@ -7,6 +7,8 @@ describe("testUtils", () => {
     expect(testUtils.isInteger(12.01)).toBe(false)
     expect(testUtils.isFloat("12.01")).toBe(true)
     expect(testUtils.isFloat(12.0)).toBe(false)
+    expect(testUtils.isFloat(12.00, 2)).toBe(false)
+    expect(testUtils.isFloat(12.112, 3)).toBe(true)
   })
 
   it("isSingleEmpty", () => {

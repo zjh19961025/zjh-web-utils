@@ -19,18 +19,25 @@ export const testUtils = {
   },
 
   /**
-  * 判断是否小数
+  * 判断是否小数以及多少位的小数
   *
   * @param {string | number} obj 传入数据
+  * @param decimalPlaces 几位小数
   * @return {Boolean} 是否小数
   * @example
   * ``` js
   * testUtils.isFloat("12.01") // true
   * testUtils.isFloat(12.0) // false 会转化成12
+  * testUtils.isFloat(12.00,2) // false 会转化成12，整数直接返回了false
+  * testUtils.isFloat(12.11,2) // true
   * ```
   */
-  isFloat(obj: string | number) {
-    return !typeUtils.isNull(obj) && !isNaN(Number(obj)) && !typeUtils.isArray(obj) && !this.isInteger(obj)
+  isFloat(obj: string | number, decimalPlaces?: number) {
+    // 如果不是数字，或者数组，或者整数，则返回false
+    if (typeUtils.isNull(obj) || isNaN(Number(obj)) || typeUtils.isArray(obj) || this.isInteger(obj)) return false
+    // 如果有 decimalPlaces 参数，则判断小数点后几位的长度是否等于 decimalPlaces
+    if (decimalPlaces) return obj.toString().split(".")[1]?.length === decimalPlaces
+    return true
   },
 
   /**
