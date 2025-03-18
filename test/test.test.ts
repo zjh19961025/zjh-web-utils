@@ -279,6 +279,12 @@ describe("testUtils", () => {
     const temp:funcType = (a) => "hello " + a
     expect(testUtils.isFunction(temp)).toBe(true)
     expect(testUtils.isFunction({})).toBe(false)
+    const promiseFun = new Promise((res) => { res(1) })
+    async function asyncFun() {
+      console.log(111)
+    }
+    expect(testUtils.isFunction(promiseFun)).toBe(true)
+    expect(testUtils.isFunction(asyncFun)).toBe(true)
   })
 
   it("isNull", () => {

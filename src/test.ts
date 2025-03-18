@@ -583,7 +583,7 @@ export const testUtils = {
    * ```
    */
   isFunction(obj: any) {
-    return typeUtils.isFunction(obj)
+    return typeUtils.isFunction(obj) || this.isPromise(obj)
   },
 
   /**

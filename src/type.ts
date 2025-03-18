@@ -8,6 +8,7 @@ const TYPE_STR = {
   Null: "Null",
   Undefined: "Undefined",
   Function: "Function",
+  AsyncFunction: "AsyncFunction",
   Symbol: "Symbol",
   BigInt: "BigInt",
   RegExp: "RegExp",
@@ -120,7 +121,7 @@ export const typeUtils = {
    * ```
    */
   isFunction(obj: any) {
-    return this.getType(obj) === TYPE_STR.Function
+    return this.getType(obj) === TYPE_STR.Function || this.getType(obj) === TYPE_STR.AsyncFunction
   },
 
   /**
