@@ -1,5 +1,5 @@
 {
-  "name": "@hua5/hua5-utils",
+  "name": "zjh-utils",
   "type": "module",
   "version": "1.0.16",
   "packageManager": "pnpm@9.0.6",
@@ -26,9 +26,6 @@
   "files": [
     "dist"
   ],
-  "publishConfig": {
-    "registry": "https://packages.aliyun.com/5f678e57db0493ecef911d98/npm/npm-registry/"
-  },
   "scripts": {
     "build": "rollup -c",
     "dev": "nr build --watch",
