@@ -33,7 +33,7 @@
     "lint-fix": "nr lint --fix",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
-    "doc": "npx typedoc ./src/index.ts"
+    "doc": "typedoc src/index.ts --out dist-docs"
   },
   "devDependencies": {
     "@antfu/ni": "^0.21.12",
