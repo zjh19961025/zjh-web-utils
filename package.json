@@ -33,7 +33,7 @@
     "lint-fix": "nr lint --fix",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
-    "doc": "typedoc src/index.ts --out docs && node scripts/fix-typedoc.js"
+    "doc": "typedoc src/index.ts --out docs && node scripts/fix-typedoc.js && node scripts/replace-links.js"
   },
   "devDependencies": {
     "@antfu/ni": "^0.21.12",
